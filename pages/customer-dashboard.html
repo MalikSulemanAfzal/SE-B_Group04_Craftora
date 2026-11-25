@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard | Craftora — Pakistani Handicrafts Marketplace</title>
+
+  <!-- Google Fonts: DM Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Shared & Page-Specific Stylesheets -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/member-4-pages.css">
+</head>
+<body data-page="customer-dashboard">
+
+  <!-- ================= SHARED HEADER ================= -->
+  <header id="site-header" class="site-header" data-active-page="home"></header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+    <section class="section checkout-section">
+      <div class="container">
+
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb-list">
+            <li><a href="../index.html">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page">Customer Dashboard</li>
+          </ol>
+        </nav>
+
+        <!-- Dashboard Heading & Welcome Banner -->
+        <div class="dashboard-header">
+          <div>
+            <span class="section-eyebrow">Customer Account (Demo)</span>
+            <h1>Customer Dashboard</h1>
+            <p id="dashboard-welcome" class="dashboard-welcome">
+              Welcome to your Craftora dashboard. Manage your saved profile and track local demo orders.
+            </p>
+          </div>
+          <span class="badge badge-gold demo-badge-pill">Local Demo Profile &amp; Orders</span>
+        </div>
+
+        <!-- Live Statistics & Account Shortcuts -->
+        <div class="dashboard-stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Total Demo Orders</span>
+            <strong id="stat-total-orders" class="stat-value">0</strong>
+            <span class="stat-note">Recorded in this browser</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-label">Total Demo Spend</span>
+            <strong id="stat-total-spend" class="stat-value">Rs. 0</strong>
+            <span class="stat-note">Combined PKR demo total</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-label">Wishlist Items</span>
+            <strong id="stat-wishlist-count" class="stat-value">0</strong>
+            <span class="stat-note">Saved handicrafts</span>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-label">Cart Items</span>
+            <strong id="stat-cart-count" class="stat-value">0</strong>
+            <span class="stat-note">Ready for demo checkout</span>
+          </article>
+        </div>
+
+        <!-- Account Shortcuts -->
+        <nav class="dashboard-shortcuts" aria-label="Account shortcuts">
+          <a href="cart.html" class="shortcut-pill">
+            <span>Cart</span>
+            <strong id="shortcut-cart-count">0</strong>
+          </a>
+          <a href="wishlist.html" class="shortcut-pill">
+            <span>Wishlist</span>
+            <strong id="shortcut-wishlist-count">0</strong>
+          </a>
+          <a href="orders.html" class="shortcut-pill">
+            <span>Order History</span>
+            <strong id="shortcut-orders-count">0</strong>
+          </a>
+          <a href="checkout.html" class="shortcut-pill">
+            <span>Checkout</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+          <a href="products.html" class="shortcut-pill is-accent">
+            <span>Marketplace</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </nav>
+
+        <!-- Main Two-Column Dashboard Grid -->
+        <div class="dashboard-grid">
+
+          <!-- Left Column: Profile Summary & Recent Orders -->
+          <div class="dashboard-col">
+
+            <!-- Customer Profile Summary -->
+            <section class="checkout-card" aria-labelledby="profile-summary-heading">
+              <div class="summary-header">
+                <h2 id="profile-summary-heading" class="checkout-card-title">Customer Profile Summary</h2>
+                <a href="#profile-form" class="summary-edit-link">Edit Profile</a>
+              </div>
+
+              <div class="profile-summary-head">
+                <div id="profile-avatar" class="artisan-avatar" aria-hidden="true">CR</div>
+                <div>
+                  <h3 id="summary-full-name" class="profile-summary-name">Guest Customer</h3>
+                  <p id="summary-location" class="text-muted">No saved city or province yet</p>
+                </div>
+              </div>
+
+              <dl id="profile-summary-list" class="detail-list"></dl>
+            </section>
+
+            <!-- Latest Demo Order Card -->
+            <section class="checkout-card" aria-labelledby="latest-order-heading">
+              <div class="summary-header">
+                <h2 id="latest-order-heading" class="checkout-card-title">Latest Demo Order</h2>
+                <a href="orders.html" class="summary-edit-link">View All Orders</a>
+              </div>
+
+              <div id="latest-order-container"></div>
+            </section>
+
+            <!-- Recent Orders List -->
+            <section class="checkout-card" aria-labelledby="recent-orders-heading">
+              <h2 id="recent-orders-heading" class="checkout-card-title">Recent Demo Orders</h2>
+              <div id="recent-orders-container"></div>
+            </section>
+
+          </div>
+
+          <!-- Right Column: Editable Customer Profile Form -->
+          <aside class="dashboard-col">
+            <section class="checkout-card" aria-labelledby="edit-profile-heading">
+              <h2 id="edit-profile-heading" class="checkout-card-title">Edit Customer Profile</h2>
+              <p class="dashboard-form-intro">
+                Save your contact and Pakistani delivery details locally so checkout pre-fills
+                automatically.
+              </p>
+
+              <div id="profile-feedback" class="alert" role="status" aria-live="polite" hidden></div>
+
+              <form id="profile-form" novalidate>
+                <div class="form-group">
+                  <label for="profile-fullName" class="form-label">Full Name <span aria-hidden="true">*</span></label>
+                  <input
+                    type="text"
+                    id="profile-fullName"
+                    name="fullName"
+                    class="form-control"
+                    placeholder="e.g. Ayesha Siddiqui"
+                    autocomplete="name"
+                    required
+                  >
+                  <span class="form-error" data-error-for="fullName"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="profile-email" class="form-label">Email Address <span aria-hidden="true">*</span></label>
+                  <input
+                    type="email"
+                    id="profile-email"
+                    name="email"
+                    class="form-control"
+                    placeholder="e.g. ayesha@example.com"
+                    autocomplete="email"
+                    required
+                  >
+                  <span class="form-error" data-error-for="email"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="profile-phone" class="form-label">Pakistani Mobile Number <span aria-hidden="true">*</span></label>
+                  <input
+                    type="tel"
+                    id="profile-phone"
+                    name="phone"
+                    class="form-control"
+                    placeholder="0300-1234567 or +923001234567"
+                    autocomplete="tel"
+                    required
+                  >
+                  <span class="form-error" data-error-for="phone"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="profile-address" class="form-label">Delivery Address <span aria-hidden="true">*</span></label>
+                  <input
+                    type="text"
+                    id="profile-address"
+                    name="address"
+                    class="form-control"
+                    placeholder="House/Flat No., Street, Sector"
+                    autocomplete="street-address"
+                    required
+                  >
+                  <span class="form-error" data-error-for="address"></span>
+                </div>
+
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label for="profile-city" class="form-label">City <span aria-hidden="true">*</span></label>
+                    <input
+                      type="text"
+                      id="profile-city"
+                      name="city"
+                      class="form-control"
+                      placeholder="e.g. Lahore"
+                      autocomplete="address-level2"
+                      required
+                    >
+                    <span class="form-error" data-error-for="city"></span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="profile-postalCode" class="form-label">Postal Code <span aria-hidden="true">*</span></label>
+                    <input
+                      type="text"
+                      id="profile-postalCode"
+                      name="postalCode"
+                      class="form-control"
+                      placeholder="e.g. 54660"
+                      inputmode="numeric"
+                      maxlength="5"
+                      autocomplete="postal-code"
+                      required
+                    >
+                    <span class="form-error" data-error-for="postalCode"></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="profile-province" class="form-label">Province / Region <span aria-hidden="true">*</span></label>
+                  <select id="profile-province" name="province" class="form-control" required>
+                    <option value="">Select province...</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Sindh">Sindh</option>
+                    <option value="Khyber Pakhtunkhwa">Khyber Pakhtunkhwa</option>
+                    <option value="Balochistan">Balochistan</option>
+                    <option value="Islamabad Capital Territory">Islamabad Capital Territory</option>
+                    <option value="Gilgit-Baltistan">Gilgit-Baltistan</option>
+                    <option value="Azad Kashmir">Azad Kashmir</option>
+                  </select>
+                  <span class="form-error" data-error-for="province"></span>
+                </div>
+
+                <button type="submit" id="save-profile-btn" class="btn btn-primary btn-block">
+                  Save Profile
+                </button>
+              </form>
+            </section>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <!-- Shared & Page-Specific Scripts -->
+  <script src="../js/data.js" defer></script>
+  <script src="../js/storage.js" defer></script>
+  <script src="../js/utils.js" defer></script>
+  <script src="../js/components.js" defer></script>
+  <script src="../js/member-4-pages.js" defer></script>
+</body>
+</html>

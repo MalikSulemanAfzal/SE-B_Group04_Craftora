@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation | Craftora — Pakistani Handicrafts Marketplace</title>
+
+  <!-- Google Fonts: DM Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Shared & Page-Specific Stylesheets -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/member-4-pages.css">
+</head>
+<body data-page="order-confirmation">
+
+  <!-- ================= SHARED HEADER ================= -->
+  <header id="site-header" class="site-header" data-active-page="shop"></header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+    <section class="section checkout-section">
+      <div class="container">
+
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb-list">
+            <li><a href="../index.html">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="checkout.html">Checkout</a></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page">Order Confirmation</li>
+          </ol>
+        </nav>
+
+        <!-- Completed Checkout Progress Indicator -->
+        <div class="checkout-header">
+          <div>
+            <span class="section-eyebrow">Demo Receipt</span>
+            <h1>Order Confirmation</h1>
+          </div>
+
+          <ol class="checkout-steps" aria-label="Checkout progress">
+            <li class="step-item is-completed">
+              <span class="step-marker" aria-hidden="true">&#10003;</span>
+              <span class="step-label">Cart</span>
+            </li>
+            <li class="step-item is-completed">
+              <span class="step-marker" aria-hidden="true">&#10003;</span>
+              <span class="step-label">Delivery &amp; Demo Payment</span>
+            </li>
+            <li class="step-item is-active" aria-current="step">
+              <span class="step-marker" aria-hidden="true">&#10003;</span>
+              <span class="step-label">Confirmation</span>
+            </li>
+          </ol>
+        </div>
+
+        <!-- No-Order State (when no saved demo order is found) -->
+        <div id="confirmation-empty-state" class="confirmation-empty empty-state" hidden>
+          <div class="empty-icon" aria-hidden="true">&#128230;</div>
+          <h2>No Demo Order Found</h2>
+          <p>
+            We couldn&rsquo;t find a saved order receipt in this browser. Place a demo order
+            through checkout or browse our handcrafted Pakistani collection.
+          </p>
+          <div class="empty-actions">
+            <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+            <a href="orders.html" class="btn btn-outline">View Order History</a>
+          </div>
+        </div>
+
+        <!-- Order Confirmation View -->
+        <div id="confirmation-content" class="confirmation-wrap" hidden>
+
+          <!-- Success Hero Banner -->
+          <div class="checkout-card confirmation-hero">
+            <div class="confirmation-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+
+            <span class="badge badge-gold demo-badge-pill">Demo Order &bull; Simulation Only</span>
+            <h2 class="confirmation-title">Thank You! Your Demo Order Has Been Recorded</h2>
+            <p class="confirmation-subtitle">
+              This receipt is saved locally in your browser for demonstration purposes. No real
+              payment was charged or processed.
+            </p>
+
+            <div class="confirmation-meta-bar">
+              <div class="meta-chip">
+                <span class="meta-label">Demo Order ID</span>
+                <strong id="conf-order-id" class="meta-value">&mdash;</strong>
+              </div>
+              <div class="meta-chip">
+                <span class="meta-label">Order Date</span>
+                <strong id="conf-order-date" class="meta-value">&mdash;</strong>
+              </div>
+              <div class="meta-chip">
+                <span class="meta-label">Demo Status</span>
+                <strong id="conf-order-status" class="meta-value">Confirmed (Demo)</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two-Column Receipt Details -->
+          <div class="confirmation-grid">
+
+            <!-- Left: Purchased Items & Pricing Breakdown -->
+            <section class="checkout-card" aria-labelledby="conf-items-heading">
+              <h2 id="conf-items-heading" class="checkout-card-title">Purchased Handicrafts</h2>
+
+              <ul id="conf-items" class="summary-items"></ul>
+
+              <dl class="summary-totals">
+                <div class="summary-row">
+                  <dt>Subtotal (<span id="conf-item-count">0</span> items)</dt>
+                  <dd id="conf-subtotal">Rs. 0</dd>
+                </div>
+                <div id="conf-discount-row" class="summary-row is-discount" hidden>
+                  <dt>Promo Discount (<span id="conf-promo-code">CRAFT10</span>)</dt>
+                  <dd id="conf-discount">- Rs. 0</dd>
+                </div>
+                <div class="summary-row">
+                  <dt>Delivery Charges (<span id="conf-delivery-label">Standard</span>)</dt>
+                  <dd id="conf-shipping">Rs. 0</dd>
+                </div>
+                <div class="summary-row summary-total-row">
+                  <dt>Final Total (Demo)</dt>
+                  <dd id="conf-total">Rs. 0</dd>
+                </div>
+              </dl>
+            </section>
+
+            <!-- Right: Customer Contact, Delivery & Demo Payment Details -->
+            <aside class="confirmation-side" aria-label="Delivery and demo payment details">
+              <section class="checkout-card">
+                <h2 class="checkout-card-title">Customer &amp; Delivery Details</h2>
+                <dl id="conf-customer-details" class="detail-list"></dl>
+              </section>
+
+              <section class="checkout-card">
+                <h2 class="checkout-card-title">Demo Payment Method</h2>
+                <div class="demo-notice" role="note">
+                  <strong>Demo Selection Only:</strong> No real financial transaction occurred.
+                </div>
+                <dl class="detail-list">
+                  <div class="detail-row">
+                    <dt>Selected Method</dt>
+                    <dd id="conf-payment-method">&mdash;</dd>
+                  </div>
+                  <div class="detail-row">
+                    <dt>Amount Recorded</dt>
+                    <dd id="conf-payment-total">&mdash;</dd>
+                  </div>
+                </dl>
+              </section>
+            </aside>
+
+          </div>
+
+          <!-- Next Action Buttons -->
+          <div class="confirmation-actions">
+            <a href="products.html" class="btn btn-primary btn-lg">Continue Shopping</a>
+            <a href="orders.html" class="btn btn-outline btn-lg">View Order History</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <!-- Shared & Page-Specific Scripts -->
+  <script src="../js/data.js" defer></script>
+  <script src="../js/storage.js" defer></script>
+  <script src="../js/utils.js" defer></script>
+  <script src="../js/components.js" defer></script>
+  <script src="../js/member-4-pages.js" defer></script>
+</body>
+</html>

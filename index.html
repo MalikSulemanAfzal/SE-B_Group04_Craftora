@@ -3,31 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Craftora | Handcrafted Goods &amp; Artisan Marketplace</title>
-  <!-- Shared stylesheet used across all Craftora pages -->
-  <link rel="stylesheet" href="css/style.css">
+  <title>Craftora | Pakistani Handicrafts Marketplace</title>
+
+  <!-- Google Fonts: DM Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Shared Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
 </head>
 <body>
 
   <!-- ================= SHARED HEADER ================= -->
-  <header class="site-header">
+  <header id="site-header" class="site-header" data-active-page="home">
     <div class="container header-inner">
-      <a href="index.html" class="brand-logo">Craftora</a>
-
-      <button
-        type="button"
-        class="nav-toggle"
-        aria-label="Toggle navigation menu"
-        aria-expanded="false"
-        aria-controls="main-nav"
-      >
-        &#9776;
-      </button>
-
+      <a href="index.html" class="brand-logo">
+        <span class="brand-name">Craftora</span>
+        <span class="brand-tagline">Pakistani Handicrafts</span>
+      </a>
       <nav id="main-nav" class="site-nav" aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="index.html" class="nav-link active" aria-current="page">Home</a></li>
-          <li><a href="pages/products.html" class="nav-link">Products</a></li>
+          <li><a href="pages/products.html" class="nav-link">Shop</a></li>
+          <li><a href="pages/artisans.html" class="nav-link">Artisans</a></li>
           <li><a href="pages/about.html" class="nav-link">About</a></li>
           <li><a href="pages/contact.html" class="nav-link">Contact</a></li>
         </ul>
@@ -39,60 +43,69 @@
   <main class="site-main">
     <!-- Hero Section -->
     <section class="hero">
-      <div class="container hero-content">
-        <h1>Handcrafted with Passion, Built to Last</h1>
+      <div class="container hero-inner">
+        <span class="hero-eyebrow">Direct from Pakistani Artisans</span>
+        <h1>Timeless Crafts Shaped by Heritage Hands</h1>
         <p>
-          Welcome to Craftora — a curated space for handmade pottery, woodwork,
-          textiles, and everyday artisan goods.
+          Discover authentic Multani blue pottery, Sindhi Ajrak, Chiniot carved
+          Sheesham, Swati wool shawls, and Peshawari copperware — crafted in small
+          batches across Pakistan.
         </p>
-        <a href="pages/products.html" class="btn-primary">Explore Crafts</a>
+        <div class="hero-actions">
+          <a href="pages/products.html" class="btn btn-primary btn-lg">Explore Crafts</a>
+          <a href="pages/artisans.html" class="btn btn-outline btn-lg">Meet the Artisans</a>
+        </div>
       </div>
     </section>
 
-    <!-- Featured Categories Section -->
-    <section class="features">
+    <!-- Featured Handicrafts Section -->
+    <section class="section">
       <div class="container">
-        <h2 class="section-title">Why Craftora?</h2>
-        <div class="card-grid">
-          <article class="card">
-            <h3>Authentic Makers</h3>
-            <p>Every item is crafted in small batches by independent artisans.</p>
-          </article>
-          <article class="card">
-            <h3>Natural Materials</h3>
-            <p>Thoughtfully sourced clay, timber, cotton, and eco-friendly finishes.</p>
-          </article>
-          <article class="card">
-            <h3>Timeless Design</h3>
-            <p>Functional, durable pieces made to bring warmth into your home.</p>
-          </article>
+        <div class="section-header">
+          <div>
+            <span class="section-eyebrow">Curated Collection</span>
+            <h2>Featured Pakistani Handicrafts</h2>
+            <p class="section-subtitle">
+              Handpicked heritage pieces priced in PKR with nationwide delivery.
+            </p>
+          </div>
+          <a href="pages/products.html" class="btn btn-outline">View All Crafts</a>
         </div>
+
+        <div id="featured-products" class="grid-4"></div>
+      </div>
+    </section>
+
+    <!-- Featured Artisans Section -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-eyebrow">Master Makers</span>
+            <h2>Artisans Behind the Craft</h2>
+            <p class="section-subtitle">
+              Every purchase directly supports independent workshops across Punjab, Sindh, and KP.
+            </p>
+          </div>
+          <a href="pages/artisans.html" class="btn btn-outline">All Artisans</a>
+        </div>
+
+        <div id="featured-artisans" class="grid-3"></div>
       </div>
     </section>
   </main>
 
   <!-- ================= SHARED FOOTER ================= -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <strong>Craftora</strong>
-        <p>Supporting local craftsmanship and handmade quality.</p>
-      </div>
-
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="pages/products.html">Products</a></li>
-          <li><a href="pages/about.html">About</a></li>
-          <li><a href="pages/contact.html">Contact</a></li>
-        </ul>
-      </nav>
-
-      <p class="footer-copy">&copy; 2026 Craftora. All rights reserved.</p>
+  <footer id="site-footer" class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 Craftora &mdash; Pakistani Handicrafts Marketplace.</p>
     </div>
   </footer>
 
-  <!-- Shared JavaScript file -->
-  <script src="js/main.js" defer></script>
+  <!-- Shared JavaScript Modules (loaded in dependency order) -->
+  <script src="js/data.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/utils.js" defer></script>
+  <script src="js/components.js" defer></script>
 </body>
 </html>

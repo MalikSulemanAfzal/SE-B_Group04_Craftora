@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Craftora — Pakistani Handicrafts Marketplace</title>
+
+  <!-- Google Fonts: DM Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Shared & Page-Specific Stylesheets -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/member-4-pages.css">
+</head>
+<body data-page="checkout">
+
+  <!-- ================= SHARED HEADER ================= -->
+  <header id="site-header" class="site-header" data-active-page="shop"></header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+    <section class="section checkout-section">
+      <div class="container">
+
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb-list">
+            <li><a href="../index.html">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="cart.html">Cart</a></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page">Checkout</li>
+          </ol>
+        </nav>
+
+        <!-- Page Heading & Checkout Progress Indicator -->
+        <div class="checkout-header">
+          <div>
+            <span class="section-eyebrow">Demo Order Flow</span>
+            <h1>Checkout</h1>
+          </div>
+
+          <ol class="checkout-steps" aria-label="Checkout progress">
+            <li class="step-item is-completed">
+              <span class="step-marker" aria-hidden="true">&#10003;</span>
+              <span class="step-label">Cart</span>
+            </li>
+            <li class="step-item is-active" aria-current="step">
+              <span class="step-marker">2</span>
+              <span class="step-label">Delivery &amp; Demo Payment</span>
+            </li>
+            <li class="step-item">
+              <span class="step-marker">3</span>
+              <span class="step-label">Confirmation</span>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Empty Cart State -->
+        <div id="checkout-empty-state" class="checkout-empty empty-state" hidden>
+          <div class="empty-icon" aria-hidden="true">&#128722;</div>
+          <h2>Your Craftora Cart Is Empty</h2>
+          <p>
+            Add handmade pottery, textiles, woodwork, or copperware to your cart before
+            proceeding to checkout.
+          </p>
+          <div class="empty-actions">
+            <a href="products.html" class="btn btn-primary">Explore Handicrafts</a>
+            <a href="../index.html" class="btn btn-outline">Back to Home</a>
+          </div>
+        </div>
+
+        <!-- Two-Column Checkout Layout -->
+        <div id="checkout-content" class="checkout-layout" hidden>
+
+          <!-- Left Column: Contact, Delivery & Demo Payment Form -->
+          <form id="checkout-form" class="checkout-form-col" novalidate>
+
+            <!-- Form-Level Alert -->
+            <div id="checkout-form-alert" class="alert alert-error" role="alert" hidden></div>
+
+            <!-- 1. Contact & Delivery Details -->
+            <section class="checkout-card" aria-labelledby="contact-heading">
+              <h2 id="contact-heading" class="checkout-card-title">1. Contact &amp; Delivery Information</h2>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="fullName" class="form-label">Full Name <span aria-hidden="true">*</span></label>
+                  <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    class="form-control"
+                    placeholder="e.g. Ayesha Siddiqui"
+                    autocomplete="name"
+                    required
+                  >
+                  <span class="form-error" data-error-for="fullName"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="email" class="form-label">Email Address <span aria-hidden="true">*</span></label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="e.g. ayesha@example.com"
+                    autocomplete="email"
+                    required
+                  >
+                  <span class="form-error" data-error-for="email"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="phone" class="form-label">Pakistani Mobile Number <span aria-hidden="true">*</span></label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="form-control"
+                  placeholder="0300-1234567 or +923001234567"
+                  autocomplete="tel"
+                  required
+                >
+                <span class="form-hint">Accepted formats: 03XX-XXXXXXX, 03XXXXXXXXX, or +923XXXXXXXXX</span>
+                <span class="form-error" data-error-for="phone"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="address" class="form-label">Delivery Street Address <span aria-hidden="true">*</span></label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  class="form-control"
+                  placeholder="House/Flat No., Street, Sector or Mohalla"
+                  autocomplete="street-address"
+                  required
+                >
+                <span class="form-error" data-error-for="address"></span>
+              </div>
+
+              <div class="form-grid-3">
+                <div class="form-group">
+                  <label for="city" class="form-label">City <span aria-hidden="true">*</span></label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    class="form-control"
+                    placeholder="e.g. Lahore, Karachi, Multan"
+                    autocomplete="address-level2"
+                    required
+                  >
+                  <span class="form-error" data-error-for="city"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="province" class="form-label">Province / Region <span aria-hidden="true">*</span></label>
+                  <select id="province" name="province" class="form-control" required>
+                    <option value="">Select province...</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Sindh">Sindh</option>
+                    <option value="Khyber Pakhtunkhwa">Khyber Pakhtunkhwa</option>
+                    <option value="Balochistan">Balochistan</option>
+                    <option value="Islamabad Capital Territory">Islamabad Capital Territory</option>
+                    <option value="Gilgit-Baltistan">Gilgit-Baltistan</option>
+                    <option value="Azad Kashmir">Azad Kashmir</option>
+                  </select>
+                  <span class="form-error" data-error-for="province"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="postalCode" class="form-label">Postal Code <span aria-hidden="true">*</span></label>
+                  <input
+                    type="text"
+                    id="postalCode"
+                    name="postalCode"
+                    class="form-control"
+                    placeholder="e.g. 54660"
+                    inputmode="numeric"
+                    maxlength="5"
+                    autocomplete="postal-code"
+                    required
+                  >
+                  <span class="form-error" data-error-for="postalCode"></span>
+                </div>
+              </div>
+
+              <label class="checkbox-row">
+                <input type="checkbox" id="saveProfile" name="saveProfile" checked>
+                <span>Save my contact &amp; delivery details in this browser for future demo orders</span>
+              </label>
+            </section>
+
+            <!-- 2. Delivery Method Cards -->
+            <fieldset class="checkout-card choice-fieldset">
+              <legend class="checkout-card-title">2. Delivery Method</legend>
+
+              <div class="choice-grid">
+                <label class="choice-card is-selected" data-choice-group="deliveryMethod">
+                  <input type="radio" name="deliveryMethod" value="standard" checked>
+                  <div class="choice-card-body">
+                    <div class="choice-card-top">
+                      <strong>Standard Delivery</strong>
+                      <span id="standard-fee-label" class="choice-price">Rs. 250</span>
+                    </div>
+                    <p>3&ndash;5 business days nationwide. Free on orders of Rs. 10,000 or more.</p>
+                  </div>
+                </label>
+
+                <label class="choice-card" data-choice-group="deliveryMethod">
+                  <input type="radio" name="deliveryMethod" value="express">
+                  <div class="choice-card-body">
+                    <div class="choice-card-top">
+                      <strong>Express Courier</strong>
+                      <span class="choice-price">Rs. 450</span>
+                    </div>
+                    <p>1&ndash;2 business days priority dispatch across major Pakistani cities.</p>
+                  </div>
+                </label>
+              </div>
+              <span class="form-error" data-error-for="deliveryMethod"></span>
+            </fieldset>
+
+            <!-- 3. Demo Payment Method Selection -->
+            <fieldset class="checkout-card choice-fieldset">
+              <legend class="checkout-card-title">3. Demo Payment Method</legend>
+
+              <div class="demo-notice" role="note">
+                <strong>Simulation Only:</strong> No real payment is processed and no card or
+                banking credentials are collected on this demo page.
+              </div>
+
+              <div class="choice-grid choice-grid-3">
+                <label class="choice-card is-selected" data-choice-group="paymentMethod">
+                  <input type="radio" name="paymentMethod" value="cod" checked>
+                  <div class="choice-card-body">
+                    <strong>Cash on Delivery (Demo)</strong>
+                    <p>Simulated pay-at-doorstep option upon parcel arrival.</p>
+                  </div>
+                </label>
+
+                <label class="choice-card" data-choice-group="paymentMethod">
+                  <input type="radio" name="paymentMethod" value="bank_transfer">
+                  <div class="choice-card-body">
+                    <strong>Bank Transfer (Demo)</strong>
+                    <p>Simulated IBFT bank transfer confirmation.</p>
+                  </div>
+                </label>
+
+                <label class="choice-card" data-choice-group="paymentMethod">
+                  <input type="radio" name="paymentMethod" value="mobile_wallet">
+                  <div class="choice-card-body">
+                    <strong>Mobile Wallet (Demo)</strong>
+                    <p>Simulated JazzCash / Easypaisa checkout selection.</p>
+                  </div>
+                </label>
+              </div>
+              <span class="form-error" data-error-for="paymentMethod"></span>
+            </fieldset>
+
+          </form>
+
+          <!-- Right Column: Order Summary Panel -->
+          <aside class="checkout-summary" aria-label="Order summary">
+            <div class="checkout-card summary-panel">
+              <div class="summary-header">
+                <h2 class="checkout-card-title">Order Summary</h2>
+                <a href="cart.html" class="summary-edit-link">Edit Cart</a>
+              </div>
+
+              <!-- Stock / Quantity Alert -->
+              <div id="checkout-stock-alert" class="alert alert-error" role="alert" hidden></div>
+
+              <!-- Itemized Cart List -->
+              <ul id="checkout-items" class="summary-items"></ul>
+
+              <!-- Free Standard Shipping Progress -->
+              <div id="shipping-progress-box" class="shipping-progress">
+                <p id="shipping-progress-text" class="shipping-progress-text"></p>
+                <div class="progress-track" aria-hidden="true">
+                  <div id="shipping-progress-fill" class="progress-fill"></div>
+                </div>
+              </div>
+
+              <!-- Promo Code Input -->
+              <div class="promo-box">
+                <label for="promo-code" class="form-label">Promo Code</label>
+                <div class="promo-row">
+                  <input
+                    type="text"
+                    id="promo-code"
+                    class="form-control"
+                    placeholder="Try CRAFT10"
+                    autocomplete="off"
+                  >
+                  <button type="button" id="apply-promo-btn" class="btn btn-outline">Apply</button>
+                  <button type="button" id="remove-promo-btn" class="btn btn-sm btn-outline" hidden>Remove</button>
+                </div>
+                <p id="promo-feedback" class="promo-feedback" aria-live="polite"></p>
+              </div>
+
+              <!-- Pricing Breakdown -->
+              <dl class="summary-totals">
+                <div class="summary-row">
+                  <dt>Subtotal (<span id="summary-item-count">0</span> items)</dt>
+                  <dd id="summary-subtotal">Rs. 0</dd>
+                </div>
+                <div id="summary-discount-row" class="summary-row is-discount" hidden>
+                  <dt>Promo Discount (<span id="summary-promo-label">CRAFT10</span>)</dt>
+                  <dd id="summary-discount">- Rs. 0</dd>
+                </div>
+                <div class="summary-row">
+                  <dt>Delivery Charges (<span id="summary-method-label">Standard</span>)</dt>
+                  <dd id="summary-shipping">Rs. 0</dd>
+                </div>
+                <div class="summary-row summary-total-row">
+                  <dt>Grand Total</dt>
+                  <dd id="summary-total">Rs. 0</dd>
+                </div>
+              </dl>
+
+              <button
+                type="submit"
+                form="checkout-form"
+                id="place-order-btn"
+                class="btn btn-accent btn-lg btn-block"
+              >
+                Place Demo Order
+              </button>
+
+              <p class="summary-footnote">
+                Demo checkout: creates a local order receipt and updates inventory in your browser.
+              </p>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <!-- Shared & Page-Specific Scripts -->
+  <script src="../js/data.js" defer></script>
+  <script src="../js/storage.js" defer></script>
+  <script src="../js/utils.js" defer></script>
+  <script src="../js/components.js" defer></script>
+  <script src="../js/member-4-pages.js" defer></script>
+</body>
+</html>
