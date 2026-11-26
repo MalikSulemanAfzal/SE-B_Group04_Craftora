@@ -87,7 +87,7 @@
             <span>Wishlist</span>
             <strong id="shortcut-wishlist-count">0</strong>
           </a>
-          <a href="orders.html" class="shortcut-pill">
+          <a href="order-history.html" class="shortcut-pill">
             <span>Order History</span>
             <strong id="shortcut-orders-count">0</strong>
           </a>
@@ -95,7 +95,7 @@
             <span>Checkout</span>
             <span aria-hidden="true">&rarr;</span>
           </a>
-          <a href="products.html" class="shortcut-pill is-accent">
+          <a href="marketplace.html" class="shortcut-pill is-accent">
             <span>Marketplace</span>
             <span aria-hidden="true">&rarr;</span>
           </a>
@@ -129,7 +129,7 @@
             <section class="checkout-card" aria-labelledby="latest-order-heading">
               <div class="summary-header">
                 <h2 id="latest-order-heading" class="checkout-card-title">Latest Demo Order</h2>
-                <a href="orders.html" class="summary-edit-link">View All Orders</a>
+                <a href="order-history.html" class="summary-edit-link">View All Orders</a>
               </div>
 
               <div id="latest-order-container"></div>
@@ -166,7 +166,7 @@
                     autocomplete="name"
                     required
                   >
-                  <span class="form-error" data-error-for="fullName"></span>
+                  <span class="form-error" data-error-for="fullName" aria-live="polite"></span>
                 </div>
 
                 <div class="form-group">
@@ -180,7 +180,7 @@
                     autocomplete="email"
                     required
                   >
-                  <span class="form-error" data-error-for="email"></span>
+                  <span class="form-error" data-error-for="email" aria-live="polite"></span>
                 </div>
 
                 <div class="form-group">
@@ -194,7 +194,7 @@
                     autocomplete="tel"
                     required
                   >
-                  <span class="form-error" data-error-for="phone"></span>
+                  <span class="form-error" data-error-for="phone" aria-live="polite"></span>
                 </div>
 
                 <div class="form-group">
@@ -208,7 +208,7 @@
                     autocomplete="street-address"
                     required
                   >
-                  <span class="form-error" data-error-for="address"></span>
+                  <span class="form-error" data-error-for="address" aria-live="polite"></span>
                 </div>
 
                 <div class="form-grid-2">
@@ -223,7 +223,7 @@
                       autocomplete="address-level2"
                       required
                     >
-                    <span class="form-error" data-error-for="city"></span>
+                    <span class="form-error" data-error-for="city" aria-live="polite"></span>
                   </div>
 
                   <div class="form-group">
@@ -239,7 +239,7 @@
                       autocomplete="postal-code"
                       required
                     >
-                    <span class="form-error" data-error-for="postalCode"></span>
+                    <span class="form-error" data-error-for="postalCode" aria-live="polite"></span>
                   </div>
                 </div>
 
@@ -255,7 +255,7 @@
                     <option value="Gilgit-Baltistan">Gilgit-Baltistan</option>
                     <option value="Azad Kashmir">Azad Kashmir</option>
                   </select>
-                  <span class="form-error" data-error-for="province"></span>
+                  <span class="form-error" data-error-for="province" aria-live="polite"></span>
                 </div>
 
                 <button type="submit" id="save-profile-btn" class="btn btn-primary btn-block">

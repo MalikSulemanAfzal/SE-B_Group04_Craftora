@@ -28,7 +28,7 @@
   function getNavItems(basePath) {
     return [
       { key: "home", label: "Home", href: `${basePath}index.html` },
-      { key: "shop", label: "Shop", href: `${basePath}pages/products.html` },
+      { key: "shop", label: "Marketplace", href: `${basePath}pages/marketplace.html` },
       { key: "artisans", label: "Artisans", href: `${basePath}pages/artisans.html` },
       { key: "about", label: "About", href: `${basePath}pages/about.html` },
       { key: "contact", label: "Contact", href: `${basePath}pages/contact.html` }
@@ -120,7 +120,7 @@
             <h3 class="footer-heading">Marketplace</h3>
             <ul class="footer-links">
               <li><a href="${base}index.html">Home</a></li>
-              <li><a href="${base}pages/products.html">All Crafts</a></li>
+              <li><a href="${base}pages/marketplace.html">Marketplace</a></li>
               <li><a href="${base}pages/artisans.html">Meet the Artisans</a></li>
               <li><a href="${base}pages/cart.html">Your Cart</a></li>
             </ul>
@@ -129,9 +129,10 @@
           <div>
             <h3 class="footer-heading">Customer Care</h3>
             <ul class="footer-links">
+              <li><a href="${base}pages/customer-dashboard.html">Customer Dashboard</a></li>
+              <li><a href="${base}pages/order-history.html">Order History</a></li>
               <li><a href="${base}pages/about.html">Our Story</a></li>
               <li><a href="${base}pages/contact.html">Contact Us</a></li>
-              <li><a href="${base}pages/orders.html">Track Orders</a></li>
               <li><span>Standard Shipping: Rs. 250 (Free Rs. 10,000+)</span></li>
             </ul>
           </div>

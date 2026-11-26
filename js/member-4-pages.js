@@ -762,7 +762,7 @@
           latestContainer.innerHTML = `
             <div class="dashboard-empty-box">
               <p>No demo orders placed yet. Explore Pakistani handicrafts to place your first demo order.</p>
-              <a href="products.html" class="btn btn-primary btn-sm">Browse Handicrafts</a>
+              <a href="marketplace.html" class="btn btn-primary btn-sm">Browse Handicrafts</a>
             </div>
           `;
         } else {
