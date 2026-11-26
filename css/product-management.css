@@ -1,18 +1,7 @@
 /* ==========================================================================
    Craftora - Product Management Page Styles
+   Organized by section: Banner, Stats, Toolbar, Table, Modals, Toast, Responsive
    ========================================================================== */
-
-/* Screen-reader only helper for toolbar labels */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
 
 /* 1. Page Header Banner */
 .page-banner {
@@ -123,7 +112,6 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 0.65rem 0.85rem;
-  outline: none;
   transition: border-color 0.2s ease;
 }
 
@@ -133,6 +121,11 @@
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: var(--color-accent);
+}
+
+.image-input-row input {
+  flex: 1;
+  min-width: 0;
 }
 
 .toolbar input::placeholder,
@@ -234,6 +227,7 @@
 /* Table Action Buttons */
 .action-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
@@ -459,6 +453,13 @@
 }
 
 /* 7. Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .products-table th,
+  .products-table td {
+    padding: 0.75rem 0.7rem;
+  }
+}
+
 @media (max-width: 960px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -467,6 +468,7 @@
 
 @media (max-width: 768px) {
   .toolbar-field {
+    min-width: 0;
     width: 100%;
   }
 
@@ -528,5 +530,13 @@
 @media (max-width: 480px) {
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+
+  .banner-actions {
+    width: 100%;
+  }
+
+  .banner-actions button {
+    flex: 1 1 auto;
   }
 }
