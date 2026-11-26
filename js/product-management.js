@@ -4,6 +4,8 @@
    ========================================================================== */
 
 const STORAGE_KEY = "craftora_products";
+const MAX_DESCRIPTION_LENGTH = 200;
+const DESCRIPTION_WARN_THRESHOLD = 170;
 
 // Nine official Craftora product categories
 const OFFICIAL_CATEGORIES = [
@@ -191,6 +193,8 @@ const statTotalUnits = document.getElementById("stat-total-units");
 const statTotalValue = document.getElementById("stat-total-value");
 const statLowStock = document.getElementById("stat-low-stock");
 
+const exportProductsBtn = document.getElementById("export-products-btn");
+const resetDemoBtn = document.getElementById("reset-demo-btn");
 const addProductBtn = document.getElementById("add-product-btn");
 const productModal = document.getElementById("product-modal");
 const modalTitle = document.getElementById("modal-title");
@@ -200,12 +204,14 @@ const productForm = document.getElementById("product-form");
 
 const productIdInput = document.getElementById("product-id");
 const productNameInput = document.getElementById("product-name");
+const nameError = document.getElementById("name-error");
 const productCategorySelect = document.getElementById("product-category");
 const productArtisanSelect = document.getElementById("product-artisan");
 const productPriceInput = document.getElementById("product-price");
 const productStockInput = document.getElementById("product-stock");
 const productImageInput = document.getElementById("product-image");
 const productDescriptionInput = document.getElementById("product-description");
+const descriptionCounter = document.getElementById("description-counter");
 const imagePreview = document.getElementById("image-preview");
 const imagePreviewPlaceholder = document.getElementById("image-preview-placeholder");
 const formError = document.getElementById("form-error");
@@ -215,6 +221,12 @@ const deleteProductName = document.getElementById("delete-product-name");
 const closeDeleteModalBtn = document.getElementById("close-delete-modal");
 const cancelDeleteBtn = document.getElementById("cancel-delete-btn");
 const confirmDeleteBtn = document.getElementById("confirm-delete-btn");
+
+const resetModal = document.getElementById("reset-modal");
+const closeResetModalBtn = document.getElementById("close-reset-modal");
+const cancelResetBtn = document.getElementById("cancel-reset-btn");
+const confirmResetBtn = document.getElementById("confirm-reset-btn");
+
 const toastEl = document.getElementById("toast");
 
 // Initialize page on DOM ready
@@ -314,6 +326,7 @@ function getVisibleProducts() {
   });
 
   filtered.sort((a, b) => {
+    if (sortMode === "recent") return products.indexOf(b) - products.indexOf(a);
     if (sortMode === "name-asc") return a.name.localeCompare(b.name);
     if (sortMode === "price-asc") return a.price - b.price;
     if (sortMode === "price-desc") return b.price - a.price;
@@ -435,15 +448,24 @@ function attachEventListeners() {
   categoryFilter.addEventListener("change", renderTable);
   sortSelect.addEventListener("change", renderTable);
 
+  exportProductsBtn.addEventListener("click", handleExportProducts);
+  resetDemoBtn.addEventListener("click", openResetModal);
   addProductBtn.addEventListener("click", openAddModal);
+
   closeProductModalBtn.addEventListener("click", closeProductModal);
   cancelProductBtn.addEventListener("click", closeProductModal);
   productForm.addEventListener("submit", handleFormSubmit);
+  productNameInput.addEventListener("input", hideNameError);
   productImageInput.addEventListener("input", updateImagePreview);
+  productDescriptionInput.addEventListener("input", updateDescriptionCounter);
 
   closeDeleteModalBtn.addEventListener("click", closeDeleteModal);
   cancelDeleteBtn.addEventListener("click", closeDeleteModal);
   confirmDeleteBtn.addEventListener("click", handleConfirmDelete);
+
+  closeResetModalBtn.addEventListener("click", closeResetModal);
+  cancelResetBtn.addEventListener("click", closeResetModal);
+  confirmResetBtn.addEventListener("click", handleConfirmReset);
 
   // Close modals when clicking the backdrop
   productModal.addEventListener("click", (event) => {
@@ -451,6 +473,9 @@ function attachEventListeners() {
   });
   deleteModal.addEventListener("click", (event) => {
     if (event.target === deleteModal) closeDeleteModal();
+  });
+  resetModal.addEventListener("click", (event) => {
+    if (event.target === resetModal) closeResetModal();
   });
 }
 
@@ -460,7 +485,9 @@ function openAddModal() {
   productIdInput.value = "";
   modalTitle.textContent = "Add New Product";
   hideFormError();
+  hideNameError();
   updateImagePreview();
+  updateDescriptionCounter();
   productModal.hidden = false;
   productNameInput.focus();
 }
@@ -481,13 +508,26 @@ function openEditModal(productId) {
 
   modalTitle.textContent = "Edit Product";
   hideFormError();
+  hideNameError();
   updateImagePreview();
+  updateDescriptionCounter();
   productModal.hidden = false;
   productNameInput.focus();
 }
 
 function closeProductModal() {
   productModal.hidden = true;
+}
+
+// Update description character counter and warning colors
+function updateDescriptionCounter() {
+  const length = productDescriptionInput.value.length;
+  descriptionCounter.textContent = `${length} / ${MAX_DESCRIPTION_LENGTH} characters`;
+  descriptionCounter.classList.toggle(
+    "near-limit",
+    length >= DESCRIPTION_WARN_THRESHOLD && length <= MAX_DESCRIPTION_LENGTH
+  );
+  descriptionCounter.classList.toggle("over-limit", length > MAX_DESCRIPTION_LENGTH);
 }
 
 // Live preview for the Image URL field
@@ -521,8 +561,16 @@ function isValidImageUrl(value) {
   }
 }
 
+// Check if a product name already exists (case-insensitive)
+function isDuplicateProductName(name, existingId) {
+  const normalized = name.toLowerCase();
+  return products.some(
+    (item) => item.id !== existingId && item.name.trim().toLowerCase() === normalized
+  );
+}
+
 // Validate form inputs and return either an error message or clean payload
-function validateProductForm() {
+function validateProductForm(existingId) {
   const name = productNameInput.value.trim();
   const category = productCategorySelect.value.trim();
   const artisan = productArtisanSelect.value.trim();
@@ -533,6 +581,10 @@ function validateProductForm() {
 
   if (!name || !category || !artisan || !priceRaw || !stockRaw || !image || !description) {
     return { error: "Please fill in all fields before saving." };
+  }
+
+  if (!existingId && isDuplicateProductName(name, existingId)) {
+    return { nameError: "A product with this name already exists." };
   }
 
   const price = Number(priceRaw);
@@ -549,6 +601,12 @@ function validateProductForm() {
     return { error: "Please enter a valid image URL starting with http:// or https://." };
   }
 
+  if (productDescriptionInput.value.length > MAX_DESCRIPTION_LENGTH) {
+    return {
+      error: `Description cannot exceed ${MAX_DESCRIPTION_LENGTH} characters.`
+    };
+  }
+
   return {
     data: { name, category, price, stock, artisan, image, description }
   };
@@ -557,15 +615,22 @@ function validateProductForm() {
 // Save a new or edited product to localStorage
 function handleFormSubmit(event) {
   event.preventDefault();
-  const result = validateProductForm();
+  hideFormError();
+  hideNameError();
+
+  const existingId = productIdInput.value;
+  const result = validateProductForm(existingId);
+
+  if (result.nameError) {
+    showNameError(result.nameError);
+    productNameInput.focus();
+    return;
+  }
 
   if (result.error) {
     showFormError(result.error);
     return;
   }
-
-  hideFormError();
-  const existingId = productIdInput.value;
 
   if (existingId) {
     const index = products.findIndex((item) => item.id === existingId);
@@ -593,6 +658,16 @@ function handleFormSubmit(event) {
   closeProductModal();
   renderAll();
   showToast("Product added successfully");
+}
+
+function showNameError(message) {
+  nameError.textContent = message;
+  nameError.hidden = false;
+}
+
+function hideNameError() {
+  nameError.textContent = "";
+  nameError.hidden = true;
 }
 
 function showFormError(message) {
@@ -629,6 +704,52 @@ function handleConfirmDelete() {
   closeDeleteModal();
   renderAll();
   showToast("Product deleted successfully");
+}
+
+// Download current craftora_products data as a products.json file
+function handleExportProducts() {
+  const storedRaw = localStorage.getItem(STORAGE_KEY);
+  let exportData = products;
+
+  if (storedRaw !== null) {
+    try {
+      exportData = JSON.parse(storedRaw);
+    } catch (error) {
+      exportData = products;
+    }
+  }
+
+  const jsonText = JSON.stringify(exportData, null, 2);
+  const blob = new Blob([jsonText], { type: "application/json" });
+  const downloadUrl = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = downloadUrl;
+  link.download = "products.json";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(downloadUrl);
+
+  showToast("Products exported to products.json");
+}
+
+// Open reset demo data confirmation modal
+function openResetModal() {
+  resetModal.hidden = false;
+}
+
+function closeResetModal() {
+  resetModal.hidden = true;
+}
+
+// Restore the original 12 sample products in localStorage
+function handleConfirmReset() {
+  products = SEED_PRODUCTS.map((item) => ({ ...item }));
+  saveProducts(products);
+  closeResetModal();
+  renderAll();
+  showToast("Demo data restored");
 }
 
 // Display a brief toast message

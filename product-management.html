@@ -50,9 +50,17 @@
             Demo management panel, changes are saved in your browser only.
           </p>
         </div>
-        <button type="button" id="add-product-btn" class="btn-primary">
-          + Add New Product
-        </button>
+        <div class="banner-actions">
+          <button type="button" id="export-products-btn" class="btn-secondary">
+            Export Products
+          </button>
+          <button type="button" id="reset-demo-btn" class="btn-secondary">
+            Reset Demo Data
+          </button>
+          <button type="button" id="add-product-btn" class="btn-primary">
+            + Add New Product
+          </button>
+        </div>
       </div>
     </section>
 
@@ -100,6 +108,7 @@
           <label for="sort-select" class="sr-only">Sort products</label>
           <select id="sort-select">
             <option value="name-asc">Name (A-Z)</option>
+            <option value="recent">Recently Added</option>
             <option value="price-asc">Price (Low-High)</option>
             <option value="price-desc">Price (High-Low)</option>
             <option value="stock-asc">Stock (Low-High)</option>
@@ -151,6 +160,7 @@
           <div class="form-group form-full">
             <label for="product-name">Product Name</label>
             <input type="text" id="product-name" placeholder="e.g., Hand-Thrown Terracotta Vase" required>
+            <span id="name-error" class="field-inline-error" role="alert" hidden></span>
           </div>
 
           <div class="form-group">
@@ -191,6 +201,7 @@
           <div class="form-group form-full">
             <label for="product-description">Description</label>
             <textarea id="product-description" rows="3" placeholder="Brief description of materials and craftsmanship..." required></textarea>
+            <span id="description-counter" class="char-counter">0 / 200 characters</span>
           </div>
         </div>
 
@@ -216,6 +227,23 @@
       <div class="modal-actions">
         <button type="button" id="cancel-delete-btn" class="btn-secondary">Cancel</button>
         <button type="button" id="confirm-delete-btn" class="btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Reset Demo Data Confirmation Modal -->
+  <div id="reset-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title" hidden>
+    <div class="modal-card modal-card-sm">
+      <div class="modal-header">
+        <h2 id="reset-modal-title">Reset Demo Data</h2>
+        <button type="button" id="close-reset-modal" class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+      <p class="delete-message">
+        Are you sure you want to reset all products back to the original 12 sample items?
+      </p>
+      <div class="modal-actions">
+        <button type="button" id="cancel-reset-btn" class="btn-secondary">Cancel</button>
+        <button type="button" id="confirm-reset-btn" class="btn-danger">Reset Data</button>
       </div>
     </div>
   </div>
