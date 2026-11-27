@@ -25,3 +25,9 @@ Updated all internal navigation, action buttons, and dynamic empty-state links t
 
 ## 3. Verification
 - Verified with `grep` and Python checks that zero references to `products.html` or `orders.html` remain in `pages/`, `js/`, or `index.html`, all error/status containers include `aria-live="polite"`, HTML parses cleanly, and CSS/JS braces remain balanced.
+
+---
+
+## 4. Dashboard Live-Sync & Null-Safe State Hardening
+- `pages/customer-dashboard.html`: Added `aria-live="polite"` on `#profile-summary-list`, `#latest-order-container`, and `#recent-orders-container` so live storage updates announce cleanly.
+- `js/member-4-pages.js`: Hardened `populateProfileForm` (clears stale field values when profile fields are empty/reset) and `initCustomerDashboardPage` (added null-safe `setElementText` helper, defensive guards for missing/malformed order and profile objects, and automatic refresh of dashboard stats, latest order, recent orders, and profile state on `craftora:storage-change` and cross-tab `storage` events).

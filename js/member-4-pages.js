@@ -35,10 +35,12 @@
   ];
 
   function populateProfileForm(formEl, profile) {
+    if (!formEl) return;
+    const safeProfile = profile && typeof profile === "object" ? profile : {};
     PROFILE_FIELDS.forEach((field) => {
       const input = formEl.elements[field];
-      if (input && profile[field]) {
-        input.value = profile[field];
+      if (input) {
+        input.value = safeProfile[field] ? String(safeProfile[field]) : "";
       }
     });
   }
@@ -685,30 +687,39 @@
       .toUpperCase();
   }
 
+  function setElementText(selector, value) {
+    const el = document.querySelector(selector);
+    if (el) el.textContent = String(value ?? "");
+  }
+
   function initCustomerDashboardPage() {
     const profileForm = document.querySelector("#profile-form");
     const profileFeedbackEl = document.querySelector("#profile-feedback");
-    if (!profileForm) return;
 
     function renderProfileSummary() {
-      const profile = Storage.getCustomerProfile();
+      const rawProfile = Storage ? Storage.getCustomerProfile() : {};
+      const profile = rawProfile && typeof rawProfile === "object" ? rawProfile : {};
       const welcomeEl = document.querySelector("#dashboard-welcome");
       const avatarEl = document.querySelector("#profile-avatar");
       const nameEl = document.querySelector("#summary-full-name");
       const locationEl = document.querySelector("#summary-location");
       const listEl = document.querySelector("#profile-summary-list");
 
-      const hasName = Boolean(profile.fullName && profile.fullName.trim());
+      const fullName = String(profile.fullName || "").trim();
+      const hasName = Boolean(fullName);
       if (welcomeEl) {
         welcomeEl.textContent = hasName
-          ? `Welcome back, ${profile.fullName.trim()}! Review your saved details and local demo orders.`
+          ? `Welcome back, ${fullName}! Review your saved details and local demo orders.`
           : "Welcome to your Craftora dashboard. Save your profile below for faster demo checkout.";
       }
 
-      if (avatarEl) avatarEl.textContent = getInitials(profile.fullName);
-      if (nameEl) nameEl.textContent = hasName ? profile.fullName : "Guest Customer";
+      if (avatarEl) avatarEl.textContent = getInitials(fullName);
+      if (nameEl) nameEl.textContent = hasName ? fullName : "Guest Customer";
 
-      const cityProvince = [profile.city, profile.province].filter(Boolean).join(", ");
+      const cityProvince = [profile.city, profile.province]
+        .map((part) => String(part || "").trim())
+        .filter(Boolean)
+        .join(", ");
       if (locationEl) {
         locationEl.textContent = cityProvince || "No saved city or province yet";
       }
@@ -736,24 +747,28 @@
     }
 
     function renderStatsAndOrders() {
-      const orders = Storage.getOrders();
-      const wishlist = Storage.getWishlist();
-      const cartCount = Storage.getCartCount();
+      const rawOrders = Storage ? Storage.getOrders() : [];
+      const orders = Array.isArray(rawOrders)
+        ? rawOrders.filter((order) => order && typeof order === "object")
+        : [];
+      const rawWishlist = Storage ? Storage.getWishlist() : [];
+      const wishlist = Array.isArray(rawWishlist) ? rawWishlist : [];
+      const cartCount = Storage ? Number(Storage.getCartCount()) || 0 : 0;
 
       const totalOrders = orders.length;
       const totalSpend = orders.reduce((sum, order) => {
-        const orderTotal = order && order.pricing ? Number(order.pricing.total) || 0 : 0;
+        const orderTotal = order.pricing ? Number(order.pricing.total) || 0 : 0;
         return sum + orderTotal;
       }, 0);
 
-      document.querySelector("#stat-total-orders").textContent = String(totalOrders);
-      document.querySelector("#stat-total-spend").textContent = Utils.formatPKR(totalSpend);
-      document.querySelector("#stat-wishlist-count").textContent = String(wishlist.length);
-      document.querySelector("#stat-cart-count").textContent = String(cartCount);
+      setElementText("#stat-total-orders", totalOrders);
+      setElementText("#stat-total-spend", Utils.formatPKR(totalSpend));
+      setElementText("#stat-wishlist-count", wishlist.length);
+      setElementText("#stat-cart-count", cartCount);
 
-      document.querySelector("#shortcut-cart-count").textContent = String(cartCount);
-      document.querySelector("#shortcut-wishlist-count").textContent = String(wishlist.length);
-      document.querySelector("#shortcut-orders-count").textContent = String(totalOrders);
+      setElementText("#shortcut-cart-count", cartCount);
+      setElementText("#shortcut-wishlist-count", wishlist.length);
+      setElementText("#shortcut-orders-count", totalOrders);
 
       // Latest order card
       const latestContainer = document.querySelector("#latest-order-container");
@@ -767,23 +782,29 @@
           `;
         } else {
           const latest = orders[0];
+          const latestId = latest.id ? String(latest.id) : "";
+          const items = Array.isArray(latest.items) ? latest.items : [];
           const itemCount =
-            (latest.pricing && latest.pricing.itemCount) ||
-            (Array.isArray(latest.items)
-              ? latest.items.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0)
-              : 0);
+            (latest.pricing && Number(latest.pricing.itemCount)) ||
+            items.reduce((sum, item) => sum + (item ? Number(item.quantity) || 0 : 0), 0);
           const total = latest.pricing ? Number(latest.pricing.total) || 0 : 0;
+          const dateText = latest.createdAt
+            ? formatOrderDateTime(latest.createdAt)
+            : "Date unavailable";
+          const receiptHref = latestId
+            ? `order-confirmation.html?orderId=${encodeURIComponent(latestId)}`
+            : "order-confirmation.html";
 
           latestContainer.innerHTML = `
             <div class="latest-order-box">
               <div class="latest-order-top">
-                <strong>${Utils.escapeHTML(latest.id)}</strong>
+                <strong>${Utils.escapeHTML(latestId || "Demo Order")}</strong>
                 <span class="badge badge-success">${Utils.escapeHTML(latest.status || "Confirmed (Demo)")}</span>
               </div>
               <dl class="detail-list">
                 <div class="detail-row">
                   <dt>Date</dt>
-                  <dd>${Utils.escapeHTML(formatOrderDateTime(latest.createdAt))}</dd>
+                  <dd>${Utils.escapeHTML(dateText)}</dd>
                 </div>
                 <div class="detail-row">
                   <dt>Items</dt>
@@ -795,7 +816,7 @@
                 </div>
               </dl>
               <div>
-                <a href="order-confirmation.html?orderId=${encodeURIComponent(latest.id)}" class="btn btn-outline btn-sm">
+                <a href="${receiptHref}" class="btn btn-outline btn-sm">
                   View Demo Receipt
                 </a>
               </div>
@@ -817,19 +838,24 @@
           const recentListHTML = orders
             .slice(0, 5)
             .map((order) => {
+              const orderId = order.id ? String(order.id) : "";
               const total = order.pricing ? Number(order.pricing.total) || 0 : 0;
               const count = Array.isArray(order.items) ? order.items.length : 0;
+              const formattedDate = Utils.formatDate(order.createdAt) || "Date unavailable";
+              const receiptHref = orderId
+                ? `order-confirmation.html?orderId=${encodeURIComponent(orderId)}`
+                : "order-confirmation.html";
               return `
                 <li class="recent-order-item">
                   <div>
-                    <strong>${Utils.escapeHTML(order.id)}</strong>
+                    <strong>${Utils.escapeHTML(orderId || "Demo Order")}</strong>
                     <p class="recent-order-meta">
-                      ${Utils.escapeHTML(Utils.formatDate(order.createdAt))} &bull; ${Utils.escapeHTML(count)} product line(s)
+                      ${Utils.escapeHTML(formattedDate)} &bull; ${Utils.escapeHTML(count)} product line(s)
                     </p>
                   </div>
                   <div class="recent-order-right">
                     <strong>${Utils.escapeHTML(Utils.formatPKR(total))}</strong>
-                    <a href="order-confirmation.html?orderId=${encodeURIComponent(order.id)}" class="btn btn-outline btn-sm">
+                    <a href="${receiptHref}" class="btn btn-outline btn-sm">
                       Receipt
                     </a>
                   </div>
@@ -845,6 +871,7 @@
 
     function handleProfileSave(event) {
       event.preventDefault();
+      if (!profileForm) return;
       clearFormErrors(profileForm, profileFeedbackEl);
 
       const formData = readProfileForm(profileForm);
@@ -875,13 +902,27 @@
       }
     }
 
-    populateProfileForm(profileForm, Storage.getCustomerProfile());
-    bindFieldErrorClearOnInput(profileForm);
-    profileForm.addEventListener("submit", handleProfileSave);
+    if (profileForm) {
+      populateProfileForm(profileForm, Storage ? Storage.getCustomerProfile() : {});
+      bindFieldErrorClearOnInput(profileForm);
+      profileForm.addEventListener("submit", handleProfileSave);
+    }
 
-    root.addEventListener("craftora:storage-change", () => {
+    function refreshDashboard(event) {
       renderStatsAndOrders();
       renderProfileSummary();
+      if (profileForm && event && event.detail && event.detail.section === "profile") {
+        populateProfileForm(profileForm, Storage ? Storage.getCustomerProfile() : {});
+      }
+    }
+
+    root.addEventListener("craftora:storage-change", refreshDashboard);
+    root.addEventListener("storage", () => {
+      renderStatsAndOrders();
+      renderProfileSummary();
+      if (profileForm) {
+        populateProfileForm(profileForm, Storage ? Storage.getCustomerProfile() : {});
+      }
     });
 
     renderProfileSummary();
