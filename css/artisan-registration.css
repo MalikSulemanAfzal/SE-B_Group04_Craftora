@@ -1,0 +1,539 @@
+/* ==========================================================================
+   Craftora - Artisan Registration Page Styles (Page 14)
+   Matches Craftora's cream header, dark green palette, and editorial typography.
+   ========================================================================== */
+
+.artisan-registration-page {
+  --craftora-green: #224436;
+  --craftora-green-deep: #183429;
+  --craftora-green-soft: #2e5545;
+  --craftora-cream: #fbf8f3;
+  --craftora-cream-warm: #f3ede2;
+  --craftora-gold: #e5d2a3;
+  --craftora-ink: #1e2a24;
+  --craftora-muted: #5f6861;
+  --craftora-terracotta: #9c4a2b;
+  --craftora-border: #e3dacb;
+  --craftora-error: #b43425;
+  --craftora-error-bg: #fdf2f0;
+  --craftora-success-bg: #e8f2ec;
+  --craftora-success-border: #b6d4c3;
+
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--craftora-cream);
+  color: var(--craftora-ink);
+}
+
+/* 1. Top Announcement Bar */
+.announcement-bar {
+  background-color: var(--craftora-green-deep);
+  color: #e7ebe8;
+  font-size: 0.82rem;
+  padding: 0.55rem 0;
+}
+
+.announcement-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  text-align: center;
+}
+
+.announcement-link {
+  color: var(--craftora-gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.announcement-link:hover {
+  color: #ffffff;
+}
+
+/* 2. Cream Header & Brand Lockup */
+.artisan-registration-page .site-header {
+  background-color: var(--craftora-cream);
+  border-bottom: 1px solid var(--craftora-border);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-emblem {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid #d5c7b4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--craftora-terracotta);
+  background-color: #fffdf9;
+  flex-shrink: 0;
+}
+
+.brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-name {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--craftora-ink);
+  letter-spacing: -0.01em;
+}
+
+.brand-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--craftora-terracotta);
+  margin: 0.2rem 0;
+}
+
+.brand-tagline {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--craftora-muted);
+}
+
+.artisan-registration-page .nav-link {
+  color: var(--craftora-ink);
+  font-size: 0.95rem;
+}
+
+.artisan-registration-page .nav-link:hover,
+.artisan-registration-page .nav-link.active {
+  color: var(--craftora-green);
+  border-bottom-color: var(--craftora-green);
+}
+
+.artisan-registration-page .nav-toggle {
+  border-color: var(--craftora-border);
+  color: var(--craftora-ink);
+}
+
+/* 3. Dark Green Hero Banner */
+.registration-hero {
+  background: radial-gradient(circle at 85% 20%, var(--craftora-green-soft) 0%, var(--craftora-green) 48%, var(--craftora-green-deep) 100%);
+  color: #ffffff;
+  padding: 3.25rem 0;
+  border-bottom: 4px solid var(--craftora-gold);
+}
+
+.registration-hero-inner {
+  max-width: 760px;
+  margin-left: 0;
+}
+
+.registration-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--craftora-gold);
+  margin-bottom: 0.65rem;
+}
+
+.registration-heading {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+}
+
+.heading-accent {
+  display: block;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--craftora-gold);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  margin-top: 0.25rem;
+}
+
+.registration-subtitle {
+  font-size: 1.02rem;
+  color: #d6e1db;
+  max-width: 56ch;
+}
+
+/* 4. Form Layout & Card */
+.registration-section {
+  padding: 2.75rem 0 4rem;
+}
+
+.registration-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.registration-card {
+  background-color: #ffffff;
+  border: 1px solid var(--craftora-border);
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(24, 52, 41, 0.05);
+}
+
+.card-header {
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--craftora-cream-warm);
+}
+
+.card-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--craftora-green-deep);
+  margin-bottom: 0.35rem;
+}
+
+.card-description {
+  font-size: 0.95rem;
+  color: var(--craftora-muted);
+}
+
+/* 5. Form Controls */
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.registration-form[hidden] {
+  display: none;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--craftora-green-deep);
+}
+
+.required-mark {
+  color: var(--craftora-terracotta);
+}
+
+.form-control {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--craftora-ink);
+  background-color: #fffefb;
+  border: 1px solid #d5cab8;
+  border-radius: 8px;
+  padding: 0.72rem 0.9rem;
+  min-height: 46px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.form-control::placeholder {
+  color: #8b857c;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--craftora-green);
+  box-shadow: 0 0 0 3px rgba(34, 68, 54, 0.14);
+  background-color: #ffffff;
+}
+
+.form-control.is-invalid {
+  border-color: var(--craftora-error);
+  background-color: var(--craftora-error-bg);
+}
+
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(180, 52, 37, 0.15);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 128px;
+}
+
+.field-error {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--craftora-error);
+  min-height: 1.15em;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.4rem;
+}
+
+.btn-register {
+  appearance: none;
+  border: none;
+  background-color: var(--craftora-green);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.82rem 2rem;
+  min-height: 48px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-register:hover {
+  background-color: var(--craftora-green-deep);
+}
+
+.btn-register:active {
+  transform: translateY(1px);
+}
+
+.btn-register:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--craftora-green);
+  outline-offset: 2px;
+}
+
+.form-demo-note {
+  font-size: 0.85rem;
+  color: var(--craftora-muted);
+}
+
+/* 6. Demo Confirmation Box */
+.demo-confirmation {
+  background-color: var(--craftora-success-bg);
+  border: 1px solid var(--craftora-success-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.demo-confirmation[hidden] {
+  display: none;
+}
+
+.confirmation-badge {
+  display: inline-block;
+  background-color: var(--craftora-green);
+  color: var(--craftora-gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+
+.confirmation-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.4rem;
+  color: var(--craftora-green-deep);
+  margin-bottom: 0.4rem;
+}
+
+.confirmation-note {
+  font-size: 0.94rem;
+  color: var(--craftora-ink);
+  margin-bottom: 1.2rem;
+}
+
+.confirmation-summary {
+  background-color: #ffffff;
+  border: 1px solid var(--craftora-border);
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+  margin-bottom: 1.25rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.summary-row {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 0.5rem 1rem;
+  font-size: 0.94rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--craftora-cream-warm);
+}
+
+.summary-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.summary-row dt {
+  font-weight: 600;
+  color: var(--craftora-muted);
+}
+
+.summary-row dd {
+  color: var(--craftora-green-deep);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.btn-secondary {
+  appearance: none;
+  border: 1px solid var(--craftora-green);
+  background-color: #ffffff;
+  color: var(--craftora-green);
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 600;
+  padding: 0.68rem 1.3rem;
+  min-height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--craftora-green);
+  color: #ffffff;
+}
+
+/* 7. Side Benefits Panel */
+.artisan-benefits {
+  background-color: var(--craftora-green-deep);
+  color: #f4f6f4;
+  border-radius: 14px;
+  padding: 1.75rem;
+  border-top: 4px solid var(--craftora-gold);
+}
+
+.benefits-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--craftora-gold);
+  margin-bottom: 0.5rem;
+}
+
+.benefits-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.35rem;
+  color: #ffffff;
+  margin-bottom: 1.15rem;
+}
+
+.benefits-list {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.benefits-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(229, 210, 163, 0.2);
+}
+
+.benefits-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.benefits-list strong {
+  color: var(--craftora-gold);
+  font-size: 0.96rem;
+}
+
+.benefits-list span {
+  color: #d6e1db;
+  font-size: 0.9rem;
+}
+
+/* 8. Footer Alignment */
+.artisan-registration-page .site-footer {
+  background-color: var(--craftora-green-deep);
+  border-top: 1px solid var(--craftora-green-soft);
+  color: #e7ebe8;
+}
+
+.artisan-registration-page .footer-brand strong {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.15rem;
+  color: var(--craftora-gold);
+}
+
+.artisan-registration-page .footer-brand p,
+.artisan-registration-page .footer-copy {
+  color: #c2d0c8;
+}
+
+.artisan-registration-page .footer-links a {
+  color: #e7ebe8;
+}
+
+.artisan-registration-page .footer-links a:hover {
+  color: var(--craftora-gold);
+}
+
+/* 9. Mobile & Tablet Responsiveness */
+@media (max-width: 900px) {
+  .registration-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .registration-hero {
+    padding: 2.4rem 0;
+  }
+
+  .registration-section {
+    padding: 2rem 0 3rem;
+  }
+
+  .registration-card {
+    padding: 1.35rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  .btn-register,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .summary-row {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
