@@ -1,0 +1,498 @@
+/* ==========================================================================
+   Craftora - Artisan Dashboard Page Styles (Page 15)
+   Matches Craftora's cream header, dark green palette, and editorial typography.
+   ========================================================================== */
+
+.artisan-dashboard-page {
+  --craftora-green: #224436;
+  --craftora-green-deep: #183429;
+  --craftora-green-soft: #2e5545;
+  --craftora-cream: #fbf8f3;
+  --craftora-cream-warm: #f3ede2;
+  --craftora-gold: #e5d2a3;
+  --craftora-ink: #1e2a24;
+  --craftora-muted: #5f6861;
+  --craftora-terracotta: #9c4a2b;
+  --craftora-border: #e3dacb;
+  --craftora-pending-bg: #fdf3e1;
+  --craftora-pending-text: #8c5319;
+  --craftora-pending-border: #edd3a4;
+  --craftora-active-bg: #e4efe9;
+  --craftora-active-text: #1c4d37;
+  --craftora-active-border: #bad4c6;
+  --craftora-out-bg: #f8ece9;
+  --craftora-out-text: #943728;
+  --craftora-out-border: #e7c6bf;
+
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--craftora-cream);
+  color: var(--craftora-ink);
+}
+
+/* 1. Top Announcement Bar */
+.announcement-bar {
+  background-color: var(--craftora-green-deep);
+  color: #e7ebe8;
+  font-size: 0.82rem;
+  padding: 0.55rem 0;
+}
+
+.announcement-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  text-align: center;
+}
+
+.announcement-link {
+  color: var(--craftora-gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.announcement-link:hover {
+  color: #ffffff;
+}
+
+/* 2. Cream Header & Brand Lockup */
+.artisan-dashboard-page .site-header {
+  background-color: var(--craftora-cream);
+  border-bottom: 1px solid var(--craftora-border);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-emblem {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid #d5c7b4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--craftora-terracotta);
+  background-color: #fffdf9;
+  flex-shrink: 0;
+}
+
+.brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-name {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--craftora-ink);
+  letter-spacing: -0.01em;
+}
+
+.brand-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--craftora-terracotta);
+  margin: 0.2rem 0;
+}
+
+.brand-tagline {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--craftora-muted);
+}
+
+.artisan-dashboard-page .nav-link {
+  color: var(--craftora-ink);
+  font-size: 0.95rem;
+}
+
+.artisan-dashboard-page .nav-link:hover,
+.artisan-dashboard-page .nav-link.active {
+  color: var(--craftora-green);
+  border-bottom-color: var(--craftora-green);
+}
+
+.artisan-dashboard-page .nav-toggle {
+  border-color: var(--craftora-border);
+  color: var(--craftora-ink);
+}
+
+/* 3. Dark Green Hero Banner */
+.dashboard-hero {
+  background: radial-gradient(circle at 85% 20%, var(--craftora-green-soft) 0%, var(--craftora-green) 48%, var(--craftora-green-deep) 100%);
+  color: #ffffff;
+  padding: 3rem 0;
+  border-bottom: 4px solid var(--craftora-gold);
+}
+
+.dashboard-hero-inner {
+  max-width: 780px;
+  margin-left: 0;
+}
+
+.hero-top-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.65rem;
+}
+
+.dashboard-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--craftora-gold);
+}
+
+.sample-data-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--craftora-green-deep);
+  background-color: var(--craftora-gold);
+  padding: 0.22rem 0.68rem;
+  border-radius: 999px;
+}
+
+.dashboard-heading {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.heading-accent {
+  display: block;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--craftora-gold);
+  font-size: clamp(1.3rem, 2.8vw, 1.85rem);
+  margin-top: 0.2rem;
+}
+
+.dashboard-subtitle {
+  font-size: 1.02rem;
+  color: #d6e1db;
+  max-width: 58ch;
+}
+
+/* 4. Dashboard Content & Sample Banner */
+.dashboard-content {
+  padding: 2.25rem 0 4rem;
+}
+
+.sample-banner {
+  background-color: var(--craftora-cream-warm);
+  border: 1px solid var(--craftora-border);
+  border-left: 4px solid var(--craftora-terracotta);
+  border-radius: 10px;
+  padding: 0.9rem 1.15rem;
+  font-size: 0.92rem;
+  color: var(--craftora-ink);
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.sample-banner strong {
+  color: var(--craftora-terracotta);
+}
+
+/* 5. Shop Overview Section */
+.overview-section {
+  margin-bottom: 2.25rem;
+}
+
+.section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.section-heading {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--craftora-green-deep);
+}
+
+.section-tag {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--craftora-muted);
+  background-color: var(--craftora-cream-warm);
+  border: 1px solid var(--craftora-border);
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  border: 1px solid var(--craftora-border);
+  border-radius: 14px;
+  padding: 1.5rem 1.65rem;
+  box-shadow: 0 5px 16px rgba(24, 52, 41, 0.05);
+  border-top: 4px solid var(--craftora-green);
+}
+
+.stat-card-pending {
+  border-top-color: var(--craftora-terracotta);
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--craftora-muted);
+  margin-bottom: 0.45rem;
+}
+
+.stat-value {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2.1rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--craftora-green-deep);
+  margin-bottom: 0.35rem;
+}
+
+.stat-card-pending .stat-value {
+  color: var(--craftora-terracotta);
+}
+
+.stat-caption {
+  font-size: 0.9rem;
+  color: var(--craftora-muted);
+}
+
+/* 6. Workspace Panels (My Products & Recent Orders) */
+.workspace-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.dashboard-panel {
+  background-color: #ffffff;
+  border: 1px solid var(--craftora-border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 16px rgba(24, 52, 41, 0.04);
+}
+
+.panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--craftora-cream-warm);
+}
+
+.panel-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.38rem;
+  font-weight: 700;
+  color: var(--craftora-green-deep);
+}
+
+.panel-subtitle {
+  font-size: 0.88rem;
+  color: var(--craftora-muted);
+  margin-top: 0.15rem;
+}
+
+.item-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.product-row,
+.order-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.05rem;
+  background-color: #fffefb;
+  border: 1px solid var(--craftora-cream-warm);
+  border-radius: 10px;
+}
+
+.product-main,
+.order-main {
+  min-width: 0;
+}
+
+.item-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--craftora-green-deep);
+  margin-bottom: 0.2rem;
+}
+
+.order-number {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.item-meta {
+  font-size: 0.84rem;
+  color: var(--craftora-muted);
+}
+
+.product-side {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-shrink: 0;
+}
+
+.item-price {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--craftora-terracotta);
+  white-space: nowrap;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.32rem 0.78rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.status-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.status-active,
+.status-delivered {
+  background-color: var(--craftora-active-bg);
+  color: var(--craftora-active-text);
+  border-color: var(--craftora-active-border);
+}
+
+.status-pending,
+.status-low-stock {
+  background-color: var(--craftora-pending-bg);
+  color: var(--craftora-pending-text);
+  border-color: var(--craftora-pending-border);
+}
+
+.status-out-of-stock {
+  background-color: var(--craftora-out-bg);
+  color: var(--craftora-out-text);
+  border-color: var(--craftora-out-border);
+}
+
+/* 7. Footer Alignment */
+.artisan-dashboard-page .site-footer {
+  background-color: var(--craftora-green-deep);
+  border-top: 1px solid var(--craftora-green-soft);
+  color: #e7ebe8;
+}
+
+.artisan-dashboard-page .footer-brand strong {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.15rem;
+  color: var(--craftora-gold);
+}
+
+.artisan-dashboard-page .footer-brand p,
+.artisan-dashboard-page .footer-copy {
+  color: #c2d0c8;
+}
+
+.artisan-dashboard-page .footer-links a {
+  color: #e7ebe8;
+}
+
+.artisan-dashboard-page .footer-links a:hover {
+  color: var(--craftora-gold);
+}
+
+/* 8. Tablet & Mobile Responsiveness */
+@media (max-width: 960px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-hero {
+    padding: 2.3rem 0;
+  }
+
+  .dashboard-content {
+    padding: 1.75rem 0 3rem;
+  }
+
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card,
+  .dashboard-panel {
+    padding: 1.2rem;
+  }
+
+  .product-row,
+  .order-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .product-side {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--craftora-cream-warm);
+  }
+}

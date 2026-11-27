@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artisan Dashboard | Craftora</title>
+  <!-- Editorial serif & clean sans fonts matching Craftora homepage -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <!-- Shared base styles followed by Artisan Dashboard page styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/artisan-dashboard.css">
+</head>
+<body class="artisan-dashboard-page">
+
+  <!-- Top Heritage Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="container announcement-inner">
+      <span>Celebrating Pakistani craftsmanship &middot; Thoughtful objects, made by hand</span>
+      <a href="../index.html" class="announcement-link">Discover our story</a>
+    </div>
+  </div>
+
+  <!-- ================= CREAM HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-lockup" aria-label="Craftora Home">
+        <span class="brand-emblem" aria-hidden="true">C</span>
+        <span class="brand-wordmark">
+          <span class="brand-name">craftora</span>
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span class="brand-tagline">MADE WITH HERITAGE</span>
+        </span>
+      </a>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        &#9776;
+      </button>
+
+      <nav id="main-nav" class="site-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="order-history.html" class="nav-link">My Orders</a></li>
+          <li><a href="artisan-registration.html" class="nav-link">Become an Artisan</a></li>
+          <li><a href="artisan-dashboard.html" class="nav-link active" aria-current="page">Artisan Dashboard</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+    <!-- Dark Green Heritage Banner -->
+    <section class="dashboard-hero">
+      <div class="container dashboard-hero-inner">
+        <div class="hero-top-row">
+          <p class="dashboard-eyebrow">ARTISAN STUDIO WORKSPACE</p>
+          <span class="sample-data-pill">Sample Data Preview</span>
+        </div>
+        <h1 class="dashboard-heading">
+          Artisan Dashboard
+          <span class="heading-accent">Multan Clay Studio</span>
+        </h1>
+        <p class="dashboard-subtitle">
+          Monitor your listed crafts, rupees pricing, and incoming orders at a glance.
+          All figures below use clearly labeled sample artisan data.
+        </p>
+      </div>
+    </section>
+
+    <div class="dashboard-content">
+      <div class="container">
+        <!-- Sample Data Banner -->
+        <div class="sample-banner" role="note">
+          <strong>Sample Data Notice:</strong>
+          <span>This dashboard displays sample studio products and orders so summary counts stay synchronized in this frontend preview.</span>
+        </div>
+
+        <!-- Shop Overview Section -->
+        <section class="overview-section" aria-labelledby="shop-overview-title">
+          <div class="section-header">
+            <h2 id="shop-overview-title" class="section-heading">Shop Overview</h2>
+            <span class="section-tag">Sample Data</span>
+          </div>
+
+          <div class="overview-grid">
+            <article class="stat-card stat-card-products">
+              <p class="stat-label">Total Products</p>
+              <p id="total-products-count" class="stat-value">4</p>
+              <p class="stat-caption">Listed in My Products (sample data)</p>
+            </article>
+
+            <article class="stat-card stat-card-pending">
+              <p class="stat-label">Pending Orders</p>
+              <p id="pending-orders-count" class="stat-value">2</p>
+              <p class="stat-caption">Awaiting dispatch in Recent Orders (sample data)</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Two-Column Workspace: My Products & Recent Orders -->
+        <div class="workspace-grid">
+          <!-- My Products List -->
+          <section class="dashboard-panel" aria-labelledby="my-products-title">
+            <div class="panel-header">
+              <div>
+                <h2 id="my-products-title" class="panel-title">My Products</h2>
+                <p class="panel-subtitle">Sample catalog items with prices in Pakistani Rupees</p>
+              </div>
+              <span class="section-tag">Sample Data</span>
+            </div>
+
+            <ul id="my-products-list" class="item-list">
+              <li class="product-row">
+                <div class="product-main">
+                  <h3 class="item-title">Multani Blue Pottery Serving Bowl (Set of 2)</h3>
+                  <p class="item-meta">Pottery &amp; Ceramics</p>
+                </div>
+                <div class="product-side">
+                  <span class="item-price">Rs. 4,850</span>
+                  <span class="status-badge status-active">Active</span>
+                </div>
+              </li>
+              <li class="product-row">
+                <div class="product-main">
+                  <h3 class="item-title">Hand-Painted Camel Bone Jewelry Box</h3>
+                  <p class="item-meta">Heritage Keepsakes</p>
+                </div>
+                <div class="product-side">
+                  <span class="item-price">Rs. 3,400</span>
+                  <span class="status-badge status-active">Active</span>
+                </div>
+              </li>
+              <li class="product-row">
+                <div class="product-main">
+                  <h3 class="item-title">Glazed Terracotta Chai Kulhad Set (4 pcs)</h3>
+                  <p class="item-meta">Tableware</p>
+                </div>
+                <div class="product-side">
+                  <span class="item-price">Rs. 1,950</span>
+                  <span class="status-badge status-low-stock">Low Stock</span>
+                </div>
+              </li>
+              <li class="product-row">
+                <div class="product-main">
+                  <h3 class="item-title">Carved Sheesham Wood Spice Chest</h3>
+                  <p class="item-meta">Woodwork &amp; Carving</p>
+                </div>
+                <div class="product-side">
+                  <span class="item-price">Rs. 7,200</span>
+                  <span class="status-badge status-out-of-stock">Out of Stock</span>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Recent Orders List -->
+          <section class="dashboard-panel" aria-labelledby="recent-orders-title">
+            <div class="panel-header">
+              <div>
+                <h2 id="recent-orders-title" class="panel-title">Recent Orders</h2>
+                <p class="panel-subtitle">Latest customer order numbers and statuses</p>
+              </div>
+              <span class="section-tag">Sample Data</span>
+            </div>
+
+            <ul id="recent-orders-list" class="item-list">
+              <li class="order-row">
+                <div class="order-main">
+                  <h3 class="item-title order-number">#CRF-2026-1042</h3>
+                  <p class="item-meta">Multani Blue Pottery Serving Bowl (Set of 2) &middot; Nov 24, 2026</p>
+                </div>
+                <span class="status-badge status-pending">Pending</span>
+              </li>
+              <li class="order-row">
+                <div class="order-main">
+                  <h3 class="item-title order-number">#CRF-2026-1041</h3>
+                  <p class="item-meta">Hand-Painted Camel Bone Jewelry Box &middot; Nov 22, 2026</p>
+                </div>
+                <span class="status-badge status-pending">Pending</span>
+              </li>
+              <li class="order-row">
+                <div class="order-main">
+                  <h3 class="item-title order-number">#CRF-2026-1038</h3>
+                  <p class="item-meta">Glazed Terracotta Chai Kulhad Set (4 pcs) &middot; Nov 12, 2026</p>
+                </div>
+                <span class="status-badge status-delivered">Delivered</span>
+              </li>
+              <li class="order-row">
+                <div class="order-main">
+                  <h3 class="item-title order-number">#CRF-2026-1033</h3>
+                  <p class="item-meta">Carved Sheesham Wood Spice Chest &middot; Nov 04, 2026</p>
+                </div>
+                <span class="status-badge status-delivered">Delivered</span>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Craftora</strong>
+        <p>Supporting local craftsmanship and handmade quality.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order-history.html">My Orders</a></li>
+          <li><a href="artisan-registration.html">Become an Artisan</a></li>
+          <li><a href="artisan-dashboard.html">Artisan Dashboard</a></li>
+        </ul>
+      </nav>
+
+      <p class="footer-copy">&copy; 2026 Craftora. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js" defer></script>
+  <script src="../js/artisan-dashboard.js" defer></script>
+</body>
+</html>
