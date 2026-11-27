@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories | Craftora — Made With Heritage</title>
+  <meta name="description" content="Explore all 9 official Craftora Pakistani handicraft categories, featured heritage collections, popular crafts, and independent artisan workshops.">
+
+  <!-- Typography: Playfair Display & DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+  <!-- Shared & Page-Specific Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/member-2-pages.css">
+</head>
+<body data-page="categories">
+
+  <!-- ================= ANNOUNCEMENT STRIP ================= -->
+  <div class="announcement-bar" role="region" aria-label="Store announcements">
+    <div class="container announcement-inner">
+      <p class="announcement-text">
+        Celebrating Pakistani craftsmanship &middot; Thoughtful objects, made by hand
+      </p>
+      <a href="../index.html#brand-story" class="announcement-link">Discover our story</a>
+    </div>
+  </div>
+
+  <!-- ================= SHARED CREAM HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo" aria-label="Craftora Homepage">
+        <span class="brand-emblem" aria-hidden="true">C</span>
+        <span class="brand-wordmark">
+          <span class="brand-name">craftora<span class="brand-dot">.</span></span>
+          <span class="brand-tagline">Made With Heritage</span>
+        </span>
+      </a>
+
+      <nav id="main-nav" class="site-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="marketplace.html" class="nav-link">Marketplace</a></li>
+          <li><a href="categories.html" class="nav-link active" aria-current="page">Categories</a></li>
+          <li><a href="artisan-directory.html" class="nav-link">Artisans</a></li>
+          <li><a href="../about.html" class="nav-link">About</a></li>
+          <li><a href="../help.html" class="nav-link">Help</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="search-results.html" class="icon-btn icon-btn--search" aria-label="Search Craftora">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="20" y1="20" x2="16.2" y2="16.2"/>
+          </svg>
+        </a>
+
+        <a href="wishlist.html" id="header-wishlist-btn" class="icon-counter-btn" aria-label="View Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="counter-badge js-wishlist-count">0</span>
+        </a>
+
+        <a href="cart.html" id="header-cart-btn" class="icon-counter-btn" aria-label="View Shopping Bag">
+          <span class="counter-label">Bag</span>
+          <span class="counter-badge js-cart-count">0</span>
+        </a>
+
+        <button
+          type="button"
+          class="nav-toggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="main-nav"
+        >
+          &#9776;
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main categories-page-main">
+
+    <!-- Categories Hero Header -->
+    <section class="categories-hero" aria-labelledby="categories-page-heading">
+      <div class="container">
+        <!-- Breadcrumb: Home > Categories -->
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+          <ol class="breadcrumb-list">
+            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+            <li class="breadcrumb-separator" aria-hidden="true">&gt;</li>
+            <li class="breadcrumb-item" aria-current="page">Categories</li>
+          </ol>
+        </nav>
+
+        <div class="categories-hero-grid">
+          <div class="categories-hero-copy">
+            <span class="section-eyebrow">Regional Craft Traditions</span>
+            <h1 id="categories-page-heading" class="categories-heading">Categories</h1>
+            <p class="categories-intro">
+              Explore nine time-honoured Pakistani craft disciplines shaped by family workshops from Matiari and Hala
+              to Multan, Chiniot, Lahore, and Rawalpindi. Select any category to filter the marketplace directly.
+            </p>
+          </div>
+          <div class="categories-hero-summary" aria-label="Catalogue overview">
+            <div class="summary-stat">
+              <strong id="categories-total-count">9</strong>
+              <span>Official Categories</span>
+            </div>
+            <div class="summary-stat">
+              <strong id="categories-products-total">0</strong>
+              <span>Listed Products</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- All 9 Official Craftora Categories Grid -->
+    <section class="categories-grid-section" aria-labelledby="all-categories-heading">
+      <div class="container">
+        <div class="section-head-row">
+          <div>
+            <span class="section-eyebrow section-eyebrow--dark">Browse by Discipline</span>
+            <h2 id="all-categories-heading" class="section-title-left">All 9 Craft Categories</h2>
+          </div>
+          <a href="marketplace.html" class="btn btn-outline">View All Marketplace</a>
+        </div>
+
+        <div id="categories-grid" class="categories-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- Popular Categories & Featured Collections -->
+    <section class="collections-section" aria-labelledby="featured-collections-heading">
+      <div class="container">
+        <!-- Popular Categories Strip -->
+        <div class="popular-categories-block" aria-labelledby="popular-categories-heading">
+          <div class="section-head-row">
+            <div>
+              <span class="section-eyebrow section-eyebrow--dark">Most Explored</span>
+              <h2 id="popular-categories-heading" class="section-title-left">Popular Categories</h2>
+            </div>
+            <a href="search-results.html" class="text-link">Search all crafts &rarr;</a>
+          </div>
+          <div id="popular-categories-list" class="popular-categories-grid"></div>
+        </div>
+
+        <!-- Featured Collections -->
+        <div class="featured-collections-block">
+          <div class="section-head-row">
+            <div>
+              <span class="section-eyebrow section-eyebrow--dark">Curated Stories</span>
+              <h2 id="featured-collections-heading" class="section-title-left">Featured Collections</h2>
+            </div>
+          </div>
+
+          <div class="featured-collections-grid">
+            <article class="collection-card">
+              <span class="collection-tag">Sindh Heritage</span>
+              <h3>Indigo &amp; Block-Print Textiles</h3>
+              <p>
+                Resist-dyed Matiari Ajrak dupattas and indigo table runners stamped with hand-carved wooden blocks.
+              </p>
+              <a href="marketplace.html?category=handwoven-textiles" class="collection-link">
+                Explore Handwoven Textiles &rarr;
+              </a>
+            </article>
+
+            <article class="collection-card">
+              <span class="collection-tag">Multan Kiln</span>
+              <h3>Cobalt &amp; Turquoise Kashigari</h3>
+              <p>
+                Quartz-clay vases and hand-glazed serving bowls painted with centuries-old Multani floral brushwork.
+              </p>
+              <a href="marketplace.html?category=pottery-ceramics" class="collection-link">
+                Explore Pottery &amp; Ceramics &rarr;
+              </a>
+            </article>
+
+            <article class="collection-card">
+              <span class="collection-tag">Punjab Guilds</span>
+              <h3>Sheesham Carving &amp; Folk Décor</h3>
+              <p>
+                Seasoned Chiniot rosewood chests with brass inlay alongside vibrant Rawalpindi truck-art keepsakes.
+              </p>
+              <a href="marketplace.html?category=wooden-handicrafts" class="collection-link">
+                Explore Wooden Handicrafts &rarr;
+              </a>
+            </article>
+
+            <article class="collection-card">
+              <span class="collection-tag">Heirloom Gifting</span>
+              <h3>Thoughtful Handmade Gifts</h3>
+              <p>
+                Small-batch trinket boxes, embroidered silk clutches, and keepsakes packaged with maker notes.
+              </p>
+              <a href="marketplace.html?category=handmade-gifts" class="collection-link">
+                Explore Handmade Gifts &rarr;
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Artisan Discovery CTA -->
+    <section class="artisan-cta-section" aria-labelledby="artisan-cta-heading">
+      <div class="container">
+        <div class="artisan-cta-banner">
+          <div class="artisan-cta-copy">
+            <span class="section-eyebrow">Meet the Makers</span>
+            <h2 id="artisan-cta-heading" class="artisan-cta-title">
+              Every category begins in an independent family workshop.
+            </h2>
+            <p class="artisan-cta-text">
+              Read the craft lineages, regional techniques, and stories behind Zainab&rsquo;s Loom, Kashi Studio,
+              Darakht Works, Gulzar Needlecraft, Qissa Leather House, and Rang Caravan.
+            </p>
+          </div>
+          <div class="artisan-cta-actions">
+            <a href="artisan-directory.html" class="btn btn-gold">
+              Discover Our Artisans &rarr;
+            </a>
+            <a href="marketplace.html" class="btn btn-outline-light">
+              Shop Marketplace
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Craftora</strong>
+        <p>Celebrating Pakistani craftsmanship &mdash; direct from independent workshops to your home.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="search-results.html">Search</a></li>
+          <li><a href="artisan-directory.html">Artisans</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../help.html">Help</a></li>
+        </ul>
+      </nav>
+
+      <p class="footer-copy">&copy; 2026 Craftora. Made With Heritage.</p>
+    </div>
+  </footer>
+
+  <!-- Shared & Page-Specific JavaScript -->
+  <script src="../js/data.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/member-2-pages.js" defer></script>
+</body>
+</html>

@@ -1,27 +1,91 @@
 /* ==========================================================================
-   Craftora - Member 2 Pages Script (pages/search-results.html)
-   Powers URL-driven search (?q=...), category & PKR price filters, sorting,
-   related search suggestions, suggested categories, empty state, and
-   shared Cart / Wishlist integration.
+   Craftora - Member 2 Pages Script
+   Powers:
+     1) pages/search-results.html (data-page="search-results")
+     2) pages/categories.html (data-page="categories")
    ========================================================================== */
 
 (function (global) {
   "use strict";
 
-  // Fallback catalogue matching Craftora's shared js/data.js schema when
-  // running standalone before shared js/data.js is merged into this branch.
-  const FALLBACK_CATEGORIES = [
-    { id: "handwoven-textiles", name: "Handwoven Textiles", aliases: ["ajrak-textiles", "textiles", "ajrak"] },
-    { id: "pottery-ceramics", name: "Pottery & Ceramics", aliases: ["blue-pottery", "pottery", "ceramics"] },
-    { id: "wooden-handicrafts", name: "Wooden Handicrafts", aliases: ["wood-carving", "woodcraft", "wood"] },
-    { id: "embroidery-needlework", name: "Embroidery & Needlework", aliases: ["embroidery", "needlework"] },
-    { id: "leather-crafts", name: "Leather Crafts", aliases: ["leather", "khussa"] },
-    { id: "traditional-home-decor", name: "Traditional Home Décor", aliases: ["truck-art", "home-decor", "decor"] },
-    { id: "handmade-jewellery", name: "Handmade Jewellery", aliases: ["jewellery", "jewelry"] },
-    { id: "cultural-accessories", name: "Cultural Accessories", aliases: ["accessories", "clutches"] },
-    { id: "handmade-gifts", name: "Handmade Gifts", aliases: ["gifts", "gifting"] }
+  // Official 9 Craftora Categories matching js/data.js
+  const OFFICIAL_CATEGORIES = [
+    {
+      id: "handwoven-textiles",
+      name: "Handwoven Textiles",
+      aliases: ["ajrak-textiles", "textiles", "handwoven-textiles", "ajrak"],
+      description: "Hand-block printed Sindhi Ajrak dupattas, shawls, and natural-dyed cotton weaves from Matiari.",
+      countLabel: "Matiari, Sindh",
+      defaultImage: "images/product-p001.png"
+    },
+    {
+      id: "pottery-ceramics",
+      name: "Pottery & Ceramics",
+      aliases: ["blue-pottery", "pottery", "ceramics", "pottery-ceramics"],
+      description: "Kiln-fired Multani Kashi ceramic vases, bowls, and hand-painted glazed stoneware from Multan.",
+      countLabel: "Multan, Punjab",
+      defaultImage: "images/product-p002.png"
+    },
+    {
+      id: "wooden-handicrafts",
+      name: "Wooden Handicrafts",
+      aliases: ["wood-carving", "woodcraft", "wood", "wooden-handicrafts"],
+      description: "Seasoned Sheesham keepsake boxes, brass inlay work, and floral relief carvings from Chiniot.",
+      countLabel: "Chiniot, Punjab",
+      defaultImage: "images/product-p003.png"
+    },
+    {
+      id: "embroidery-needlework",
+      name: "Embroidery & Needlework",
+      aliases: ["embroidery", "needlework", "embroidery-needlework"],
+      description: "Intricate Sindhi needlework, geometric threadcraft, and mirror-work cushion covers crafted in Hala.",
+      countLabel: "Hala, Sindh",
+      defaultImage: "images/product-p004.png"
+    },
+    {
+      id: "leather-crafts",
+      name: "Leather Crafts",
+      aliases: ["leather-crafts", "leather", "khussa"],
+      description: "Hand-stitched traditional leather khussas and vegetable-tanned goods by Lahore master cobblers.",
+      countLabel: "Lahore, Punjab",
+      defaultImage: "images/product-p005.png"
+    },
+    {
+      id: "traditional-home-decor",
+      name: "Traditional Home Décor",
+      aliases: ["truck-art", "home-decor", "traditional-home-decor", "decor"],
+      description: "Hand-painted floral motifs on decorative trays, wall plates, and accents inspired by truck art.",
+      countLabel: "Rawalpindi, Punjab",
+      defaultImage: "images/product-p006.png"
+    },
+    {
+      id: "handmade-jewellery",
+      name: "Handmade Jewellery",
+      aliases: ["jewellery", "jewelry", "handmade-jewellery"],
+      description: "Artisanal filigree brass earrings, pendants, and traditional handcrafted statement pieces.",
+      countLabel: "Chiniot & Lahore",
+      defaultImage: "images/product-p007.png"
+    },
+    {
+      id: "cultural-accessories",
+      name: "Cultural Accessories",
+      aliases: ["cultural-accessories", "accessories", "clutches"],
+      description: "Hand-embroidered silk clutches, block-printed scarves, and heirloom regional utility pieces.",
+      countLabel: "Hala & Matiari",
+      defaultImage: "images/product-p008.png"
+    },
+    {
+      id: "handmade-gifts",
+      name: "Handmade Gifts",
+      aliases: ["handmade-gifts", "gifts", "gifting"],
+      description: "Curated artisan gift sets, miniature keepsakes, and heirloom tokens boxed with craft notes.",
+      countLabel: "All Workshops",
+      defaultImage: "images/product-p009.png"
+    }
   ];
 
+  // Fallback products for standalone preview of search-results.html when
+  // shared js/data.js is not yet merged onto the active branch.
   const FALLBACK_PRODUCTS = [
     {
       id: "p001",
@@ -245,16 +309,9 @@
     wishlist: "craftora_wishlist"
   };
 
-  const state = {
-    query: "",
-    category: "all",
-    minPrice: null,
-    maxPrice: null,
-    sortBy: "relevance"
-  };
-
-  let dom = {};
-
+  /* ------------------------------------------------------------------------
+     Shared Utilities & Catalogue Access
+     ------------------------------------------------------------------------ */
   function escapeHTML(str) {
     return String(str == null ? "" : str)
       .replace(/&/g, "&amp;")
@@ -264,8 +321,9 @@
       .replace(/'/g, "&#39;");
   }
 
-  function buildFallbackImageURI(label) {
+  function buildFallbackImageURI(label, subtitle) {
     const clean = escapeHTML(label || "Craftora Handmade");
+    const sub = escapeHTML(subtitle || "Craftora Pakistan");
     const svg =
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420">' +
       '<rect width="600" height="420" fill="#EEE9DF"/>' +
@@ -274,22 +332,50 @@
       '<text x="300" y="280" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#24483F">' +
       clean +
       "</text>" +
-      '<text x="300" y="310" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#6C7068">Craftora Pakistan</text>' +
+      '<text x="300" y="310" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#6C7068">' +
+      sub +
+      "</text>" +
       "</svg>";
     return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
   }
 
-  function getCatalogSource() {
+  function resolveImagePath(path) {
+    if (!path) return "";
+    const trimmed = String(path).trim();
+    if (global.CraftoraData && typeof global.CraftoraData.resolveAssetPath === "function") {
+      return global.CraftoraData.resolveAssetPath(trimmed);
+    }
+    if (/^(https?:)?\/\//i.test(trimmed) || trimmed.startsWith("../") || trimmed.startsWith("data:")) {
+      return trimmed;
+    }
+    return "../" + trimmed;
+  }
+
+  function formatPKR(amount) {
+    if (global.CraftoraData && typeof global.CraftoraData.formatPKR === "function") {
+      return global.CraftoraData.formatPKR(amount);
+    }
+    if (global.CraftoraUtils && typeof global.CraftoraUtils.formatPKR === "function") {
+      return global.CraftoraUtils.formatPKR(amount);
+    }
+    return "PKR " + Number(amount || 0).toLocaleString("en-PK");
+  }
+
+  function getCatalogSource(options) {
+    const allowFallbackProducts = !options || options.allowFallbackProducts !== false;
     const shared = global.CraftoraData;
+
     const rawCategories =
       shared && Array.isArray(shared.categories) && shared.categories.length
         ? shared.categories
-        : FALLBACK_CATEGORIES;
+        : OFFICIAL_CATEGORIES;
 
-    const rawProducts =
-      shared && Array.isArray(shared.products) && shared.products.length
-        ? shared.products
-        : FALLBACK_PRODUCTS;
+    const hasSharedProducts = shared && Array.isArray(shared.products);
+    const rawProducts = hasSharedProducts
+      ? shared.products
+      : allowFallbackProducts
+        ? FALLBACK_PRODUCTS
+        : [];
 
     const products = rawProducts.map((item) => {
       const artisanObj =
@@ -330,29 +416,23 @@
     return { categories: rawCategories, products: products };
   }
 
-  function formatPKR(amount) {
-    if (global.CraftoraData && typeof global.CraftoraData.formatPKR === "function") {
-      return global.CraftoraData.formatPKR(amount);
-    }
-    if (global.CraftoraUtils && typeof global.CraftoraUtils.formatPKR === "function") {
-      return global.CraftoraUtils.formatPKR(amount);
-    }
-    return "PKR " + Number(amount || 0).toLocaleString("en-PK");
+  function productMatchesCategory(product, categoryObj) {
+    if (!product || !categoryObj) return false;
+    const catId = categoryObj.id.toLowerCase();
+    const catName = categoryObj.name.toLowerCase();
+    const aliases = Array.isArray(categoryObj.aliases) ? categoryObj.aliases : [];
+
+    return (
+      product.category === catId ||
+      product.categoryLabel.toLowerCase() === catName ||
+      product.categoryAliases.includes(catId) ||
+      aliases.includes(product.category)
+    );
   }
 
-  function resolveImagePath(path) {
-    if (!path) return "";
-    const trimmed = String(path).trim();
-    if (global.CraftoraData && typeof global.CraftoraData.resolveAssetPath === "function") {
-      return global.CraftoraData.resolveAssetPath(trimmed);
-    }
-    if (/^(https?:)?\/\//i.test(trimmed) || trimmed.startsWith("../") || trimmed.startsWith("data:")) {
-      return trimmed;
-    }
-    return "../" + trimmed;
-  }
-
-  /* --- Shared Cart & Wishlist Helper Wrappers --- */
+  /* ------------------------------------------------------------------------
+     Shared Cart & Wishlist Helpers
+     ------------------------------------------------------------------------ */
   function readLocalArray(key) {
     try {
       const parsed = JSON.parse(global.localStorage.getItem(key) || "[]");
@@ -444,7 +524,9 @@
   }
 
   function handleAddToCart(productId) {
-    const product = getCatalogSource().products.find((p) => p.id === productId);
+    const product = getCatalogSource({ allowFallbackProducts: true }).products.find(
+      (p) => p.id === productId
+    );
     if (!product) return;
 
     if (global.CraftoraUI && typeof global.CraftoraUI.addToCart === "function") {
@@ -473,7 +555,9 @@
   }
 
   function handleToggleWishlist(productId) {
-    const product = getCatalogSource().products.find((p) => p.id === productId);
+    const product = getCatalogSource({ allowFallbackProducts: true }).products.find(
+      (p) => p.id === productId
+    );
     if (!product) return;
 
     if (global.CraftoraUI && typeof global.CraftoraUI.toggleWishlist === "function") {
@@ -517,8 +601,20 @@
     });
   }
 
-  /* --- Search, Filtering & Relevance Scoring --- */
-  function readParamsFromUrl() {
+  /* ------------------------------------------------------------------------
+     Page 1: Search Results Controller (pages/search-results.html)
+     ------------------------------------------------------------------------ */
+  const searchState = {
+    query: "",
+    category: "all",
+    minPrice: null,
+    maxPrice: null,
+    sortBy: "relevance"
+  };
+
+  let searchDom = {};
+
+  function readSearchParamsFromUrl() {
     const params = new URLSearchParams(global.location.search);
     const q = params.get("q");
     const cat = params.get("category");
@@ -526,21 +622,21 @@
     const max = params.get("max");
     const sort = params.get("sort");
 
-    state.query = q ? q.trim() : "";
-    state.category = cat ? cat.trim().toLowerCase() : "all";
-    state.minPrice = min !== null && min !== "" && !Number.isNaN(Number(min)) ? Number(min) : null;
-    state.maxPrice = max !== null && max !== "" && !Number.isNaN(Number(max)) ? Number(max) : null;
-    state.sortBy = sort || "relevance";
+    searchState.query = q ? q.trim() : "";
+    searchState.category = cat ? cat.trim().toLowerCase() : "all";
+    searchState.minPrice = min !== null && min !== "" && !Number.isNaN(Number(min)) ? Number(min) : null;
+    searchState.maxPrice = max !== null && max !== "" && !Number.isNaN(Number(max)) ? Number(max) : null;
+    searchState.sortBy = sort || "relevance";
   }
 
-  function syncUrlWithState() {
+  function syncSearchUrlWithState() {
     try {
       const params = new URLSearchParams();
-      if (state.query) params.set("q", state.query);
-      if (state.category && state.category !== "all") params.set("category", state.category);
-      if (state.minPrice !== null) params.set("min", String(state.minPrice));
-      if (state.maxPrice !== null) params.set("max", String(state.maxPrice));
-      if (state.sortBy && state.sortBy !== "relevance") params.set("sort", state.sortBy);
+      if (searchState.query) params.set("q", searchState.query);
+      if (searchState.category && searchState.category !== "all") params.set("category", searchState.category);
+      if (searchState.minPrice !== null) params.set("min", String(searchState.minPrice));
+      if (searchState.maxPrice !== null) params.set("max", String(searchState.maxPrice));
+      if (searchState.sortBy && searchState.sortBy !== "relevance") params.set("sort", searchState.sortBy);
 
       const queryString = params.toString();
       const nextUrl = global.location.pathname + (queryString ? "?" + queryString : "");
@@ -566,19 +662,19 @@
       if (artisan.includes(term)) termScore += 5;
       if (desc.includes(term)) termScore += 3;
 
-      if (termScore === 0) return 0; // Require all search words to match across fields
+      if (termScore === 0) return 0;
       totalScore += termScore;
     }
     return totalScore;
   }
 
-  function filterAndSortProducts() {
-    const { products } = getCatalogSource();
-    const queryLower = state.query.trim().toLowerCase();
+  function filterAndSortSearchProducts() {
+    const { products } = getCatalogSource({ allowFallbackProducts: true });
+    const queryLower = searchState.query.trim().toLowerCase();
     const terms = queryLower ? queryLower.split(/\s+/).filter(Boolean) : [];
 
-    let minVal = state.minPrice;
-    let maxVal = state.maxPrice;
+    let minVal = searchState.minPrice;
+    let maxVal = searchState.maxPrice;
     if (minVal !== null && maxVal !== null && minVal > maxVal) {
       const swap = minVal;
       minVal = maxVal;
@@ -587,20 +683,17 @@
 
     const matched = [];
     products.forEach((product) => {
-      // Category filter
-      if (state.category && state.category !== "all") {
+      if (searchState.category && searchState.category !== "all") {
         const matchesCat =
-          product.category === state.category ||
-          product.categoryLabel.toLowerCase() === state.category ||
-          product.categoryAliases.includes(state.category);
+          product.category === searchState.category ||
+          product.categoryLabel.toLowerCase() === searchState.category ||
+          product.categoryAliases.includes(searchState.category);
         if (!matchesCat) return;
       }
 
-      // PKR price range filter
       if (minVal !== null && product.price < minVal) return;
       if (maxVal !== null && product.price > maxVal) return;
 
-      // Multi-field search across name, description, category, and artisan name
       const score = computeRelevanceScore(product, terms);
       if (terms.length > 0 && score === 0) return;
 
@@ -608,7 +701,7 @@
     });
 
     matched.sort((a, b) => {
-      switch (state.sortBy) {
+      switch (searchState.sortBy) {
         case "price-asc":
           return a.product.price - b.product.price;
         case "price-desc":
@@ -626,45 +719,42 @@
     return matched.map((entry) => entry.product);
   }
 
-  /* --- Rendering Functions --- */
-  function populateCategoryControls() {
-    const { categories, products } = getCatalogSource();
+  function populateSearchCategoryControls() {
+    const { categories, products } = getCatalogSource({ allowFallbackProducts: true });
 
-    if (dom.categorySelect) {
-      dom.categorySelect.innerHTML = '<option value="all">All Categories</option>';
+    if (searchDom.categorySelect) {
+      searchDom.categorySelect.innerHTML = '<option value="all">All Categories</option>';
       categories.forEach((cat) => {
         const opt = document.createElement("option");
         opt.value = cat.id;
         opt.textContent = cat.name;
-        dom.categorySelect.appendChild(opt);
+        searchDom.categorySelect.appendChild(opt);
       });
     }
 
-    if (dom.suggestedCategories) {
-      dom.suggestedCategories.innerHTML = "";
+    if (searchDom.suggestedCategories) {
+      searchDom.suggestedCategories.innerHTML = "";
       const allBtn = document.createElement("button");
       allBtn.type = "button";
       allBtn.className = "category-pill-btn";
       allBtn.setAttribute("data-category-id", "all");
       allBtn.innerHTML = `<span>All Crafts</span><span class="category-pill-count">(${products.length})</span>`;
-      dom.suggestedCategories.appendChild(allBtn);
+      searchDom.suggestedCategories.appendChild(allBtn);
 
       categories.forEach((cat) => {
-        const count = products.filter(
-          (p) => p.category === cat.id || p.categoryAliases.includes(cat.id)
-        ).length;
+        const count = products.filter((p) => productMatchesCategory(p, cat)).length;
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "category-pill-btn";
         btn.setAttribute("data-category-id", cat.id);
         btn.innerHTML = `<span>${escapeHTML(cat.name)}</span><span class="category-pill-count">(${count})</span>`;
-        dom.suggestedCategories.appendChild(btn);
+        searchDom.suggestedCategories.appendChild(btn);
       });
     }
   }
 
   function renderRelatedSuggestions() {
-    const queryLower = state.query.toLowerCase();
+    const queryLower = searchState.query.toLowerCase();
     const contextual = [];
 
     if (queryLower.includes("ajrak") || queryLower.includes("textile") || queryLower.includes("zainab")) {
@@ -677,17 +767,17 @@
 
     const suggestions = Array.from(new Set(contextual.concat(DEFAULT_SUGGESTIONS))).slice(0, 8);
 
-    if (dom.relatedSuggestions) {
-      dom.relatedSuggestions.innerHTML = suggestions
+    if (searchDom.relatedSuggestions) {
+      searchDom.relatedSuggestions.innerHTML = suggestions
         .map((term) => {
-          const active = state.query.toLowerCase() === term.toLowerCase();
+          const active = searchState.query.toLowerCase() === term.toLowerCase();
           return `<button type="button" class="suggestion-chip${active ? " is-active" : ""}" data-suggest-query="${escapeHTML(term)}">${escapeHTML(term)}</button>`;
         })
         .join("");
     }
 
-    if (dom.emptySuggestedQueries) {
-      dom.emptySuggestedQueries.innerHTML = DEFAULT_SUGGESTIONS.slice(0, 6)
+    if (searchDom.emptySuggestedQueries) {
+      searchDom.emptySuggestedQueries.innerHTML = DEFAULT_SUGGESTIONS.slice(0, 6)
         .map(
           (term) =>
             `<button type="button" class="empty-suggestion-btn" data-suggest-query="${escapeHTML(term)}">${escapeHTML(term)}</button>`
@@ -697,46 +787,46 @@
   }
 
   function renderActiveStatusAndChips(resultsCount) {
-    const { categories } = getCatalogSource();
-    const matchedCat = categories.find((c) => c.id === state.category);
+    const { categories } = getCatalogSource({ allowFallbackProducts: true });
+    const matchedCat = categories.find((c) => c.id === searchState.category);
 
-    if (dom.activeQueryDisplay) {
-      if (state.query) {
-        dom.activeQueryDisplay.innerHTML =
+    if (searchDom.activeQueryDisplay) {
+      if (searchState.query) {
+        searchDom.activeQueryDisplay.innerHTML =
           'Search results for <span class="active-query-highlight">&ldquo;' +
-          escapeHTML(state.query) +
+          escapeHTML(searchState.query) +
           "&rdquo;</span>";
       } else if (matchedCat) {
-        dom.activeQueryDisplay.innerHTML =
+        searchDom.activeQueryDisplay.innerHTML =
           'Category: <span class="active-query-highlight">' +
           escapeHTML(matchedCat.name) +
           "</span>";
       } else {
-        dom.activeQueryDisplay.textContent = "Browsing all handcrafted pieces";
+        searchDom.activeQueryDisplay.textContent = "Browsing all handcrafted pieces";
       }
     }
 
-    if (dom.resultsCount) {
-      dom.resultsCount.textContent =
+    if (searchDom.resultsCount) {
+      searchDom.resultsCount.textContent =
         "Showing " + resultsCount + (resultsCount === 1 ? " handcrafted piece" : " handcrafted pieces");
     }
 
-    if (dom.activeFilterChips) {
+    if (searchDom.activeFilterChips) {
       const chips = [];
-      if (state.query) {
-        chips.push({ key: "query", label: 'Search: "' + state.query + '"' });
+      if (searchState.query) {
+        chips.push({ key: "query", label: 'Search: "' + searchState.query + '"' });
       }
-      if (state.category !== "all") {
-        chips.push({ key: "category", label: "Category: " + (matchedCat ? matchedCat.name : state.category) });
+      if (searchState.category !== "all") {
+        chips.push({ key: "category", label: "Category: " + (matchedCat ? matchedCat.name : searchState.category) });
       }
-      if (state.minPrice !== null) {
-        chips.push({ key: "min", label: "Min: " + formatPKR(state.minPrice) });
+      if (searchState.minPrice !== null) {
+        chips.push({ key: "min", label: "Min: " + formatPKR(searchState.minPrice) });
       }
-      if (state.maxPrice !== null) {
-        chips.push({ key: "max", label: "Max: " + formatPKR(state.maxPrice) });
+      if (searchState.maxPrice !== null) {
+        chips.push({ key: "max", label: "Max: " + formatPKR(searchState.maxPrice) });
       }
 
-      dom.activeFilterChips.innerHTML = chips
+      searchDom.activeFilterChips.innerHTML = chips
         .map(
           (chip) =>
             `<span class="active-chip">${escapeHTML(chip.label)} <button type="button" data-clear-chip="${escapeHTML(chip.key)}" aria-label="Remove ${escapeHTML(chip.label)}">&times;</button></span>`
@@ -745,8 +835,7 @@
     }
   }
 
-  function buildCardElement(product) {
-    // Reuse shared CraftoraUI card renderer when available, ensuring product-details.html?id=...
+  function buildSearchCardElement(product) {
     if (global.CraftoraUI && typeof global.CraftoraUI.renderProductCard === "function") {
       const cardEl = global.CraftoraUI.renderProductCard(product);
       const fallbackURI = buildFallbackImageURI(product.name);
@@ -818,66 +907,51 @@
     return card;
   }
 
-  function syncControlsFromState() {
-    if (dom.searchInput) dom.searchInput.value = state.query;
-    if (dom.categorySelect) dom.categorySelect.value = state.category;
-    if (dom.minPriceInput) dom.minPriceInput.value = state.minPrice !== null ? String(state.minPrice) : "";
-    if (dom.maxPriceInput) dom.maxPriceInput.value = state.maxPrice !== null ? String(state.maxPrice) : "";
-    if (dom.sortSelect) dom.sortSelect.value = state.sortBy;
+  function syncSearchControlsFromState() {
+    if (searchDom.searchInput) searchDom.searchInput.value = searchState.query;
+    if (searchDom.categorySelect) searchDom.categorySelect.value = searchState.category;
+    if (searchDom.minPriceInput) searchDom.minPriceInput.value = searchState.minPrice !== null ? String(searchState.minPrice) : "";
+    if (searchDom.maxPriceInput) searchDom.maxPriceInput.value = searchState.maxPrice !== null ? String(searchState.maxPrice) : "";
+    if (searchDom.sortSelect) searchDom.sortSelect.value = searchState.sortBy;
 
-    if (dom.suggestedCategories) {
-      dom.suggestedCategories.querySelectorAll("[data-category-id]").forEach((btn) => {
-        btn.classList.toggle("is-active", btn.getAttribute("data-category-id") === state.category);
+    if (searchDom.suggestedCategories) {
+      searchDom.suggestedCategories.querySelectorAll("[data-category-id]").forEach((btn) => {
+        btn.classList.toggle("is-active", btn.getAttribute("data-category-id") === searchState.category);
       });
     }
   }
 
-  function renderResults() {
-    const results = filterAndSortProducts();
-    syncControlsFromState();
+  function renderSearchResults() {
+    const results = filterAndSortSearchProducts();
+    syncSearchControlsFromState();
     renderRelatedSuggestions();
     renderActiveStatusAndChips(results.length);
-    syncUrlWithState();
+    syncSearchUrlWithState();
 
-    if (!dom.resultsGrid || !dom.emptyState) return;
+    if (!searchDom.resultsGrid || !searchDom.emptyState) return;
 
-    dom.resultsGrid.innerHTML = "";
+    searchDom.resultsGrid.innerHTML = "";
 
     if (results.length === 0) {
-      dom.resultsGrid.hidden = true;
-      dom.emptyState.hidden = false;
-      if (dom.emptyMessage) {
-        dom.emptyMessage.textContent = state.query
-          ? 'We could not find handcrafted pieces matching "' + state.query + '" with your current filters.'
+      searchDom.resultsGrid.hidden = true;
+      searchDom.emptyState.hidden = false;
+      if (searchDom.emptyMessage) {
+        searchDom.emptyMessage.textContent = searchState.query
+          ? 'We could not find handcrafted pieces matching "' + searchState.query + '" with your current filters.'
           : "No handcrafted pieces match your current category and PKR price range.";
       }
       return;
     }
 
-    dom.resultsGrid.hidden = false;
-    dom.emptyState.hidden = true;
+    searchDom.resultsGrid.hidden = false;
+    searchDom.emptyState.hidden = true;
 
     const frag = document.createDocumentFragment();
     results.forEach((product) => {
-      frag.appendChild(buildCardElement(product));
+      frag.appendChild(buildSearchCardElement(product));
     });
-    dom.resultsGrid.appendChild(frag);
+    searchDom.resultsGrid.appendChild(frag);
     syncWishlistButtonStates();
-  }
-
-  function clearSearchOnly() {
-    state.query = "";
-    renderResults();
-    if (dom.searchInput) dom.searchInput.focus();
-  }
-
-  function resetAllFilters() {
-    state.query = "";
-    state.category = "all";
-    state.minPrice = null;
-    state.maxPrice = null;
-    state.sortBy = "relevance";
-    renderResults();
   }
 
   function parseOptionalPrice(inputEl) {
@@ -888,92 +962,101 @@
     return Number.isNaN(num) || num < 0 ? null : num;
   }
 
-  function bindEvents() {
-    if (dom.searchForm) {
-      dom.searchForm.addEventListener("submit", (event) => {
+  function bindSearchEvents() {
+    if (searchDom.searchForm) {
+      searchDom.searchForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        state.query = dom.searchInput ? dom.searchInput.value.trim() : "";
-        renderResults();
+        searchState.query = searchDom.searchInput ? searchDom.searchInput.value.trim() : "";
+        renderSearchResults();
       });
     }
 
-    if (dom.searchInput) {
-      dom.searchInput.addEventListener("input", () => {
-        state.query = dom.searchInput.value.trim();
-        renderResults();
+    if (searchDom.searchInput) {
+      searchDom.searchInput.addEventListener("input", () => {
+        searchState.query = searchDom.searchInput.value.trim();
+        renderSearchResults();
       });
     }
 
-    if (dom.clearSearchBtn) {
-      dom.clearSearchBtn.addEventListener("click", clearSearchOnly);
-    }
-
-    if (dom.resetFiltersBtn) {
-      dom.resetFiltersBtn.addEventListener("click", resetAllFilters);
-    }
-
-    if (dom.emptyClearBtn) {
-      dom.emptyClearBtn.addEventListener("click", resetAllFilters);
-    }
-
-    if (dom.categorySelect) {
-      dom.categorySelect.addEventListener("change", () => {
-        state.category = dom.categorySelect.value || "all";
-        renderResults();
+    if (searchDom.clearSearchBtn) {
+      searchDom.clearSearchBtn.addEventListener("click", () => {
+        searchState.query = "";
+        renderSearchResults();
+        if (searchDom.searchInput) searchDom.searchInput.focus();
       });
     }
 
-    if (dom.minPriceInput) {
-      dom.minPriceInput.addEventListener("input", () => {
-        state.minPrice = parseOptionalPrice(dom.minPriceInput);
-        renderResults();
+    const resetAll = () => {
+      searchState.query = "";
+      searchState.category = "all";
+      searchState.minPrice = null;
+      searchState.maxPrice = null;
+      searchState.sortBy = "relevance";
+      renderSearchResults();
+    };
+
+    if (searchDom.resetFiltersBtn) {
+      searchDom.resetFiltersBtn.addEventListener("click", resetAll);
+    }
+
+    if (searchDom.emptyClearBtn) {
+      searchDom.emptyClearBtn.addEventListener("click", resetAll);
+    }
+
+    if (searchDom.categorySelect) {
+      searchDom.categorySelect.addEventListener("change", () => {
+        searchState.category = searchDom.categorySelect.value || "all";
+        renderSearchResults();
       });
     }
 
-    if (dom.maxPriceInput) {
-      dom.maxPriceInput.addEventListener("input", () => {
-        state.maxPrice = parseOptionalPrice(dom.maxPriceInput);
-        renderResults();
+    if (searchDom.minPriceInput) {
+      searchDom.minPriceInput.addEventListener("input", () => {
+        searchState.minPrice = parseOptionalPrice(searchDom.minPriceInput);
+        renderSearchResults();
       });
     }
 
-    if (dom.sortSelect) {
-      dom.sortSelect.addEventListener("change", () => {
-        state.sortBy = dom.sortSelect.value || "relevance";
-        renderResults();
+    if (searchDom.maxPriceInput) {
+      searchDom.maxPriceInput.addEventListener("input", () => {
+        searchState.maxPrice = parseOptionalPrice(searchDom.maxPriceInput);
+        renderSearchResults();
+      });
+    }
+
+    if (searchDom.sortSelect) {
+      searchDom.sortSelect.addEventListener("change", () => {
+        searchState.sortBy = searchDom.sortSelect.value || "relevance";
+        renderSearchResults();
       });
     }
 
     document.addEventListener("click", (event) => {
-      // Suggested query click (related searches or empty state suggestions)
       const suggestBtn = event.target.closest("[data-suggest-query]");
       if (suggestBtn) {
-        state.query = suggestBtn.getAttribute("data-suggest-query") || "";
-        renderResults();
+        searchState.query = suggestBtn.getAttribute("data-suggest-query") || "";
+        renderSearchResults();
         return;
       }
 
-      // Suggested category pill click
       const catBtn = event.target.closest("[data-category-id]");
       if (catBtn) {
-        state.category = catBtn.getAttribute("data-category-id") || "all";
-        renderResults();
+        searchState.category = catBtn.getAttribute("data-category-id") || "all";
+        renderSearchResults();
         return;
       }
 
-      // Active filter chip removal
       const chipBtn = event.target.closest("[data-clear-chip]");
       if (chipBtn) {
         const key = chipBtn.getAttribute("data-clear-chip");
-        if (key === "query") state.query = "";
-        if (key === "category") state.category = "all";
-        if (key === "min") state.minPrice = null;
-        if (key === "max") state.maxPrice = null;
-        renderResults();
+        if (key === "query") searchState.query = "";
+        if (key === "category") searchState.category = "all";
+        if (key === "min") searchState.minPrice = null;
+        if (key === "max") searchState.maxPrice = null;
+        renderSearchResults();
         return;
       }
 
-      // Fallback Add to Cart & Wishlist handlers when CraftoraUI isn't loaded
       if (!global.CraftoraUI) {
         const addBtn = event.target.closest(".js-add-to-cart");
         if (addBtn) {
@@ -989,8 +1072,8 @@
     });
   }
 
-  function cacheDom() {
-    dom = {
+  function initSearchResultsPage() {
+    searchDom = {
       searchForm: document.getElementById("search-page-form"),
       searchInput: document.getElementById("search-query-input"),
       clearSearchBtn: document.getElementById("clear-search-btn"),
@@ -1010,19 +1093,139 @@
       emptyClearBtn: document.getElementById("empty-clear-btn"),
       emptySuggestedQueries: document.getElementById("empty-suggested-queries")
     };
+
+    populateSearchCategoryControls();
+    readSearchParamsFromUrl();
+    bindSearchEvents();
+    renderSearchResults();
   }
 
-  function initSearchResultsPage() {
-    if (!document.body || document.body.getAttribute("data-page") !== "search-results") {
-      return;
+  /* ------------------------------------------------------------------------
+     Page 2: Categories Controller (pages/categories.html)
+     ------------------------------------------------------------------------ */
+  function formatProductCountLabel(count) {
+    return count === 1 ? "1 product" : count + " products";
+  }
+
+  function resolveCategoryImage(categoryObj, matchingProducts) {
+    const firstWithImage = matchingProducts.find((p) => p.image && String(p.image).trim() !== "");
+    if (firstWithImage) {
+      return resolveImagePath(firstWithImage.image);
     }
-    cacheDom();
-    populateCategoryControls();
-    readParamsFromUrl();
-    bindEvents();
-    updateCountersUI();
-    renderResults();
+
+    const officialFallback = OFFICIAL_CATEGORIES.find((c) => c.id === categoryObj.id);
+    if (categoryObj.image) {
+      return resolveImagePath(categoryObj.image);
+    }
+    if (officialFallback && officialFallback.defaultImage) {
+      return resolveImagePath(officialFallback.defaultImage);
+    }
+    return buildFallbackImageURI(categoryObj.name, categoryObj.countLabel || "Craftora Heritage");
   }
 
-  document.addEventListener("DOMContentLoaded", initSearchResultsPage);
+  function initCategoriesPage() {
+    const gridEl = document.getElementById("categories-grid");
+    const popularEl = document.getElementById("popular-categories-list");
+    const totalCatsEl = document.getElementById("categories-total-count");
+    const totalProductsEl = document.getElementById("categories-products-total");
+
+    if (!gridEl) return;
+
+    // Never invent fake counts: read strictly from CraftoraData.products (0 if none exist)
+    const { categories, products } = getCatalogSource({ allowFallbackProducts: false });
+
+    const enriched = categories.map((cat) => {
+      const matching = products.filter((p) => productMatchesCategory(p, cat));
+      return {
+        category: cat,
+        count: matching.length,
+        matchingProducts: matching,
+        href: "marketplace.html?category=" + encodeURIComponent(cat.id)
+      };
+    });
+
+    if (totalCatsEl) {
+      totalCatsEl.textContent = String(enriched.length);
+    }
+    if (totalProductsEl) {
+      totalProductsEl.textContent = String(products.length);
+    }
+
+    gridEl.innerHTML = "";
+    const gridFrag = document.createDocumentFragment();
+
+    enriched.forEach((entry) => {
+      const cat = entry.category;
+      const countText = formatProductCountLabel(entry.count);
+      const fallbackURI = buildFallbackImageURI(cat.name, cat.countLabel || "Pakistani Handicrafts");
+      const imgSrc = resolveCategoryImage(cat, entry.matchingProducts) || fallbackURI;
+
+      const cardLink = document.createElement("a");
+      cardLink.href = entry.href;
+      cardLink.className = "category-card";
+      cardLink.setAttribute("data-category-id", cat.id);
+      cardLink.setAttribute("aria-label", cat.name + " (" + countText + ") — Open in Marketplace");
+      cardLink.innerHTML = `
+        <div class="category-card-media">
+          <img src="${escapeHTML(imgSrc)}" alt="${escapeHTML(cat.name)} Pakistani handicraft collection" loading="lazy">
+          <span class="category-count-pill">${escapeHTML(countText)}</span>
+          <span class="category-region-pill">${escapeHTML(cat.countLabel || "Pakistan")}</span>
+        </div>
+        <div class="category-card-body">
+          <h3 class="category-card-title">${escapeHTML(cat.name)}</h3>
+          <p class="category-card-desc">${escapeHTML(cat.description || "")}</p>
+          <div class="category-card-footer">
+            <span>Browse ${escapeHTML(cat.name)}</span>
+            <span aria-hidden="true">&rarr;</span>
+          </div>
+        </div>
+      `;
+
+      const imgEl = cardLink.querySelector("img");
+      if (imgEl) {
+        imgEl.addEventListener("error", function handleImgError() {
+          imgEl.removeEventListener("error", handleImgError);
+          imgEl.src = fallbackURI;
+        });
+      }
+
+      gridFrag.appendChild(cardLink);
+    });
+
+    gridEl.appendChild(gridFrag);
+
+    if (popularEl) {
+      const sortedPopular = enriched
+        .slice()
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 4);
+
+      popularEl.innerHTML = sortedPopular
+        .map(
+          (entry) => `
+            <a href="${escapeHTML(entry.href)}" class="popular-cat-chip">
+              <span class="popular-cat-name">${escapeHTML(entry.category.name)}</span>
+              <span class="popular-cat-meta">${escapeHTML(formatProductCountLabel(entry.count))} &middot; ${escapeHTML(entry.category.countLabel || "Pakistan")}</span>
+            </a>
+          `
+        )
+        .join("");
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     Bootstrap Based on body[data-page]
+     ------------------------------------------------------------------------ */
+  document.addEventListener("DOMContentLoaded", () => {
+    const page = document.body ? document.body.getAttribute("data-page") : "";
+    if (!page) return;
+
+    updateCountersUI();
+
+    if (page === "search-results") {
+      initSearchResultsPage();
+    } else if (page === "categories") {
+      initCategoriesPage();
+    }
+  });
 })(window);

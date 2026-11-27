@@ -1,10 +1,11 @@
 /* ==========================================================================
-   Craftora - Member 2 Pages Stylesheet (pages/search-results.html)
+   Craftora - Member 2 Pages Stylesheet
+   Covers pages/search-results.html and pages/categories.html.
    Matches Craftora's cream header, #24483F dark green palette, and
    Playfair Display / DM Sans typography without altering shared CSS files.
    ========================================================================== */
 
-body[data-page="search-results"] {
+:is(body[data-page="search-results"], body[data-page="categories"]) {
   --color-primary: #24483F;
   --color-primary-dark: #1B3730;
   --color-teal: #38665C;
@@ -34,23 +35,23 @@ body[data-page="search-results"] {
   overflow-x: clip;
 }
 
-body[data-page="search-results"] h1,
-body[data-page="search-results"] h2,
-body[data-page="search-results"] h3,
-body[data-page="search-results"] h4 {
+:is(body[data-page="search-results"], body[data-page="categories"]) h1,
+:is(body[data-page="search-results"], body[data-page="categories"]) h2,
+:is(body[data-page="search-results"], body[data-page="categories"]) h3,
+:is(body[data-page="search-results"], body[data-page="categories"]) h4 {
   font-family: var(--font-heading);
   color: var(--color-text);
   line-height: 1.22;
 }
 
-body[data-page="search-results"] .container {
+:is(body[data-page="search-results"], body[data-page="categories"]) .container {
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
   padding-inline: 1.25rem;
 }
 
-body[data-page="search-results"] .sr-only {
+:is(body[data-page="search-results"], body[data-page="categories"]) .sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -62,21 +63,21 @@ body[data-page="search-results"] .sr-only {
   border: 0;
 }
 
-body[data-page="search-results"] [hidden] {
+:is(body[data-page="search-results"], body[data-page="categories"]) [hidden] {
   display: none !important;
 }
 
 /* --------------------------------------------------------------------------
-   1. Top Announcement Bar & Cream Header (Matches Homepage Screenshot)
+   1. Shared Announcement Bar, Cream Header & Buttons
    -------------------------------------------------------------------------- */
-body[data-page="search-results"] .announcement-bar {
+:is(body[data-page="search-results"], body[data-page="categories"]) .announcement-bar {
   background-color: var(--color-primary);
   color: rgba(255, 255, 255, 0.92);
   font-size: 0.82rem;
   padding: 0.52rem 0;
 }
 
-body[data-page="search-results"] .announcement-inner {
+:is(body[data-page="search-results"], body[data-page="categories"]) .announcement-inner {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,7 +86,7 @@ body[data-page="search-results"] .announcement-inner {
   text-align: center;
 }
 
-body[data-page="search-results"] .announcement-link {
+:is(body[data-page="search-results"], body[data-page="categories"]) .announcement-link {
   color: var(--color-gold);
   font-weight: 600;
   text-decoration: none;
@@ -93,12 +94,12 @@ body[data-page="search-results"] .announcement-link {
   transition: color var(--transition), border-color var(--transition);
 }
 
-body[data-page="search-results"] .announcement-link:hover {
+:is(body[data-page="search-results"], body[data-page="categories"]) .announcement-link:hover {
   color: #FFFFFF;
   border-bottom-color: #FFFFFF;
 }
 
-body[data-page="search-results"] .site-header {
+:is(body[data-page="search-results"], body[data-page="categories"]) .site-header {
   background-color: var(--color-cream);
   border-bottom: 1px solid var(--color-border);
   position: sticky;
@@ -106,7 +107,7 @@ body[data-page="search-results"] .site-header {
   z-index: 100;
 }
 
-body[data-page="search-results"] .header-inner {
+:is(body[data-page="search-results"], body[data-page="categories"]) .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -114,14 +115,14 @@ body[data-page="search-results"] .header-inner {
   padding: 0.85rem 0;
 }
 
-body[data-page="search-results"] .brand-logo {
+:is(body[data-page="search-results"], body[data-page="categories"]) .brand-logo {
   display: inline-flex;
   align-items: center;
   gap: 0.72rem;
   flex-shrink: 0;
 }
 
-body[data-page="search-results"] .brand-emblem {
+:is(body[data-page="search-results"], body[data-page="categories"]) .brand-emblem {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -136,13 +137,13 @@ body[data-page="search-results"] .brand-emblem {
   justify-content: center;
 }
 
-body[data-page="search-results"] .brand-wordmark {
+:is(body[data-page="search-results"], body[data-page="categories"]) .brand-wordmark {
   display: flex;
   flex-direction: column;
   line-height: 1.05;
 }
 
-body[data-page="search-results"] .brand-name {
+:is(body[data-page="search-results"], body[data-page="categories"]) .brand-name {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
@@ -150,11 +151,11 @@ body[data-page="search-results"] .brand-name {
   letter-spacing: -0.01em;
 }
 
-body[data-page="search-results"] .brand-dot {
+:is(body[data-page="search-results"], body[data-page="categories"]) .brand-dot {
   color: var(--color-accent);
 }
 
-body[data-page="search-results"] .brand-tagline {
+:is(body[data-page="search-results"], body[data-page="categories"]) .brand-tagline {
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -163,17 +164,17 @@ body[data-page="search-results"] .brand-tagline {
   margin-top: 0.2rem;
 }
 
-body[data-page="search-results"] .site-nav {
+:is(body[data-page="search-results"], body[data-page="categories"]) .site-nav {
   margin-inline: auto;
 }
 
-body[data-page="search-results"] .nav-list {
+:is(body[data-page="search-results"], body[data-page="categories"]) .nav-list {
   display: flex;
   align-items: center;
   gap: 1.6rem;
 }
 
-body[data-page="search-results"] .nav-link {
+:is(body[data-page="search-results"], body[data-page="categories"]) .nav-link {
   font-size: 0.92rem;
   font-weight: 500;
   color: var(--color-text);
@@ -182,21 +183,21 @@ body[data-page="search-results"] .nav-link {
   transition: color var(--transition), border-color var(--transition);
 }
 
-body[data-page="search-results"] .nav-link:hover,
-body[data-page="search-results"] .nav-link.active {
+:is(body[data-page="search-results"], body[data-page="categories"]) .nav-link:hover,
+:is(body[data-page="search-results"], body[data-page="categories"]) .nav-link.active {
   color: var(--color-primary);
   border-bottom-color: var(--color-accent);
 }
 
-body[data-page="search-results"] .header-actions {
+:is(body[data-page="search-results"], body[data-page="categories"]) .header-actions {
   display: flex;
   align-items: center;
   gap: 0.65rem;
   flex-shrink: 0;
 }
 
-body[data-page="search-results"] .icon-btn,
-body[data-page="search-results"] .icon-counter-btn {
+:is(body[data-page="search-results"], body[data-page="categories"]) .icon-btn,
+:is(body[data-page="search-results"], body[data-page="categories"]) .icon-counter-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -208,19 +209,19 @@ body[data-page="search-results"] .icon-counter-btn {
   transition: background-color var(--transition), color var(--transition);
 }
 
-body[data-page="search-results"] .icon-btn:hover,
-body[data-page="search-results"] .icon-counter-btn:hover {
+:is(body[data-page="search-results"], body[data-page="categories"]) .icon-btn:hover,
+:is(body[data-page="search-results"], body[data-page="categories"]) .icon-counter-btn:hover {
   background-color: var(--color-beige);
   color: var(--color-primary);
 }
 
-body[data-page="search-results"] .icon-btn svg,
-body[data-page="search-results"] .icon-counter-btn svg {
+:is(body[data-page="search-results"], body[data-page="categories"]) .icon-btn svg,
+:is(body[data-page="search-results"], body[data-page="categories"]) .icon-counter-btn svg {
   width: 18px;
   height: 18px;
 }
 
-body[data-page="search-results"] .counter-badge {
+:is(body[data-page="search-results"], body[data-page="categories"]) .counter-badge {
   min-width: 20px;
   height: 20px;
   padding: 0 5px;
@@ -235,27 +236,17 @@ body[data-page="search-results"] .counter-badge {
   line-height: 1;
 }
 
-body[data-page="search-results"] .nav-toggle {
+:is(body[data-page="search-results"], body[data-page="categories"]) .nav-toggle {
   border-color: var(--color-border);
   color: var(--color-primary);
   background-color: var(--color-surface);
 }
 
-/* --------------------------------------------------------------------------
-   2. Search Hero Banner & Large Search Input Bar
-   -------------------------------------------------------------------------- */
-body[data-page="search-results"] .search-hero {
-  background: linear-gradient(135deg, #24483F 0%, #1D3B33 100%);
-  color: #FFFFFF;
-  padding: 1.5rem 0 2.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-body[data-page="search-results"] .breadcrumb-nav {
+:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-nav {
   margin-bottom: 1.35rem;
 }
 
-body[data-page="search-results"] .breadcrumb-list {
+:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-list {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -264,30 +255,26 @@ body[data-page="search-results"] .breadcrumb-list {
   color: rgba(247, 244, 237, 0.78);
 }
 
-body[data-page="search-results"] .breadcrumb-item a {
+:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-item a {
   color: rgba(247, 244, 237, 0.9);
   transition: color var(--transition);
 }
 
-body[data-page="search-results"] .breadcrumb-item a:hover {
+:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-item a:hover {
   color: var(--color-gold);
   text-decoration: underline;
 }
 
-body[data-page="search-results"] .breadcrumb-item[aria-current="page"] {
+:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-item[aria-current="page"] {
   color: var(--color-gold);
   font-weight: 600;
 }
 
-body[data-page="search-results"] .breadcrumb-separator {
+:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-separator {
   color: rgba(247, 244, 237, 0.48);
 }
 
-body[data-page="search-results"] .search-hero-inner {
-  max-width: 860px;
-}
-
-body[data-page="search-results"] .section-eyebrow {
+:is(body[data-page="search-results"], body[data-page="categories"]) .section-eyebrow {
   display: inline-block;
   font-size: 0.74rem;
   font-weight: 600;
@@ -295,6 +282,117 @@ body[data-page="search-results"] .section-eyebrow {
   text-transform: uppercase;
   color: var(--color-gold);
   margin-bottom: 0.55rem;
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .section-eyebrow--dark {
+  color: var(--color-accent);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn:active {
+  transform: translateY(1px);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn-primary {
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+  border-color: var(--color-accent);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn-primary:hover {
+  background-color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn-gold {
+  background-color: var(--color-gold);
+  color: #1B3730;
+  border-color: var(--color-gold);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn-gold:hover {
+  background-color: #E3CE9E;
+  border-color: #E3CE9E;
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn-outline {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border-color: var(--color-border);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn-outline:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-beige);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn-outline-light {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #FFFFFF;
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .btn-sm {
+  padding: 0.55rem 0.95rem;
+  font-size: 0.85rem;
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer {
+  background-color: var(--color-primary);
+  color: rgba(247, 244, 237, 0.86);
+  border-top: none;
+  padding: 2.25rem 0;
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-brand strong {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: #FFFFFF;
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-brand p,
+:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-copy {
+  color: rgba(247, 244, 237, 0.74);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-links a {
+  color: rgba(247, 244, 237, 0.9);
+}
+
+:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-links a:hover {
+  color: var(--color-gold);
+}
+
+/* --------------------------------------------------------------------------
+   2. Search Results Page (pages/search-results.html)
+   -------------------------------------------------------------------------- */
+body[data-page="search-results"] .search-hero {
+  background: linear-gradient(135deg, #24483F 0%, #1D3B33 100%);
+  color: #FFFFFF;
+  padding: 1.5rem 0 2.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body[data-page="search-results"] .search-hero-inner {
+  max-width: 860px;
 }
 
 body[data-page="search-results"] .search-heading {
@@ -369,62 +467,6 @@ body[data-page="search-results"] .search-form-actions {
   flex-shrink: 0;
 }
 
-body[data-page="search-results"] .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  border-radius: var(--radius-sm);
-  padding: 0.7rem 1.25rem;
-  font-size: 0.92rem;
-  font-weight: 600;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: background-color var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
-}
-
-body[data-page="search-results"] .btn:active {
-  transform: translateY(1px);
-}
-
-body[data-page="search-results"] .btn-primary {
-  background-color: var(--color-accent);
-  color: #FFFFFF;
-  border-color: var(--color-accent);
-}
-
-body[data-page="search-results"] .btn-primary:hover {
-  background-color: var(--color-accent-dark);
-  border-color: var(--color-accent-dark);
-}
-
-body[data-page="search-results"] .btn-outline {
-  background-color: var(--color-surface);
-  color: var(--color-primary);
-  border-color: var(--color-border);
-}
-
-body[data-page="search-results"] .btn-outline:hover {
-  border-color: var(--color-primary);
-  background-color: var(--color-beige);
-}
-
-body[data-page="search-results"] .btn-outline-light {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
-  border-color: rgba(255, 255, 255, 0.35);
-}
-
-body[data-page="search-results"] .btn-outline-light:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-color: #FFFFFF;
-}
-
-body[data-page="search-results"] .btn-sm {
-  padding: 0.55rem 0.95rem;
-  font-size: 0.85rem;
-}
-
 body[data-page="search-results"] .search-submit-btn,
 body[data-page="search-results"] .clear-search-btn {
   height: 54px;
@@ -433,7 +475,6 @@ body[data-page="search-results"] .clear-search-btn {
   white-space: nowrap;
 }
 
-/* Related Search Suggestions */
 body[data-page="search-results"] .suggestions-row {
   display: flex;
   align-items: center;
@@ -473,9 +514,6 @@ body[data-page="search-results"] .suggestion-chip.is-active {
   color: #1D3B33;
 }
 
-/* --------------------------------------------------------------------------
-   3. Suggested Categories & Filter / Sort Workspace
-   -------------------------------------------------------------------------- */
 body[data-page="search-results"] .search-workspace {
   padding: 2.25rem 0 4rem;
 }
@@ -540,7 +578,6 @@ body[data-page="search-results"] .category-pill-count {
   opacity: 0.78;
 }
 
-/* Filter & Sort Card */
 body[data-page="search-results"] .search-controls-card {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -596,7 +633,6 @@ body[data-page="search-results"] .btn-reset-filters {
   white-space: nowrap;
 }
 
-/* Status Bar (Active Search Query & Result Count) */
 body[data-page="search-results"] .results-status-bar {
   display: flex;
   flex-wrap: wrap;
@@ -660,9 +696,6 @@ body[data-page="search-results"] .active-chip button {
   padding: 0 0.15rem;
 }
 
-/* --------------------------------------------------------------------------
-   4. Product Cards Grid (Matches Craftora's Shared Product Card Style)
-   -------------------------------------------------------------------------- */
 body[data-page="search-results"] .products-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -829,9 +862,6 @@ body[data-page="search-results"] .product-actions .js-add-to-cart:hover {
   border-color: var(--color-primary-dark);
 }
 
-/* --------------------------------------------------------------------------
-   5. Empty Results State & Toast Notifications
-   -------------------------------------------------------------------------- */
 body[data-page="search-results"] .empty-results-card {
   background-color: var(--color-surface);
   border: 1px dashed var(--color-border);
@@ -917,7 +947,7 @@ body[data-page="search-results"] .empty-suggestion-btn:hover {
   border-color: var(--color-primary);
 }
 
-/* Fallback Toast Container (when CraftoraUI isn't loaded) */
+/* Fallback Toast Container */
 .craftora-m2-toast-wrap {
   position: fixed;
   right: 1.25rem;
@@ -939,35 +969,335 @@ body[data-page="search-results"] .empty-suggestion-btn:hover {
   border-left: 4px solid #D5BE8B;
 }
 
-/* Footer polish matching Craftora theme */
-body[data-page="search-results"] .site-footer {
-  background-color: var(--color-primary);
-  color: rgba(247, 244, 237, 0.86);
-  border-top: none;
-  padding: 2.25rem 0;
-}
-
-body[data-page="search-results"] .site-footer .footer-brand strong {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
+/* --------------------------------------------------------------------------
+   3. Categories Page (pages/categories.html)
+   -------------------------------------------------------------------------- */
+body[data-page="categories"] .categories-hero {
+  background: linear-gradient(135deg, #24483F 0%, #1B3730 100%);
   color: #FFFFFF;
+  padding: 1.6rem 0 3rem;
 }
 
-body[data-page="search-results"] .site-footer .footer-brand p,
-body[data-page="search-results"] .site-footer .footer-copy {
-  color: rgba(247, 244, 237, 0.74);
+body[data-page="categories"] .categories-hero-grid {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
 }
 
-body[data-page="search-results"] .site-footer .footer-links a {
-  color: rgba(247, 244, 237, 0.9);
+body[data-page="categories"] .categories-hero-copy {
+  max-width: 680px;
 }
 
-body[data-page="search-results"] .site-footer .footer-links a:hover {
+body[data-page="categories"] .categories-heading {
+  font-size: clamp(2.15rem, 4.5vw, 3.2rem);
+  color: #FFFFFF;
+  margin-bottom: 0.65rem;
+}
+
+body[data-page="categories"] .categories-intro {
+  color: rgba(247, 244, 237, 0.86);
+  font-size: 1.02rem;
+}
+
+body[data-page="categories"] .categories-hero-summary {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.05rem 1.35rem;
+  border-radius: var(--radius);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+body[data-page="categories"] .summary-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+body[data-page="categories"] .summary-stat strong {
+  font-family: var(--font-heading);
+  font-size: 1.65rem;
   color: var(--color-gold);
+  line-height: 1.1;
+}
+
+body[data-page="categories"] .summary-stat span {
+  font-size: 0.78rem;
+  color: rgba(247, 244, 237, 0.8);
+}
+
+body[data-page="categories"] .categories-grid-section {
+  padding: 3rem 0 2.5rem;
+}
+
+body[data-page="categories"] .section-head-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 1.65rem;
+}
+
+body[data-page="categories"] .section-title-left {
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  color: var(--color-primary);
+}
+
+body[data-page="categories"] .text-link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  transition: color var(--transition);
+}
+
+body[data-page="categories"] .text-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body[data-page="categories"] .categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+body[data-page="categories"] .category-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+body[data-page="categories"] .category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(36, 72, 63, 0.32);
+}
+
+body[data-page="categories"] .category-card-media {
+  position: relative;
+  height: 195px;
+  background-color: var(--color-beige);
+  overflow: hidden;
+}
+
+body[data-page="categories"] .category-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.36s ease;
+}
+
+body[data-page="categories"] .category-card:hover .category-card-media img {
+  transform: scale(1.04);
+}
+
+body[data-page="categories"] .category-count-pill {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  background-color: rgba(36, 72, 63, 0.92);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.28rem 0.72rem;
+  border-radius: 999px;
+}
+
+body[data-page="categories"] .category-region-pill {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  background-color: rgba(250, 247, 240, 0.94);
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.24rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid rgba(36, 72, 63, 0.14);
+}
+
+body[data-page="categories"] .category-card-body {
+  padding: 1.25rem 1.3rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+body[data-page="categories"] .category-card-title {
+  font-size: 1.24rem;
+  color: var(--color-primary);
+  margin-bottom: 0.45rem;
+}
+
+body[data-page="categories"] .category-card-desc {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin-bottom: 1.1rem;
+  flex: 1;
+}
+
+body[data-page="categories"] .category-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+body[data-page="categories"] .category-card:hover .category-card-footer {
+  color: var(--color-primary);
+}
+
+/* Popular Categories & Featured Collections */
+body[data-page="categories"] .collections-section {
+  background-color: var(--color-beige);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 3rem 0;
+}
+
+body[data-page="categories"] .popular-categories-block {
+  margin-bottom: 2.75rem;
+}
+
+body[data-page="categories"] .popular-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+body[data-page="categories"] .popular-cat-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+body[data-page="categories"] .popular-cat-chip:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+body[data-page="categories"] .popular-cat-name {
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+body[data-page="categories"] .popular-cat-meta {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+body[data-page="categories"] .featured-collections-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+body[data-page="categories"] .collection-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+body[data-page="categories"] .collection-tag {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-teal);
+  background-color: var(--color-bg);
+  padding: 0.24rem 0.62rem;
+  border-radius: 999px;
+}
+
+body[data-page="categories"] .collection-card h3 {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+}
+
+body[data-page="categories"] .collection-card p {
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  margin-bottom: 0.35rem;
+  flex: 1;
+}
+
+body[data-page="categories"] .collection-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+body[data-page="categories"] .collection-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Artisan Discovery CTA */
+body[data-page="categories"] .artisan-cta-section {
+  padding: 3rem 0 3.75rem;
+}
+
+body[data-page="categories"] .artisan-cta-banner {
+  background: linear-gradient(135deg, #24483F 0%, #1B3730 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+body[data-page="categories"] .artisan-cta-copy {
+  max-width: 620px;
+}
+
+body[data-page="categories"] .artisan-cta-title {
+  font-size: clamp(1.5rem, 2.8vw, 2.05rem);
+  color: #FFFFFF;
+  margin-bottom: 0.55rem;
+}
+
+body[data-page="categories"] .artisan-cta-text {
+  color: rgba(247, 244, 237, 0.84);
+  font-size: 0.96rem;
+}
+
+body[data-page="categories"] .artisan-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 /* --------------------------------------------------------------------------
-   6. Responsive Breakpoints (Tablet & Mobile Readability)
+   4. Responsive Breakpoints (Shared Mobile Header & Both Pages)
    -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
   body[data-page="search-results"] .controls-grid {
@@ -978,21 +1308,26 @@ body[data-page="search-results"] .site-footer .footer-links a:hover {
     grid-column: 1 / -1;
   }
 
-  body[data-page="search-results"] .products-grid {
+  body[data-page="search-results"] .products-grid,
+  body[data-page="categories"] .categories-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="categories"] .popular-categories-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 768px) {
-  body[data-page="search-results"] .header-inner {
+  :is(body[data-page="search-results"], body[data-page="categories"]) .header-inner {
     flex-wrap: wrap;
   }
 
-  body[data-page="search-results"] .nav-toggle {
+  :is(body[data-page="search-results"], body[data-page="categories"]) .nav-toggle {
     display: inline-flex;
   }
 
-  body[data-page="search-results"] .site-nav {
+  :is(body[data-page="search-results"], body[data-page="categories"]) .site-nav {
     display: none;
     order: 4;
     width: 100%;
@@ -1001,11 +1336,11 @@ body[data-page="search-results"] .site-footer .footer-links a:hover {
     border-top: 1px solid var(--color-border);
   }
 
-  body[data-page="search-results"] .site-nav.open {
+  :is(body[data-page="search-results"], body[data-page="categories"]) .site-nav.open {
     display: block;
   }
 
-  body[data-page="search-results"] .nav-list {
+  :is(body[data-page="search-results"], body[data-page="categories"]) .nav-list {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.7rem;
@@ -1024,22 +1359,31 @@ body[data-page="search-results"] .site-footer .footer-links a:hover {
     flex: 1;
     height: 48px;
   }
+
+  body[data-page="categories"] .featured-collections-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="categories"] .artisan-cta-banner {
+    padding: 1.75rem 1.35rem;
+  }
 }
 
 @media (max-width: 560px) {
-  body[data-page="search-results"] .controls-grid {
+  body[data-page="search-results"] .controls-grid,
+  body[data-page="search-results"] .products-grid,
+  body[data-page="search-results"] .product-actions,
+  body[data-page="categories"] .categories-grid,
+  body[data-page="categories"] .popular-categories-grid {
     grid-template-columns: 1fr;
   }
 
-  body[data-page="search-results"] .products-grid {
-    grid-template-columns: 1fr;
-  }
-
-  body[data-page="search-results"] .product-actions {
-    grid-template-columns: 1fr;
-  }
-
-  body[data-page="search-results"] .icon-counter-btn .counter-label {
+  :is(body[data-page="search-results"], body[data-page="categories"]) .icon-counter-btn .counter-label {
     display: none;
+  }
+
+  body[data-page="categories"] .categories-hero-summary {
+    width: 100%;
+    justify-content: space-around;
   }
 }
