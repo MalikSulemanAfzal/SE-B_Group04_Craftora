@@ -142,7 +142,7 @@
   }
 
   function getDetailHref(productId) {
-    const inPagesDir = /\/pages\/[^/]*$/i.test(window.location.pathname);
+    const inPagesDir = /[/\\]pages([/\\][^/\\]*)?$/i.test(window.location.pathname);
     const base = inPagesDir ? "product-details.html" : "pages/product-details.html";
     return base + "?id=" + encodeURIComponent(productId);
   }
