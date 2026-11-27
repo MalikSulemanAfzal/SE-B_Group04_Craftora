@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details | Craftora Authentic Pakistani Handicrafts</title>
+  <meta name="description" content="View authentic handcrafted Pakistani treasures directly from independent maker workshops. Explore materials, workshop origins, artisan biographies, and insured nationwide delivery.">
+
+  <!-- Typography: Playfair Display & DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared & Product Details Stylesheets -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/product-details.css">
+</head>
+<body>
+
+  <!-- ================= ANNOUNCEMENT STRIP ================= -->
+  <div class="announcement-bar" role="region" aria-label="Store announcements">
+    <div class="container announcement-inner">
+      <p class="announcement-text">
+        <strong>Heritage Dispatch:</strong> Complimentary insured delivery across Pakistan on orders above PKR 5,000.
+      </p>
+      <a href="artisan-directory.html" class="announcement-link">Meet Our Artisans &rarr;</a>
+    </div>
+  </div>
+
+  <!-- ================= SHARED STICKY NAVBAR ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo" aria-label="Craftora Homepage">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 3L20 8.5V15.5L12 21L4 15.5V8.5L12 3Z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </span>
+        <span>Craftora</span>
+      </a>
+
+      <nav id="main-nav" class="site-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="marketplace.html" class="nav-link active">Marketplace</a></li>
+          <li><a href="artisan-directory.html" class="nav-link">Artisans</a></li>
+          <li><a href="../index.html#brand-story" class="nav-link">Our Story</a></li>
+          <li><a href="../index.html#newsletter-section" class="nav-link">Journal</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button
+          type="button"
+          id="header-wishlist-btn"
+          class="icon-counter-btn"
+          aria-label="View Wishlist count"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="counter-label">Wishlist</span>
+          <span class="counter-badge js-wishlist-count">0</span>
+        </button>
+
+        <button
+          type="button"
+          id="header-cart-btn"
+          class="icon-counter-btn"
+          aria-label="View Shopping Bag count"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="counter-label">Bag</span>
+          <span class="counter-badge js-cart-count">0</span>
+        </button>
+
+        <button
+          type="button"
+          class="nav-toggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="main-nav"
+        >
+          &#9776;
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+    <div class="container">
+
+      <!-- 1. Breadcrumb Navigation -->
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+          <li class="breadcrumb-separator" aria-hidden="true">/</li>
+          <li class="breadcrumb-item"><a href="marketplace.html">Marketplace</a></li>
+          <li class="breadcrumb-separator" aria-hidden="true">/</li>
+          <li class="breadcrumb-item" aria-current="page">
+            <span id="breadcrumb-product-name">Product Details</span>
+          </li>
+        </ol>
+      </nav>
+
+      <!-- 2. Product Not Found / Unavailable State (Hidden by default) -->
+      <div id="product-not-found" class="product-error-state" role="status" aria-live="polite" style="display: none;">
+        <div class="product-error-card">
+          <div class="product-error-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h1 class="product-error-title">Product Not Found / Unavailable</h1>
+          <p class="product-error-text">
+            We could not locate this handcrafted item in the Craftora catalogue. The product ID in your URL may be invalid, missing, or the artisan edition may no longer be available.
+          </p>
+          <div class="product-error-actions">
+            <a href="marketplace.html" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Return to Marketplace
+            </a>
+            <a href="product-details.html?id=p001" class="btn btn-outline">
+              Explore Featured Craft (Ajrak Dupatta) &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Dynamic Product Overview (Populated by js/product-details.js) -->
+      <div id="product-details-container" class="product-details-container">
+
+        <!-- 2-Column Overview -->
+        <section class="product-overview-grid" aria-label="Product overview and purchasing options">
+
+          <!-- Left Column: Gallery -->
+          <div class="product-gallery">
+            <div class="main-image-wrap" id="main-image-wrap">
+              <img
+                id="main-product-img"
+                src="../images/hero-craft.png"
+                alt="Loading Craftora handcrafted product"
+                width="800"
+                height="800"
+              >
+              <span id="product-badge-overlay" class="product-badge">Curated</span>
+            </div>
+
+            <!-- Clickable Interactive Thumbnail Gallery -->
+            <div
+              id="thumbnail-gallery"
+              class="thumbnail-gallery"
+              role="region"
+              aria-label="Product gallery thumbnails"
+            >
+              <!-- Populated dynamically with clean ../ relative paths -->
+            </div>
+            <p class="gallery-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              Click thumbnails to inspect studio portraits and master workshop craft angles.
+            </p>
+          </div>
+
+          <!-- Right Column: Product Details & Purchase Form -->
+          <div class="product-summary">
+
+            <!-- Category & Stock Status -->
+            <div class="product-category-stock-row">
+              <span id="detail-category" class="product-category"></span>
+              <span id="detail-stock-badge" class="stock-badge stock-badge--in"></span>
+            </div>
+
+            <!-- Title -->
+            <h1 id="detail-title" class="product-detail-title">Loading Craft...</h1>
+
+            <!-- Artisan & Star Rating Row -->
+            <div class="product-meta-row">
+              <div class="product-maker-info">
+                <span>By </span>
+                <a id="detail-artisan-name" href="artisan-directory.html" class="artisan-name-link"></a>
+                <span class="meta-separator">&middot;</span>
+                <span id="detail-origin" class="product-origin-text"></span>
+              </div>
+              <a href="#tabs-section" id="detail-rating-link" class="product-rating-badge" title="View customer reviews">
+                <span id="detail-rating-stars" class="rating-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <span id="detail-rating-text" class="rating-text"></span>
+              </a>
+            </div>
+
+            <!-- Price & Live Quantity Subtotal Box -->
+            <div class="product-pricing-card">
+              <div class="pricing-primary-row">
+                <div class="unit-price-block">
+                  <span class="price-type-label">Unit Price (PKR)</span>
+                  <span id="detail-price" class="detail-price-amount">Rs. 0</span>
+                </div>
+                <div class="live-subtotal-block">
+                  <span class="price-type-label">Calculated Subtotal</span>
+                  <span id="detail-subtotal" class="detail-subtotal-amount">Rs. 0</span>
+                </div>
+              </div>
+              <p class="pricing-tax-note">All taxes included. Transparent fair-trade pricing goes directly to independent maker workshops.</p>
+            </div>
+
+            <!-- Short Description -->
+            <p id="detail-description" class="product-description-text"></p>
+
+            <!-- Specifications Table / List -->
+            <div class="product-specs-box">
+              <h2 class="specs-title">Authentic Specifications</h2>
+              <dl class="specs-list">
+                <div class="spec-row">
+                  <dt class="spec-term">Material:</dt>
+                  <dd id="spec-material" class="spec-detail">-</dd>
+                </div>
+                <div class="spec-row">
+                  <dt class="spec-term">Dimensions:</dt>
+                  <dd id="spec-dimensions" class="spec-detail">-</dd>
+                </div>
+                <div class="spec-row">
+                  <dt class="spec-term">Origin:</dt>
+                  <dd id="spec-origin" class="spec-detail">-</dd>
+                </div>
+                <div class="spec-row">
+                  <dt class="spec-term">Craft Technique:</dt>
+                  <dd id="spec-technique" class="spec-detail">-</dd>
+                </div>
+              </dl>
+            </div>
+
+            <!-- Interactive Variant Selector -->
+            <div class="variant-section" id="variant-section">
+              <div class="variant-header">
+                <label id="variant-group-label" class="variant-label">Selected Edition / Variant:</label>
+                <span id="variant-active-name" class="variant-active-display">Default</span>
+              </div>
+              <div id="variant-options-list" class="variant-options-list" role="radiogroup" aria-labelledby="variant-group-label">
+                <!-- Dynamically generated variant buttons -->
+              </div>
+            </div>
+
+            <!-- Quantity Selector & Inline Validation -->
+            <div class="quantity-section">
+              <div class="quantity-header">
+                <label for="qty-input" class="quantity-label">Quantity (Units):</label>
+                <span id="stock-count-hint" class="stock-count-hint"></span>
+              </div>
+              <div class="quantity-input-group">
+                <button
+                  type="button"
+                  id="qty-minus"
+                  class="qty-btn qty-btn--minus"
+                  aria-label="Decrease quantity"
+                  title="Decrease quantity by 1"
+                >&minus;</button>
+                <input
+                  type="number"
+                  id="qty-input"
+                  class="qty-input"
+                  value="1"
+                  min="1"
+                  max="20"
+                  step="1"
+                  aria-label="Quantity of items to purchase"
+                  required
+                >
+                <button
+                  type="button"
+                  id="qty-plus"
+                  class="qty-btn qty-btn--plus"
+                  aria-label="Increase quantity"
+                  title="Increase quantity by 1"
+                >&#43;</button>
+              </div>
+
+              <!-- Inline Quantity Validation Error -->
+              <p id="qty-error" class="qty-error-alert" role="alert" style="display: none;"></p>
+            </div>
+
+            <!-- Action Buttons: Add to Cart & Wishlist -->
+            <div class="product-cta-group">
+              <button
+                type="button"
+                id="detail-add-to-cart-btn"
+                class="btn btn-primary btn-lg cta-cart-btn"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>
+                <span>Add to Bag</span>
+              </button>
+
+              <button
+                type="button"
+                id="detail-wishlist-toggle-btn"
+                class="btn btn-outline btn-lg cta-wish-btn"
+                aria-pressed="false"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <span id="detail-wishlist-text">Add to Wishlist</span>
+              </button>
+            </div>
+
+            <!-- Artisan Studio Card -->
+            <aside class="artisan-studio-embed" aria-label="Master Artisan Studio Details">
+              <div class="artisan-studio-header">
+                <img id="studio-artisan-img" class="studio-artisan-avatar" src="" alt="Artisan portrait" width="70" height="70">
+                <div class="studio-artisan-meta">
+                  <span class="studio-badge">Authentic Guild Studio</span>
+                  <h3 id="studio-artisan-name" class="studio-artisan-title"></h3>
+                  <p id="studio-artisan-craft" class="studio-artisan-subtitle"></p>
+                </div>
+              </div>
+              <p id="studio-artisan-bio" class="studio-artisan-bio"></p>
+              <div class="studio-footer-row">
+                <span id="studio-artisan-experience" class="studio-experience-tag"></span>
+                <a id="studio-profile-link" href="artisan-profile.html" class="studio-link">
+                  Visit Artisan Studio &rarr;
+                </a>
+              </div>
+            </aside>
+
+            <!-- Delivery & Guarantees Box -->
+            <div class="delivery-guarantee-card">
+              <h3 class="delivery-card-title">Craftora Heritage Dispatch</h3>
+              <ul class="delivery-perks-list">
+                <li class="delivery-perk-item">
+                  <span class="delivery-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="1" y="3" width="15" height="13"></rect>
+                      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                      <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                      <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                    </svg>
+                  </span>
+                  <div>
+                    <strong>Insured Nationwide Dispatch:</strong> Delivered directly to your doorstep in 3–5 business days across Pakistan.
+                  </div>
+                </li>
+                <li class="delivery-perk-item">
+                  <span class="delivery-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                  </span>
+                  <div>
+                    <strong>Direct Maker Margins:</strong> 100% of fair-trade artisan compensation reaches the local workshop.
+                  </div>
+                </li>
+                <li class="delivery-perk-item">
+                  <span class="delivery-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <div>
+                    <strong>Certified Authenticity:</strong> Packed with a handwritten artisan provenance tag and safety packaging.
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 3. Interactive Information Tabs -->
+        <section id="tabs-section" class="product-tabs-section" aria-label="Detailed craft specifications and reviews">
+          <div class="tabs-nav-bar" role="tablist" aria-label="Product information tabs">
+            <button
+              type="button"
+              id="tab-btn-desc"
+              class="tab-btn is-active"
+              role="tab"
+              aria-selected="true"
+              aria-controls="tab-panel-desc"
+            >
+              Description &amp; Heritage
+            </button>
+            <button
+              type="button"
+              id="tab-btn-reviews"
+              class="tab-btn"
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-panel-reviews"
+            >
+              Customer Reviews (<span id="tab-reviews-badge">0</span>)
+            </button>
+            <button
+              type="button"
+              id="tab-btn-care"
+              class="tab-btn"
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-panel-care"
+            >
+              Care &amp; Delivery
+            </button>
+          </div>
+
+          <!-- Tab Panel 1: Description -->
+          <div
+            id="tab-panel-desc"
+            class="tab-panel is-active"
+            role="tabpanel"
+            aria-labelledby="tab-btn-desc"
+          >
+            <div class="tab-panel-inner">
+              <div class="heritage-story-grid">
+                <div class="heritage-story-content">
+                  <span class="section-eyebrow">Centuries of Living Heritage</span>
+                  <h3 id="desc-tab-heading" class="tab-content-title"></h3>
+                  <div id="desc-tab-body" class="tab-rich-text"></div>
+
+                  <div class="craft-highlights-grid">
+                    <div class="craft-highlight-card">
+                      <h4 class="highlight-title">Handmade Purity</h4>
+                      <p class="highlight-text">Crafted entirely by hand using regional organic materials with no mass assembly lines.</p>
+                    </div>
+                    <div class="craft-highlight-card">
+                      <h4 class="highlight-title">Preserved Legacy</h4>
+                      <p class="highlight-text">Every pattern and brushstroke carries techniques transmitted across multiple generations.</p>
+                    </div>
+                    <div class="craft-highlight-card">
+                      <h4 class="highlight-title">Fair Trade Verified</h4>
+                      <p class="highlight-text">Direct workshop compensation preserving vital cultural livelihoods in rural Pakistan.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Panel 2: Reviews -->
+          <div
+            id="tab-panel-reviews"
+            class="tab-panel"
+            role="tabpanel"
+            aria-labelledby="tab-btn-reviews"
+            hidden
+          >
+            <div class="tab-panel-inner">
+              <div class="reviews-summary-layout">
+
+                <!-- Overall Rating Score Box -->
+                <div class="reviews-aggregate-card">
+                  <span class="aggregate-score-large" id="reviews-avg-display">4.9</span>
+                  <div class="aggregate-stars" id="reviews-stars-display" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                  <p class="aggregate-caption">Based on <strong id="reviews-count-display">44</strong> verified artisan orders</p>
+                  
+                  <div class="rating-breakdown-bars">
+                    <div class="breakdown-row">
+                      <span class="breakdown-label">5 Stars</span>
+                      <div class="breakdown-bar-track"><div class="breakdown-bar-fill" style="width: 88%;"></div></div>
+                      <span class="breakdown-percent">88%</span>
+                    </div>
+                    <div class="breakdown-row">
+                      <span class="breakdown-label">4 Stars</span>
+                      <div class="breakdown-bar-track"><div class="breakdown-bar-fill" style="width: 10%;"></div></div>
+                      <span class="breakdown-percent">10%</span>
+                    </div>
+                    <div class="breakdown-row">
+                      <span class="breakdown-label">3 Stars</span>
+                      <div class="breakdown-bar-track"><div class="breakdown-bar-fill" style="width: 2%;"></div></div>
+                      <span class="breakdown-percent">2%</span>
+                    </div>
+                    <div class="breakdown-row">
+                      <span class="breakdown-label">2 Stars</span>
+                      <div class="breakdown-bar-track"><div class="breakdown-bar-fill" style="width: 0%;"></div></div>
+                      <span class="breakdown-percent">0%</span>
+                    </div>
+                    <div class="breakdown-row">
+                      <span class="breakdown-label">1 Star</span>
+                      <div class="breakdown-bar-track"><div class="breakdown-bar-fill" style="width: 0%;"></div></div>
+                      <span class="breakdown-percent">0%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Customer Reviews List & Demo Submission -->
+                <div class="reviews-list-column">
+                  <div class="reviews-list-header">
+                    <h3 class="reviews-list-title">Verified Customer Experiences</h3>
+                    <button type="button" id="toggle-review-form-btn" class="btn btn-outline btn-sm">Write a Review</button>
+                  </div>
+
+                  <!-- Demo Review Submission Form (Accordion toggle) -->
+                  <form id="demo-review-form" class="demo-review-form" style="display: none;" novalidate>
+                    <h4 class="form-title">Share Your Craft Experience</h4>
+                    <p class="form-subtext">Reviews help independent Pakistani artisans continue their guild heritage.</p>
+                    
+                    <div class="form-row">
+                      <div class="form-field">
+                        <label for="review-author" class="field-label">Your Name</label>
+                        <input type="text" id="review-author" class="field-input" placeholder="e.g. Ayesha Khan" required>
+                      </div>
+                      <div class="form-field">
+                        <label for="review-rating" class="field-label">Rating</label>
+                        <select id="review-rating" class="field-select">
+                          <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5/5 Exceptional)</option>
+                          <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734; (4/5 Very Good)</option>
+                          <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734; (3/5 Average)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="review-title-input" class="field-label">Review Headline</label>
+                      <input type="text" id="review-title-input" class="field-input" placeholder="e.g. Exquisite quality, unmatched heritage touch" required>
+                    </div>
+
+                    <div class="form-field">
+                      <label for="review-body-input" class="field-label">Your Review</label>
+                      <textarea id="review-body-input" class="field-textarea" rows="3" placeholder="Tell us about the texture, finish, and packaging..." required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                      <button type="submit" class="btn btn-primary btn-sm">Submit Review (Demo)</button>
+                      <button type="button" id="cancel-review-form-btn" class="btn btn-outline btn-sm">Cancel</button>
+                    </div>
+                  </form>
+
+                  <!-- Reviews Items Container -->
+                  <div id="reviews-items-container" class="reviews-items-container">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Panel 3: Care & Delivery -->
+          <div
+            id="tab-panel-care"
+            class="tab-panel"
+            role="tabpanel"
+            aria-labelledby="tab-btn-care"
+            hidden
+          >
+            <div class="tab-panel-inner">
+              <div class="care-delivery-grid">
+
+                <div class="care-box">
+                  <h3 class="care-section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                    </svg>
+                    Artisan Care Instructions
+                  </h3>
+                  <div id="care-instructions-content" class="care-text-wrap">
+                    <!-- Dynamically customized per craft material -->
+                  </div>
+                </div>
+
+                <div class="care-box">
+                  <h3 class="care-section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <rect x="1" y="3" width="15" height="13"></rect>
+                      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                      <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                      <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                    </svg>
+                    Shipping, Packaging &amp; Returns
+                  </h3>
+                  <ul class="care-bullet-list">
+                    <li>
+                      <strong>Eco-Friendly Provenance Packaging:</strong> Each craft is wrapped in unbleached tissue, protected by recycled honeycomb padding, and sealed with an artisan wax stamp.
+                    </li>
+                    <li>
+                      <strong>Nationwide Insured Delivery:</strong> Dispatched via trusted couriers (TCS/M&amp;P) with door-to-door insurance against transit breakage. Delivered within 3–5 business days.
+                    </li>
+                    <li>
+                      <strong>Complimentary Shipping:</strong> Orders exceeding PKR 5,000 qualify automatically for free standard shipping across all Pakistan districts.
+                    </li>
+                    <li>
+                      <strong>7-Day Heritage Guarantee:</strong> If your craft arrives damaged or fails to match workshop descriptions, we facilitate a full exchange or prompt refund within 7 days.
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- 4. Related Products Grid (3-4 Cards) -->
+        <section class="related-products-section" aria-labelledby="related-heading">
+          <div class="section-header">
+            <div>
+              <span class="section-eyebrow">Complementary Workshop Pieces</span>
+              <h2 id="related-heading" class="section-title">Related Handcrafted Treasures</h2>
+            </div>
+            <a href="marketplace.html" class="btn btn-outline btn-sm">Browse Full Marketplace &rarr;</a>
+          </div>
+
+          <div id="related-products-grid" class="products-grid" aria-live="polite">
+            <!-- Dynamically populated from js/data.js -->
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="../index.html" class="footer-brand-name">Craftora</a>
+          <p class="footer-text">
+            A curated marketplace celebrating authentic Pakistani handicrafts, independent maker workshops, and timeless regional artistry.
+          </p>
+          <p class="footer-disclosure">
+            <strong>AI Image Disclosure:</strong> Images on this website were generated using Google Antigravity.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Explore</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html">Homepage</a></li>
+            <li><a href="marketplace.html">Marketplace</a></li>
+            <li><a href="artisan-directory.html">Artisan Directory</a></li>
+            <li><a href="product-details.html?id=p001">Featured Product (p001)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Craft Categories</h3>
+          <ul class="footer-links">
+            <li><a href="marketplace.html?category=pottery-ceramics">Multani Blue Pottery</a></li>
+            <li><a href="marketplace.html?category=handwoven-textiles">Ajrak &amp; Swati Textiles</a></li>
+            <li><a href="marketplace.html?category=wooden-handicrafts">Chiniot Woodwork</a></li>
+            <li><a href="marketplace.html?category=leather-crafts">Traditional Leather Khussa</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Demo Info</h3>
+          <ul class="footer-links">
+            <li><a href="../index.html#brand-story">Brand Heritage</a></li>
+            <li><a href="../index.html#newsletter-section">Newsletter (Demo)</a></li>
+            <li><span>Artisan profiles marked a001–a006 are fictional demo profiles.</span></li>
+            <li><span>Currency: Pakistani Rupee (PKR)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Craftora — SE-B Group 04 Academic Project. Built with HTML5, CSS3 &amp; Vanilla JS.</p>
+        <p>Images on this website were generated using Google Antigravity</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared & Product Details JavaScript Modules -->
+  <script src="../js/data.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/product-details.js" defer></script>
+</body>
+</html>
