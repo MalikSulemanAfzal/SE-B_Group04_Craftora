@@ -5,7 +5,7 @@
    Playfair Display / DM Sans typography without altering shared CSS files.
    ========================================================================== */
 
-:is(body[data-page="search-results"], body[data-page="categories"]) {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) {
   --color-primary: #24483F;
   --color-primary-dark: #1B3730;
   --color-teal: #38665C;
@@ -35,23 +35,23 @@
   overflow-x: clip;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) h1,
-:is(body[data-page="search-results"], body[data-page="categories"]) h2,
-:is(body[data-page="search-results"], body[data-page="categories"]) h3,
-:is(body[data-page="search-results"], body[data-page="categories"]) h4 {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) h1,
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) h2,
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) h3,
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) h4 {
   font-family: var(--font-heading);
   color: var(--color-text);
   line-height: 1.22;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .container {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .container {
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
   padding-inline: 1.25rem;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .sr-only {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -63,21 +63,21 @@
   border: 0;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) [hidden] {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) [hidden] {
   display: none !important;
 }
 
 /* --------------------------------------------------------------------------
    1. Shared Announcement Bar, Cream Header & Buttons
    -------------------------------------------------------------------------- */
-:is(body[data-page="search-results"], body[data-page="categories"]) .announcement-bar {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .announcement-bar {
   background-color: var(--color-primary);
   color: rgba(255, 255, 255, 0.92);
   font-size: 0.82rem;
   padding: 0.52rem 0;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .announcement-inner {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .announcement-inner {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,7 +86,7 @@
   text-align: center;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .announcement-link {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .announcement-link {
   color: var(--color-gold);
   font-weight: 600;
   text-decoration: none;
@@ -94,12 +94,12 @@
   transition: color var(--transition), border-color var(--transition);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .announcement-link:hover {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .announcement-link:hover {
   color: #FFFFFF;
   border-bottom-color: #FFFFFF;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .site-header {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-header {
   background-color: var(--color-cream);
   border-bottom: 1px solid var(--color-border);
   position: sticky;
@@ -107,7 +107,7 @@
   z-index: 100;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .header-inner {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -115,14 +115,14 @@
   padding: 0.85rem 0;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .brand-logo {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .brand-logo {
   display: inline-flex;
   align-items: center;
   gap: 0.72rem;
   flex-shrink: 0;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .brand-emblem {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .brand-emblem {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -137,13 +137,13 @@
   justify-content: center;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .brand-wordmark {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .brand-wordmark {
   display: flex;
   flex-direction: column;
   line-height: 1.05;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .brand-name {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .brand-name {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
@@ -151,11 +151,11 @@
   letter-spacing: -0.01em;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .brand-dot {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .brand-dot {
   color: var(--color-accent);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .brand-tagline {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .brand-tagline {
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -164,17 +164,17 @@
   margin-top: 0.2rem;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .site-nav {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-nav {
   margin-inline: auto;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .nav-list {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .nav-list {
   display: flex;
   align-items: center;
   gap: 1.6rem;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .nav-link {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .nav-link {
   font-size: 0.92rem;
   font-weight: 500;
   color: var(--color-text);
@@ -183,21 +183,21 @@
   transition: color var(--transition), border-color var(--transition);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .nav-link:hover,
-:is(body[data-page="search-results"], body[data-page="categories"]) .nav-link.active {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .nav-link:hover,
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .nav-link.active {
   color: var(--color-primary);
   border-bottom-color: var(--color-accent);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .header-actions {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .header-actions {
   display: flex;
   align-items: center;
   gap: 0.65rem;
   flex-shrink: 0;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .icon-btn,
-:is(body[data-page="search-results"], body[data-page="categories"]) .icon-counter-btn {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .icon-btn,
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .icon-counter-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -209,19 +209,19 @@
   transition: background-color var(--transition), color var(--transition);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .icon-btn:hover,
-:is(body[data-page="search-results"], body[data-page="categories"]) .icon-counter-btn:hover {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .icon-btn:hover,
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .icon-counter-btn:hover {
   background-color: var(--color-beige);
   color: var(--color-primary);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .icon-btn svg,
-:is(body[data-page="search-results"], body[data-page="categories"]) .icon-counter-btn svg {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .icon-btn svg,
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .icon-counter-btn svg {
   width: 18px;
   height: 18px;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .counter-badge {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .counter-badge {
   min-width: 20px;
   height: 20px;
   padding: 0 5px;
@@ -236,17 +236,17 @@
   line-height: 1;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .nav-toggle {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .nav-toggle {
   border-color: var(--color-border);
   color: var(--color-primary);
   background-color: var(--color-surface);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-nav {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .breadcrumb-nav {
   margin-bottom: 1.35rem;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-list {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .breadcrumb-list {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -255,26 +255,26 @@
   color: rgba(247, 244, 237, 0.78);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-item a {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .breadcrumb-item a {
   color: rgba(247, 244, 237, 0.9);
   transition: color var(--transition);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-item a:hover {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .breadcrumb-item a:hover {
   color: var(--color-gold);
   text-decoration: underline;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-item[aria-current="page"] {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .breadcrumb-item[aria-current="page"] {
   color: var(--color-gold);
   font-weight: 600;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .breadcrumb-separator {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .breadcrumb-separator {
   color: rgba(247, 244, 237, 0.48);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .section-eyebrow {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .section-eyebrow {
   display: inline-block;
   font-size: 0.74rem;
   font-weight: 600;
@@ -284,11 +284,11 @@
   margin-bottom: 0.55rem;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .section-eyebrow--dark {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .section-eyebrow--dark {
   color: var(--color-accent);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -302,82 +302,82 @@
   transition: background-color var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn:active {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn:active {
   transform: translateY(1px);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn-primary {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn-primary {
   background-color: var(--color-accent);
   color: #FFFFFF;
   border-color: var(--color-accent);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn-primary:hover {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn-primary:hover {
   background-color: var(--color-accent-dark);
   border-color: var(--color-accent-dark);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn-gold {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn-gold {
   background-color: var(--color-gold);
   color: #1B3730;
   border-color: var(--color-gold);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn-gold:hover {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn-gold:hover {
   background-color: #E3CE9E;
   border-color: #E3CE9E;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn-outline {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn-outline {
   background-color: var(--color-surface);
   color: var(--color-primary);
   border-color: var(--color-border);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn-outline:hover {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn-outline:hover {
   border-color: var(--color-primary);
   background-color: var(--color-beige);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn-outline-light {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn-outline-light {
   background-color: rgba(255, 255, 255, 0.1);
   color: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.35);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn-outline-light:hover {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn-outline-light:hover {
   background-color: rgba(255, 255, 255, 0.2);
   border-color: #FFFFFF;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .btn-sm {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .btn-sm {
   padding: 0.55rem 0.95rem;
   font-size: 0.85rem;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-footer {
   background-color: var(--color-primary);
   color: rgba(247, 244, 237, 0.86);
   border-top: none;
   padding: 2.25rem 0;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-brand strong {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-footer .footer-brand strong {
   font-family: var(--font-heading);
   font-size: 1.25rem;
   color: #FFFFFF;
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-brand p,
-:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-copy {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-footer .footer-brand p,
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-footer .footer-copy {
   color: rgba(247, 244, 237, 0.74);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-links a {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-footer .footer-links a {
   color: rgba(247, 244, 237, 0.9);
 }
 
-:is(body[data-page="search-results"], body[data-page="categories"]) .site-footer .footer-links a:hover {
+:is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-footer .footer-links a:hover {
   color: var(--color-gold);
 }
 
@@ -1319,15 +1319,15 @@ body[data-page="categories"] .artisan-cta-actions {
 }
 
 @media (max-width: 768px) {
-  :is(body[data-page="search-results"], body[data-page="categories"]) .header-inner {
+  :is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .header-inner {
     flex-wrap: wrap;
   }
 
-  :is(body[data-page="search-results"], body[data-page="categories"]) .nav-toggle {
+  :is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .nav-toggle {
     display: inline-flex;
   }
 
-  :is(body[data-page="search-results"], body[data-page="categories"]) .site-nav {
+  :is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-nav {
     display: none;
     order: 4;
     width: 100%;
@@ -1336,11 +1336,11 @@ body[data-page="categories"] .artisan-cta-actions {
     border-top: 1px solid var(--color-border);
   }
 
-  :is(body[data-page="search-results"], body[data-page="categories"]) .site-nav.open {
+  :is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .site-nav.open {
     display: block;
   }
 
-  :is(body[data-page="search-results"], body[data-page="categories"]) .nav-list {
+  :is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .nav-list {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.7rem;
@@ -1378,12 +1378,405 @@ body[data-page="categories"] .artisan-cta-actions {
     grid-template-columns: 1fr;
   }
 
-  :is(body[data-page="search-results"], body[data-page="categories"]) .icon-counter-btn .counter-label {
+  :is(body[data-page="search-results"], body[data-page="categories"], body[data-page="artisan-directory"]) .icon-counter-btn .counter-label {
     display: none;
   }
 
   body[data-page="categories"] .categories-hero-summary {
     width: 100%;
     justify-content: space-around;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Artisan Directory Page (pages/artisan-directory.html)
+   -------------------------------------------------------------------------- */
+body[data-page="artisan-directory"] .directory-hero {
+  background: linear-gradient(135deg, #24483F 0%, #1B3730 100%);
+  color: #FFFFFF;
+  padding: 1.6rem 0 2.9rem;
+}
+
+body[data-page="artisan-directory"] .directory-hero-content {
+  max-width: 720px;
+}
+
+body[data-page="artisan-directory"] .directory-heading {
+  font-size: clamp(2.15rem, 4.4vw, 3.15rem);
+  color: #FFFFFF;
+  margin-bottom: 0.65rem;
+}
+
+body[data-page="artisan-directory"] .directory-intro {
+  color: rgba(247, 244, 237, 0.86);
+  font-size: 1.02rem;
+}
+
+body[data-page="artisan-directory"] .featured-artisan-section {
+  padding: 2.5rem 0 0.75rem;
+}
+
+body[data-page="artisan-directory"] .featured-artisan-header {
+  margin-bottom: 1rem;
+}
+
+body[data-page="artisan-directory"] .section-title-left {
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  color: var(--color-primary);
+}
+
+body[data-page="artisan-directory"] .text-link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  transition: color var(--transition);
+}
+
+body[data-page="artisan-directory"] .text-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body[data-page="artisan-directory"] .featured-artisan-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 5px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.5rem 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+body[data-page="artisan-directory"] .featured-artisan-avatar {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #24483F 0%, #38665C 100%);
+  color: var(--color-gold);
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 3px solid var(--color-beige);
+  flex-shrink: 0;
+}
+
+body[data-page="artisan-directory"] .featured-artisan-avatar img,
+body[data-page="artisan-directory"] .artisan-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body[data-page="artisan-directory"] .featured-artisan-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.5rem;
+}
+
+body[data-page="artisan-directory"] .artisan-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.24rem 0.68rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  background-color: var(--color-beige);
+  color: var(--color-primary);
+}
+
+body[data-page="artisan-directory"] .artisan-badge-pill--accent {
+  background-color: rgba(188, 104, 72, 0.14);
+  color: var(--color-accent-dark);
+}
+
+body[data-page="artisan-directory"] .featured-artisan-name {
+  font-size: 1.6rem;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+body[data-page="artisan-directory"] .featured-artisan-meta {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-teal);
+  margin-bottom: 0.55rem;
+}
+
+body[data-page="artisan-directory"] .featured-artisan-bio {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  max-width: 660px;
+}
+
+body[data-page="artisan-directory"] .directory-workspace {
+  padding: 1.75rem 0 4rem;
+}
+
+body[data-page="artisan-directory"] .directory-controls-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+body[data-page="artisan-directory"] .directory-controls-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+  gap: 0.9rem;
+  align-items: end;
+}
+
+body[data-page="artisan-directory"] .control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+body[data-page="artisan-directory"] .control-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+}
+
+body[data-page="artisan-directory"] .control-select,
+body[data-page="artisan-directory"] .control-input {
+  width: 100%;
+  height: 42px;
+  padding: 0.45rem 0.78rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: 0.92rem;
+}
+
+body[data-page="artisan-directory"] .control-select:focus,
+body[data-page="artisan-directory"] .control-input:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  background-color: #FFFFFF;
+}
+
+body[data-page="artisan-directory"] .btn-clear-directory {
+  height: 42px;
+  white-space: nowrap;
+}
+
+body[data-page="artisan-directory"] .directory-status-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+body[data-page="artisan-directory"] .directory-list-title {
+  font-size: 1.35rem;
+  color: var(--color-primary);
+}
+
+body[data-page="artisan-directory"] .directory-count-text {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin-top: 0.15rem;
+}
+
+body[data-page="artisan-directory"] .artisans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+body[data-page="artisan-directory"] .artisan-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+body[data-page="artisan-directory"] .artisan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(36, 72, 63, 0.3);
+}
+
+body[data-page="artisan-directory"] .artisan-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  margin-bottom: 0.95rem;
+}
+
+body[data-page="artisan-directory"] .artisan-avatar {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #24483F 0%, #38665C 100%);
+  color: var(--color-gold);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid var(--color-beige);
+  flex-shrink: 0;
+}
+
+body[data-page="artisan-directory"] .artisan-card-name {
+  font-size: 1.22rem;
+  color: var(--color-primary);
+  margin-bottom: 0.18rem;
+}
+
+body[data-page="artisan-directory"] .artisan-card-name a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body[data-page="artisan-directory"] .artisan-card-speciality {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+body[data-page="artisan-directory"] .artisan-card-location {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+body[data-page="artisan-directory"] .artisan-card-bio {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin-bottom: 1.15rem;
+  flex: 1;
+}
+
+body[data-page="artisan-directory"] .artisan-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--color-border);
+}
+
+body[data-page="artisan-directory"] .artisan-experience {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-teal);
+}
+
+body[data-page="artisan-directory"] .artisan-profile-link {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+body[data-page="artisan-directory"] .artisan-profile-link:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body[data-page="artisan-directory"] .empty-results-card {
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2.75rem 1.5rem;
+  text-align: center;
+  max-width: 620px;
+  margin: 1rem auto 0;
+  box-shadow: var(--shadow-sm);
+}
+
+body[data-page="artisan-directory"] .empty-results-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background-color: var(--color-beige);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body[data-page="artisan-directory"] .empty-results-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+body[data-page="artisan-directory"] .empty-results-title {
+  font-size: 1.45rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+body[data-page="artisan-directory"] .empty-results-copy {
+  color: var(--color-muted);
+  max-width: 440px;
+  margin: 0 auto 1.35rem;
+}
+
+@media (max-width: 1024px) {
+  body[data-page="artisan-directory"] .directory-controls-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="artisan-directory"] .control-group--action {
+    grid-column: 1 / -1;
+  }
+
+  body[data-page="artisan-directory"] .artisans-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="artisan-directory"] .featured-artisan-card {
+    grid-template-columns: auto 1fr;
+  }
+
+  body[data-page="artisan-directory"] .featured-artisan-cta {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  body[data-page="artisan-directory"] .directory-controls-grid,
+  body[data-page="artisan-directory"] .artisans-grid,
+  body[data-page="artisan-directory"] .featured-artisan-card {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="artisan-directory"] .featured-artisan-card {
+    padding: 1.35rem;
+  }
+
+  body[data-page="artisan-directory"] .artisan-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

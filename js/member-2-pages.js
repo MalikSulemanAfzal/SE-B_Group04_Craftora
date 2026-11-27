@@ -84,6 +84,88 @@
     }
   ];
 
+  // Official 6 Craftora Fictional Demo Artisans matching js/data.js (a001 - a006)
+  const OFFICIAL_ARTISANS = [
+    {
+      id: "a001",
+      name: "Zainab's Loom",
+      craft: "Handwoven Textiles",
+      category: "handwoven-textiles",
+      city: "Matiari, Sindh",
+      region: "Sindh",
+      experience: "18 Years Workshop Heritage",
+      image: "images/artisan-a002.svg",
+      alt: "Workshop portrait for fictional demo artisan Zainab's Loom in Matiari, Sindh",
+      bio: "Family-run Matiari textile studio producing hand-carved wooden block-printed Ajrak dupattas dyed with indigo and madder root.",
+      isDemo: true
+    },
+    {
+      id: "a002",
+      name: "Kashi Studio",
+      craft: "Pottery & Ceramics",
+      category: "pottery-ceramics",
+      city: "Multan, Punjab",
+      region: "Punjab",
+      experience: "26 Years Workshop Heritage",
+      image: "images/artisan-a001.svg",
+      alt: "Workshop portrait for fictional demo artisan Kashi Studio in Multan, Punjab",
+      bio: "Traditional Multani pottery guild hand-throwing quartz-clay vases painted in signature cobalt blue and turquoise Kashi florals.",
+      isDemo: true
+    },
+    {
+      id: "a003",
+      name: "Darakht Works",
+      craft: "Wooden Handicrafts",
+      category: "wooden-handicrafts",
+      city: "Chiniot, Punjab",
+      region: "Punjab",
+      experience: "30 Years Workshop Heritage",
+      image: "images/artisan-a003.svg",
+      alt: "Workshop portrait for fictional demo artisan Darakht Works in Chiniot, Punjab",
+      bio: "Chiniot master woodcarvers shaping seasoned Sheesham rosewood boxes with fine hand-chiselled filigree and brass detailing.",
+      isDemo: true
+    },
+    {
+      id: "a004",
+      name: "Gulzar Needlecraft",
+      craft: "Embroidery & Needlework",
+      category: "embroidery-needlework",
+      city: "Hala, Sindh",
+      region: "Sindh",
+      experience: "15 Years Workshop Heritage",
+      image: "images/artisan-a004.svg",
+      alt: "Workshop portrait for fictional demo artisan Gulzar Needlecraft in Hala, Sindh",
+      bio: "Women-led Hala embroidery collective hand-stitching vibrant geometric threadwork and shisha accents onto soft cotton cushions.",
+      isDemo: true
+    },
+    {
+      id: "a005",
+      name: "Qissa Leather House",
+      craft: "Leather Crafts",
+      category: "leather-crafts",
+      city: "Lahore, Punjab",
+      region: "Punjab",
+      experience: "22 Years Workshop Heritage",
+      image: "images/artisan-a005.svg",
+      alt: "Workshop portrait for fictional demo artisan Qissa Leather House in Lahore, Punjab",
+      bio: "Heritage Lahore footwear workshop crafting supple vegetable-tanned leather khussas stitched entirely with waxed cotton thread.",
+      isDemo: true
+    },
+    {
+      id: "a006",
+      name: "Rang Caravan",
+      craft: "Traditional Home Décor",
+      category: "traditional-home-decor",
+      city: "Rawalpindi, Punjab",
+      region: "Punjab",
+      experience: "19 Years Workshop Heritage",
+      image: "images/artisan-a006.svg",
+      alt: "Workshop portrait for fictional demo artisan Rang Caravan in Rawalpindi, Punjab",
+      bio: "Rawalpindi decorative painters translating iconic Pakistani truck-art peacocks, chamakpatti, and floral borders onto home trays.",
+      isDemo: true
+    }
+  ];
+
   // Fallback products for standalone preview of search-results.html when
   // shared js/data.js is not yet merged onto the active branch.
   const FALLBACK_PRODUCTS = [
@@ -1214,6 +1296,287 @@
   }
 
   /* ------------------------------------------------------------------------
+     Page 3: Artisan Directory Controller (pages/artisan-directory.html)
+     ------------------------------------------------------------------------ */
+  function getArtisanInitials(name) {
+    return String(name || "CR")
+      .replace(/['’]s\b/gi, "")
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((part) => part.charAt(0).toUpperCase())
+      .join("") || "CR";
+  }
+
+  function getArtisansSource() {
+    const shared = global.CraftoraData;
+    const raw =
+      shared && Array.isArray(shared.artisans) && shared.artisans.length
+        ? shared.artisans
+        : OFFICIAL_ARTISANS;
+
+    return raw.map((item) => {
+      const location = item.city
+        ? item.province && !item.city.includes(",")
+          ? item.city + ", " + item.province
+          : item.city
+        : item.region || "Pakistan";
+
+      return {
+        id: item.id,
+        name: item.name,
+        speciality: item.craft || item.speciality || "Pakistani Handicrafts",
+        location: location,
+        region: item.region || item.province || "",
+        experience:
+          item.experience ||
+          (item.yearsExperience ? item.yearsExperience + " Years Workshop Heritage" : "Independent Workshop"),
+        image: item.image || "",
+        alt: item.alt || item.name + " workshop portrait",
+        bio: item.bio || "",
+        initials: getArtisanInitials(item.name)
+      };
+    });
+  }
+
+  function createArtisanAvatarMarkup(artisan) {
+    if (artisan.image) {
+      const imgSrc = resolveImagePath(artisan.image);
+      return `<img src="${escapeHTML(imgSrc)}" alt="${escapeHTML(artisan.alt)}" data-initials="${escapeHTML(artisan.initials)}" loading="lazy">`;
+    }
+    return `<span>${escapeHTML(artisan.initials)}</span>`;
+  }
+
+  function wireAvatarFallbacks(rootEl) {
+    if (!rootEl) return;
+    rootEl.querySelectorAll("img[data-initials]").forEach((img) => {
+      img.addEventListener("error", function handleAvatarErr() {
+        const initials = img.getAttribute("data-initials") || "CR";
+        const span = document.createElement("span");
+        span.textContent = initials;
+        if (img.parentNode) {
+          img.parentNode.replaceChild(span, img);
+        }
+      });
+    });
+  }
+
+  function initArtisanDirectoryPage() {
+    const gridEl = document.getElementById("artisan-directory-grid");
+    const featuredEl = document.getElementById("featured-artisan-card");
+    const searchInput = document.getElementById("artisan-search-input");
+    const locationSelect = document.getElementById("artisan-location-filter");
+    const specialitySelect = document.getElementById("artisan-speciality-filter");
+    const sortSelect = document.getElementById("artisan-sort-select");
+    const clearBtn = document.getElementById("artisan-clear-filters");
+    const emptyClearBtn = document.getElementById("artisan-empty-clear-btn");
+    const countEl = document.getElementById("artisan-count-display");
+    const emptyEl = document.getElementById("artisan-empty-state");
+    const emptyMsgEl = document.getElementById("artisan-empty-message");
+
+    if (!gridEl) return;
+
+    const artisans = getArtisansSource();
+    const directoryState = {
+      search: "",
+      location: "all",
+      speciality: "all",
+      sortBy: "name-asc"
+    };
+
+    // Featured Artisan Spotlight (a001 or first workshop)
+    if (featuredEl && artisans.length > 0) {
+      const spotlight = artisans[0];
+      const profileHref = "artisan-profile.html?id=" + encodeURIComponent(spotlight.id);
+      featuredEl.innerHTML = `
+        <div class="featured-artisan-avatar" aria-hidden="true">
+          ${createArtisanAvatarMarkup(spotlight)}
+        </div>
+        <div>
+          <div class="featured-artisan-badges">
+            <span class="artisan-badge-pill artisan-badge-pill--accent">Featured Workshop &middot; ${escapeHTML(spotlight.id.toUpperCase())}</span>
+            <span class="artisan-badge-pill">${escapeHTML(spotlight.experience)}</span>
+          </div>
+          <h3 class="featured-artisan-name">${escapeHTML(spotlight.name)}</h3>
+          <p class="featured-artisan-meta">${escapeHTML(spotlight.speciality)} &middot; ${escapeHTML(spotlight.location)}</p>
+          <p class="featured-artisan-bio">${escapeHTML(spotlight.bio)}</p>
+        </div>
+        <div class="featured-artisan-cta">
+          <a href="${profileHref}" class="btn btn-primary">View Artisan Profile &rarr;</a>
+        </div>
+      `;
+      wireAvatarFallbacks(featuredEl);
+    }
+
+    // Populate Location and Speciality filters dynamically
+    if (locationSelect) {
+      const locations = Array.from(new Set(artisans.map((a) => a.location))).sort();
+      locationSelect.innerHTML = '<option value="all">All Locations</option>';
+      locations.forEach((loc) => {
+        const opt = document.createElement("option");
+        opt.value = loc;
+        opt.textContent = loc;
+        locationSelect.appendChild(opt);
+      });
+    }
+
+    if (specialitySelect) {
+      const specialities = Array.from(new Set(artisans.map((a) => a.speciality))).sort();
+      specialitySelect.innerHTML = '<option value="all">All Specialities</option>';
+      specialities.forEach((spec) => {
+        const opt = document.createElement("option");
+        opt.value = spec;
+        opt.textContent = spec;
+        specialitySelect.appendChild(opt);
+      });
+    }
+
+    function renderDirectory() {
+      const query = directoryState.search.trim().toLowerCase();
+
+      const filtered = artisans.filter((artisan) => {
+        if (directoryState.location !== "all" && artisan.location !== directoryState.location) {
+          return false;
+        }
+        if (directoryState.speciality !== "all" && artisan.speciality !== directoryState.speciality) {
+          return false;
+        }
+        if (query) {
+          const haystack = (
+            artisan.name +
+            " " +
+            artisan.speciality +
+            " " +
+            artisan.location +
+            " " +
+            artisan.bio
+          ).toLowerCase();
+          if (!haystack.includes(query)) return false;
+        }
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        switch (directoryState.sortBy) {
+          case "name-desc":
+            return b.name.localeCompare(a.name);
+          case "location-asc":
+            return a.location.localeCompare(b.location) || a.name.localeCompare(b.name);
+          case "location-desc":
+            return b.location.localeCompare(a.location) || a.name.localeCompare(b.name);
+          case "name-asc":
+          default:
+            return a.name.localeCompare(b.name);
+        }
+      });
+
+      if (countEl) {
+        countEl.textContent =
+          "Showing " + filtered.length + " of " + artisans.length + " artisans";
+      }
+
+      gridEl.innerHTML = "";
+
+      if (filtered.length === 0) {
+        gridEl.hidden = true;
+        if (emptyEl) emptyEl.hidden = false;
+        if (emptyMsgEl) {
+          emptyMsgEl.textContent = directoryState.search
+            ? 'No artisan workshops matched "' + directoryState.search + '" with your selected filters.'
+            : "No artisan workshops matched your selected location and craft speciality.";
+        }
+        return;
+      }
+
+      gridEl.hidden = false;
+      if (emptyEl) emptyEl.hidden = true;
+
+      const frag = document.createDocumentFragment();
+      filtered.forEach((artisan) => {
+        const profileHref = "artisan-profile.html?id=" + encodeURIComponent(artisan.id);
+        const card = document.createElement("article");
+        card.className = "artisan-card";
+        card.setAttribute("data-artisan-id", artisan.id);
+        card.innerHTML = `
+          <div class="artisan-card-top">
+            <div class="artisan-avatar" aria-hidden="true">
+              ${createArtisanAvatarMarkup(artisan)}
+            </div>
+            <div>
+              <h3 class="artisan-card-name">
+                <a href="${profileHref}">${escapeHTML(artisan.name)}</a>
+              </h3>
+              <p class="artisan-card-speciality">${escapeHTML(artisan.speciality)}</p>
+              <p class="artisan-card-location">${escapeHTML(artisan.location)}</p>
+            </div>
+          </div>
+          <p class="artisan-card-bio">${escapeHTML(artisan.bio)}</p>
+          <div class="artisan-card-footer">
+            <span class="artisan-experience">${escapeHTML(artisan.experience)}</span>
+            <a href="${profileHref}" class="artisan-profile-link">View Profile &rarr;</a>
+          </div>
+        `;
+        wireAvatarFallbacks(card);
+        frag.appendChild(card);
+      });
+
+      gridEl.appendChild(frag);
+    }
+
+    function clearDirectoryFilters() {
+      directoryState.search = "";
+      directoryState.location = "all";
+      directoryState.speciality = "all";
+      directoryState.sortBy = "name-asc";
+
+      if (searchInput) searchInput.value = "";
+      if (locationSelect) locationSelect.value = "all";
+      if (specialitySelect) specialitySelect.value = "all";
+      if (sortSelect) sortSelect.value = "name-asc";
+
+      renderDirectory();
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener("input", () => {
+        directoryState.search = searchInput.value;
+        renderDirectory();
+      });
+    }
+
+    if (locationSelect) {
+      locationSelect.addEventListener("change", () => {
+        directoryState.location = locationSelect.value || "all";
+        renderDirectory();
+      });
+    }
+
+    if (specialitySelect) {
+      specialitySelect.addEventListener("change", () => {
+        directoryState.speciality = specialitySelect.value || "all";
+        renderDirectory();
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener("change", () => {
+        directoryState.sortBy = sortSelect.value || "name-asc";
+        renderDirectory();
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", clearDirectoryFilters);
+    }
+
+    if (emptyClearBtn) {
+      emptyClearBtn.addEventListener("click", clearDirectoryFilters);
+    }
+
+    renderDirectory();
+  }
+
+  /* ------------------------------------------------------------------------
      Bootstrap Based on body[data-page]
      ------------------------------------------------------------------------ */
   document.addEventListener("DOMContentLoaded", () => {
@@ -1226,6 +1589,8 @@
       initSearchResultsPage();
     } else if (page === "categories") {
       initCategoriesPage();
+    } else if (page === "artisan-directory") {
+      initArtisanDirectoryPage();
     }
   });
 })(window);
