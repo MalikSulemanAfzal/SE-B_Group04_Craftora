@@ -1,0 +1,440 @@
+/* ==========================================================================
+   Craftora - Order History Page Styles (Page 13)
+   Matches Craftora's cream header, dark green palette, and editorial typography.
+   ========================================================================== */
+
+.order-history-page {
+  --craftora-green: #224436;
+  --craftora-green-deep: #183429;
+  --craftora-green-soft: #2e5545;
+  --craftora-cream: #fbf8f3;
+  --craftora-cream-warm: #f3ede2;
+  --craftora-gold: #e5d2a3;
+  --craftora-ink: #1e2a24;
+  --craftora-muted: #5f6861;
+  --craftora-terracotta: #9c4a2b;
+  --craftora-border: #e3dacb;
+  --craftora-pending-bg: #fdf3e1;
+  --craftora-pending-text: #8c5319;
+  --craftora-pending-border: #edd3a4;
+  --craftora-delivered-bg: #e4efe9;
+  --craftora-delivered-text: #1c4d37;
+  --craftora-delivered-border: #bad4c6;
+
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--craftora-cream);
+  color: var(--craftora-ink);
+}
+
+/* 1. Top Announcement Bar */
+.announcement-bar {
+  background-color: var(--craftora-green-deep);
+  color: #e7ebe8;
+  font-size: 0.82rem;
+  padding: 0.55rem 0;
+}
+
+.announcement-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  text-align: center;
+}
+
+.announcement-link {
+  color: var(--craftora-gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.announcement-link:hover {
+  color: #ffffff;
+}
+
+/* 2. Cream Header & Brand Lockup */
+.order-history-page .site-header {
+  background-color: var(--craftora-cream);
+  border-bottom: 1px solid var(--craftora-border);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-emblem {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid #d5c7b4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--craftora-terracotta);
+  background-color: #fffdf9;
+  flex-shrink: 0;
+}
+
+.brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-name {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--craftora-ink);
+  letter-spacing: -0.01em;
+}
+
+.brand-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--craftora-terracotta);
+  margin: 0.2rem 0;
+}
+
+.brand-tagline {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--craftora-muted);
+}
+
+.order-history-page .nav-link {
+  color: var(--craftora-ink);
+  font-size: 0.95rem;
+}
+
+.order-history-page .nav-link:hover,
+.order-history-page .nav-link.active {
+  color: var(--craftora-green);
+  border-bottom-color: var(--craftora-green);
+}
+
+.order-history-page .nav-toggle {
+  border-color: var(--craftora-border);
+  color: var(--craftora-ink);
+}
+
+/* 3. Dark Green Hero Banner */
+.orders-hero {
+  background: radial-gradient(circle at 85% 20%, var(--craftora-green-soft) 0%, var(--craftora-green) 48%, var(--craftora-green-deep) 100%);
+  color: #ffffff;
+  padding: 3.25rem 0;
+  border-bottom: 4px solid var(--craftora-gold);
+}
+
+.orders-hero-inner {
+  max-width: 720px;
+  margin-left: 0;
+}
+
+.orders-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--craftora-gold);
+  margin-bottom: 0.65rem;
+}
+
+.orders-heading {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.orders-subtitle {
+  font-size: 1.02rem;
+  color: #d6e1db;
+  max-width: 56ch;
+}
+
+/* 4. Orders Section & Filter Toolbar */
+.orders-section {
+  padding: 2.75rem 0 4rem;
+}
+
+.orders-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--craftora-border);
+}
+
+.orders-section-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--craftora-green-deep);
+}
+
+.orders-count {
+  font-size: 0.92rem;
+  color: var(--craftora-muted);
+  margin-top: 0.2rem;
+}
+
+.order-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.filter-btn {
+  appearance: none;
+  border: 1px solid var(--craftora-border);
+  background-color: #ffffff;
+  color: var(--craftora-ink);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.55rem 1.15rem;
+  min-height: 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--craftora-green);
+  color: var(--craftora-green);
+}
+
+.filter-btn:focus-visible {
+  outline: 2px solid var(--craftora-green);
+  outline-offset: 2px;
+}
+
+.filter-btn.active {
+  background-color: var(--craftora-green);
+  border-color: var(--craftora-green);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(24, 52, 41, 0.18);
+}
+
+/* 5. Order Cards */
+.orders-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.order-card {
+  background-color: #ffffff;
+  border: 1px solid var(--craftora-border);
+  border-radius: 12px;
+  padding: 1.4rem 1.5rem;
+  box-shadow: 0 4px 14px rgba(30, 42, 36, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(30, 42, 36, 0.08);
+}
+
+.order-card[hidden] {
+  display: none;
+}
+
+.order-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--craftora-cream-warm);
+}
+
+.order-id-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.field-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--craftora-muted);
+}
+
+.order-number {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--craftora-green-deep);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.status-badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.status-pending {
+  background-color: var(--craftora-pending-bg);
+  color: var(--craftora-pending-text);
+  border-color: var(--craftora-pending-border);
+}
+
+.status-delivered {
+  background-color: var(--craftora-delivered-bg);
+  color: var(--craftora-delivered-text);
+  border-color: var(--craftora-delivered-border);
+}
+
+.order-card-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.order-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field-value {
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--craftora-ink);
+}
+
+.item-name {
+  font-weight: 600;
+  color: var(--craftora-green-deep);
+}
+
+.item-meta {
+  font-size: 0.86rem;
+  color: var(--craftora-muted);
+}
+
+.order-total {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--craftora-terracotta);
+}
+
+/* 6. Empty State */
+.orders-empty {
+  background-color: #ffffff;
+  border: 1px dashed var(--craftora-border);
+  border-radius: 12px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+}
+
+.empty-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--craftora-green-deep);
+  margin-bottom: 0.35rem;
+}
+
+.empty-text {
+  color: var(--craftora-muted);
+  font-size: 0.95rem;
+}
+
+/* 7. Footer Alignment with Cream & Dark Green Palette */
+.order-history-page .site-footer {
+  background-color: var(--craftora-green-deep);
+  border-top: 1px solid var(--craftora-green-soft);
+  color: #e7ebe8;
+}
+
+.order-history-page .footer-brand strong {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.15rem;
+  color: var(--craftora-gold);
+}
+
+.order-history-page .footer-brand p,
+.order-history-page .footer-copy {
+  color: #c2d0c8;
+}
+
+.order-history-page .footer-links a {
+  color: #e7ebe8;
+}
+
+.order-history-page .footer-links a:hover {
+  color: var(--craftora-gold);
+}
+
+/* 8. Mobile & Tablet Responsiveness */
+@media (max-width: 768px) {
+  .orders-hero {
+    padding: 2.4rem 0;
+  }
+
+  .orders-section {
+    padding: 2rem 0 3rem;
+  }
+
+  .orders-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-filters {
+    width: 100%;
+  }
+
+  .filter-btn {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .order-card {
+    padding: 1.15rem;
+  }
+
+  .order-card-body {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .order-field-total {
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--craftora-cream-warm);
+  }
+}

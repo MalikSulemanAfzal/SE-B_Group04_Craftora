@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders | Craftora</title>
+  <!-- Editorial serif & clean sans fonts matching Craftora homepage -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <!-- Shared base styles followed by Order History page styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/order-history.css">
+</head>
+<body class="order-history-page">
+
+  <!-- Top Heritage Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="container announcement-inner">
+      <span>Celebrating Pakistani craftsmanship &middot; Thoughtful objects, made by hand</span>
+      <a href="../index.html" class="announcement-link">Discover our story</a>
+    </div>
+  </div>
+
+  <!-- ================= CREAM HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-lockup" aria-label="Craftora Home">
+        <span class="brand-emblem" aria-hidden="true">C</span>
+        <span class="brand-wordmark">
+          <span class="brand-name">craftora</span>
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span class="brand-tagline">MADE WITH HERITAGE</span>
+        </span>
+      </a>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        &#9776;
+      </button>
+
+      <nav id="main-nav" class="site-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="order-history.html" class="nav-link active" aria-current="page">My Orders</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+    <!-- Dark Green Heritage Page Banner -->
+    <section class="orders-hero">
+      <div class="container orders-hero-inner">
+        <p class="orders-eyebrow">A MARKETPLACE FOR MEANINGFUL MAKING</p>
+        <h1 class="orders-heading">My Orders</h1>
+        <p class="orders-subtitle">
+          Track your handcrafted pieces from Pakistani artisan workshops to your doorstep.
+        </p>
+      </div>
+    </section>
+
+    <!-- Order History Section -->
+    <section class="orders-section" aria-labelledby="orders-list-title">
+      <div class="container">
+        <div class="orders-toolbar">
+          <div class="orders-toolbar-text">
+            <h2 id="orders-list-title" class="orders-section-title">Order History</h2>
+            <p id="orders-count" class="orders-count" aria-live="polite">
+              Showing 2 orders
+            </p>
+          </div>
+
+          <!-- Status Filter Controls -->
+          <div class="order-filters" role="group" aria-label="Filter orders by status">
+            <button
+              type="button"
+              class="filter-btn active"
+              data-filter="all"
+              aria-pressed="true"
+            >
+              All
+            </button>
+            <button
+              type="button"
+              class="filter-btn"
+              data-filter="pending"
+              aria-pressed="false"
+            >
+              Pending
+            </button>
+            <button
+              type="button"
+              class="filter-btn"
+              data-filter="delivered"
+              aria-pressed="false"
+            >
+              Delivered
+            </button>
+          </div>
+        </div>
+
+        <!-- Orders List -->
+        <div id="orders-list" class="orders-list">
+          <!-- Sample Order 1: Pending -->
+          <article class="order-card" data-status="pending">
+            <div class="order-card-header">
+              <div class="order-id-group">
+                <span class="field-label">Order Number</span>
+                <h3 class="order-number">#CRF-2026-1042</h3>
+              </div>
+              <span class="status-badge status-pending">Pending</span>
+            </div>
+
+            <div class="order-card-body">
+              <div class="order-field order-field-item">
+                <span class="field-label">Item</span>
+                <p class="field-value item-name">Multani Blue Pottery Serving Bowl (Set of 2)</p>
+                <p class="item-meta">Hand-glazed ceramic &middot; Multan Artisan Guild</p>
+              </div>
+
+              <div class="order-field">
+                <span class="field-label">Date</span>
+                <p class="field-value">November 24, 2026</p>
+              </div>
+
+              <div class="order-field order-field-total">
+                <span class="field-label">Total</span>
+                <p class="field-value order-total">Rs. 4,850</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Sample Order 2: Delivered -->
+          <article class="order-card" data-status="delivered">
+            <div class="order-card-header">
+              <div class="order-id-group">
+                <span class="field-label">Order Number</span>
+                <h3 class="order-number">#CRF-2026-1038</h3>
+              </div>
+              <span class="status-badge status-delivered">Delivered</span>
+            </div>
+
+            <div class="order-card-body">
+              <div class="order-field order-field-item">
+                <span class="field-label">Item</span>
+                <p class="field-value item-name">Handwoven Ajrak Block-Printed Cotton Throw</p>
+                <p class="item-meta">Natural indigo &amp; madder dye &middot; Sindh Craft Collective</p>
+              </div>
+
+              <div class="order-field">
+                <span class="field-label">Date</span>
+                <p class="field-value">November 12, 2026</p>
+              </div>
+
+              <div class="order-field order-field-total">
+                <span class="field-label">Total</span>
+                <p class="field-value order-total">Rs. 6,200</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Empty State (shown if a filter has 0 matching orders) -->
+        <div id="orders-empty" class="orders-empty" hidden>
+          <p class="empty-title">No orders found</p>
+          <p class="empty-text">There are currently no orders matching the selected filter.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= SHARED-STYLE FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Craftora</strong>
+        <p>Supporting local craftsmanship and handmade quality.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="order-history.html">My Orders</a></li>
+        </ul>
+      </nav>
+
+      <p class="footer-copy">&copy; 2026 Craftora. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js" defer></script>
+  <script src="../js/order-history.js" defer></script>
+</body>
+</html>
