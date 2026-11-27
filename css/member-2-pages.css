@@ -1,0 +1,1045 @@
+/* ==========================================================================
+   Craftora - Member 2 Pages Stylesheet (pages/search-results.html)
+   Matches Craftora's cream header, #24483F dark green palette, and
+   Playfair Display / DM Sans typography without altering shared CSS files.
+   ========================================================================== */
+
+body[data-page="search-results"] {
+  --color-primary: #24483F;
+  --color-primary-dark: #1B3730;
+  --color-teal: #38665C;
+  --color-accent: #BC6848;
+  --color-accent-dark: #9D5236;
+  --color-gold: #D5BE8B;
+  --color-gold-deep: #B99A5B;
+  --color-bg: #F7F4ED;
+  --color-cream: #FAF7F0;
+  --color-surface: #FFFFFF;
+  --color-beige: #EEE9DF;
+  --color-text: #252A27;
+  --color-muted: #6C7068;
+  --color-border: #E2DED4;
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 2px 10px rgba(36, 72, 63, 0.06);
+  --shadow-md: 0 12px 28px rgba(36, 72, 63, 0.10);
+  --transition: 0.22s ease;
+
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: clip;
+}
+
+body[data-page="search-results"] h1,
+body[data-page="search-results"] h2,
+body[data-page="search-results"] h3,
+body[data-page="search-results"] h4 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  line-height: 1.22;
+}
+
+body[data-page="search-results"] .container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+body[data-page="search-results"] .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body[data-page="search-results"] [hidden] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   1. Top Announcement Bar & Cream Header (Matches Homepage Screenshot)
+   -------------------------------------------------------------------------- */
+body[data-page="search-results"] .announcement-bar {
+  background-color: var(--color-primary);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.82rem;
+  padding: 0.52rem 0;
+}
+
+body[data-page="search-results"] .announcement-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  text-align: center;
+}
+
+body[data-page="search-results"] .announcement-link {
+  color: var(--color-gold);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(213, 190, 139, 0.45);
+  transition: color var(--transition), border-color var(--transition);
+}
+
+body[data-page="search-results"] .announcement-link:hover {
+  color: #FFFFFF;
+  border-bottom-color: #FFFFFF;
+}
+
+body[data-page="search-results"] .site-header {
+  background-color: var(--color-cream);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+body[data-page="search-results"] .header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 0.85rem 0;
+}
+
+body[data-page="search-results"] .brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
+  flex-shrink: 0;
+}
+
+body[data-page="search-results"] .brand-emblem {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(188, 104, 72, 0.42);
+  background-color: #FFFFFF;
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body[data-page="search-results"] .brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+body[data-page="search-results"] .brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
+}
+
+body[data-page="search-results"] .brand-dot {
+  color: var(--color-accent);
+}
+
+body[data-page="search-results"] .brand-tagline {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: 0.2rem;
+}
+
+body[data-page="search-results"] .site-nav {
+  margin-inline: auto;
+}
+
+body[data-page="search-results"] .nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+body[data-page="search-results"] .nav-link {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--color-text);
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+body[data-page="search-results"] .nav-link:hover,
+body[data-page="search-results"] .nav-link.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-accent);
+}
+
+body[data-page="search-results"] .header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+body[data-page="search-results"] .icon-btn,
+body[data-page="search-results"] .icon-counter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.62rem;
+  border-radius: 999px;
+  color: var(--color-text);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+body[data-page="search-results"] .icon-btn:hover,
+body[data-page="search-results"] .icon-counter-btn:hover {
+  background-color: var(--color-beige);
+  color: var(--color-primary);
+}
+
+body[data-page="search-results"] .icon-btn svg,
+body[data-page="search-results"] .icon-counter-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+body[data-page="search-results"] .counter-badge {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background-color: var(--color-beige);
+  color: var(--color-primary);
+  font-size: 0.74rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+body[data-page="search-results"] .nav-toggle {
+  border-color: var(--color-border);
+  color: var(--color-primary);
+  background-color: var(--color-surface);
+}
+
+/* --------------------------------------------------------------------------
+   2. Search Hero Banner & Large Search Input Bar
+   -------------------------------------------------------------------------- */
+body[data-page="search-results"] .search-hero {
+  background: linear-gradient(135deg, #24483F 0%, #1D3B33 100%);
+  color: #FFFFFF;
+  padding: 1.5rem 0 2.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body[data-page="search-results"] .breadcrumb-nav {
+  margin-bottom: 1.35rem;
+}
+
+body[data-page="search-results"] .breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  font-size: 0.84rem;
+  color: rgba(247, 244, 237, 0.78);
+}
+
+body[data-page="search-results"] .breadcrumb-item a {
+  color: rgba(247, 244, 237, 0.9);
+  transition: color var(--transition);
+}
+
+body[data-page="search-results"] .breadcrumb-item a:hover {
+  color: var(--color-gold);
+  text-decoration: underline;
+}
+
+body[data-page="search-results"] .breadcrumb-item[aria-current="page"] {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+body[data-page="search-results"] .breadcrumb-separator {
+  color: rgba(247, 244, 237, 0.48);
+}
+
+body[data-page="search-results"] .search-hero-inner {
+  max-width: 860px;
+}
+
+body[data-page="search-results"] .section-eyebrow {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.55rem;
+}
+
+body[data-page="search-results"] .search-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.65rem;
+}
+
+body[data-page="search-results"] .search-heading em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-gold);
+}
+
+body[data-page="search-results"] .search-subtitle {
+  color: rgba(247, 244, 237, 0.85);
+  font-size: 1rem;
+  max-width: 640px;
+  margin-bottom: 1.5rem;
+}
+
+body[data-page="search-results"] .search-bar-form {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+  margin-bottom: 1.15rem;
+}
+
+body[data-page="search-results"] .search-input-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+body[data-page="search-results"] .search-input-icon {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-muted);
+  display: inline-flex;
+  pointer-events: none;
+}
+
+body[data-page="search-results"] .search-input-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+body[data-page="search-results"] .search-input-large {
+  width: 100%;
+  height: 54px;
+  padding: 0.8rem 1.15rem 0.8rem 3rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: #FFFFFF;
+  color: var(--color-text);
+  font-size: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+
+body[data-page="search-results"] .search-input-large:focus {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+body[data-page="search-results"] .search-form-actions {
+  display: flex;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+body[data-page="search-results"] .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+body[data-page="search-results"] .btn:active {
+  transform: translateY(1px);
+}
+
+body[data-page="search-results"] .btn-primary {
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+  border-color: var(--color-accent);
+}
+
+body[data-page="search-results"] .btn-primary:hover {
+  background-color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+
+body[data-page="search-results"] .btn-outline {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border-color: var(--color-border);
+}
+
+body[data-page="search-results"] .btn-outline:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-beige);
+}
+
+body[data-page="search-results"] .btn-outline-light {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+body[data-page="search-results"] .btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #FFFFFF;
+}
+
+body[data-page="search-results"] .btn-sm {
+  padding: 0.55rem 0.95rem;
+  font-size: 0.85rem;
+}
+
+body[data-page="search-results"] .search-submit-btn,
+body[data-page="search-results"] .clear-search-btn {
+  height: 54px;
+  border-radius: var(--radius);
+  padding-inline: 1.35rem;
+  white-space: nowrap;
+}
+
+/* Related Search Suggestions */
+body[data-page="search-results"] .suggestions-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+body[data-page="search-results"] .suggestions-label {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: rgba(247, 244, 237, 0.82);
+  margin-right: 0.25rem;
+}
+
+body[data-page="search-results"] .suggestions-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+body[data-page="search-results"] .suggestion-chip {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #F7F4ED;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  padding: 0.32rem 0.82rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition);
+}
+
+body[data-page="search-results"] .suggestion-chip:hover,
+body[data-page="search-results"] .suggestion-chip.is-active {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #1D3B33;
+}
+
+/* --------------------------------------------------------------------------
+   3. Suggested Categories & Filter / Sort Workspace
+   -------------------------------------------------------------------------- */
+body[data-page="search-results"] .search-workspace {
+  padding: 2.25rem 0 4rem;
+}
+
+body[data-page="search-results"] .suggested-categories-panel {
+  margin-bottom: 1.5rem;
+}
+
+body[data-page="search-results"] .suggested-categories-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+body[data-page="search-results"] .suggested-categories-title {
+  font-size: 1.15rem;
+  color: var(--color-primary);
+}
+
+body[data-page="search-results"] .suggested-categories-hint {
+  font-size: 0.84rem;
+  color: var(--color-muted);
+}
+
+body[data-page="search-results"] .suggested-categories-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+body[data-page="search-results"] .category-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.48rem 0.95rem;
+  border-radius: 999px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition);
+}
+
+body[data-page="search-results"] .category-pill-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+body[data-page="search-results"] .category-pill-btn.is-active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+body[data-page="search-results"] .category-pill-count {
+  font-size: 0.75rem;
+  opacity: 0.78;
+}
+
+/* Filter & Sort Card */
+body[data-page="search-results"] .search-controls-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+body[data-page="search-results"] .controls-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr auto;
+  gap: 0.9rem;
+  align-items: end;
+}
+
+body[data-page="search-results"] .control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+body[data-page="search-results"] .control-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+}
+
+body[data-page="search-results"] .control-select,
+body[data-page="search-results"] .control-input {
+  width: 100%;
+  height: 42px;
+  padding: 0.45rem 0.78rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: 0.92rem;
+}
+
+body[data-page="search-results"] .control-select:focus,
+body[data-page="search-results"] .control-input:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  background-color: #FFFFFF;
+}
+
+body[data-page="search-results"] .btn-reset-filters {
+  height: 42px;
+  white-space: nowrap;
+}
+
+/* Status Bar (Active Search Query & Result Count) */
+body[data-page="search-results"] .results-status-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem 1.25rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+body[data-page="search-results"] .results-status-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+body[data-page="search-results"] .active-query-text {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+body[data-page="search-results"] .active-query-highlight {
+  color: var(--color-accent);
+}
+
+body[data-page="search-results"] .results-count-text {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+body[data-page="search-results"] .active-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+body[data-page="search-results"] .active-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.72rem;
+  border-radius: 999px;
+  background-color: var(--color-beige);
+  border: 1px solid var(--color-border);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+body[data-page="search-results"] .active-chip button {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.15rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. Product Cards Grid (Matches Craftora's Shared Product Card Style)
+   -------------------------------------------------------------------------- */
+body[data-page="search-results"] .products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+body[data-page="search-results"] .product-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+body[data-page="search-results"] .product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(36, 72, 63, 0.28);
+}
+
+body[data-page="search-results"] .product-media {
+  position: relative;
+  height: 220px;
+  background-color: var(--color-beige);
+  overflow: hidden;
+}
+
+body[data-page="search-results"] .product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+body[data-page="search-results"] .product-card:hover .product-media img {
+  transform: scale(1.03);
+}
+
+body[data-page="search-results"] .product-badge {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  background-color: rgba(36, 72, 63, 0.92);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+}
+
+body[data-page="search-results"] .wishlist-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background-color: rgba(255, 255, 255, 0.94);
+  color: var(--color-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color var(--transition), background-color var(--transition), border-color var(--transition);
+}
+
+body[data-page="search-results"] .wishlist-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+body[data-page="search-results"] .wishlist-btn:hover,
+body[data-page="search-results"] .wishlist-btn.is-active {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background-color: #FFFFFF;
+}
+
+body[data-page="search-results"] .product-body {
+  padding: 1.15rem 1.2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+body[data-page="search-results"] .product-category {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  margin-bottom: 0.32rem;
+}
+
+body[data-page="search-results"] .product-title {
+  font-family: var(--font-heading);
+  font-size: 1.14rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.28rem;
+}
+
+body[data-page="search-results"] .product-title a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+body[data-page="search-results"] .product-artisan {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-bottom: 0.55rem;
+}
+
+body[data-page="search-results"] .product-desc-snippet {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-bottom: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+body[data-page="search-results"] .product-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+  margin-bottom: 0.95rem;
+}
+
+body[data-page="search-results"] .product-price {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+body[data-page="search-results"] .product-rating {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+body[data-page="search-results"] .product-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.55rem;
+}
+
+body[data-page="search-results"] .product-actions .js-add-to-cart {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+body[data-page="search-results"] .product-actions .js-add-to-cart:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+/* --------------------------------------------------------------------------
+   5. Empty Results State & Toast Notifications
+   -------------------------------------------------------------------------- */
+body[data-page="search-results"] .empty-results-card {
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  max-width: 680px;
+  margin: 1rem auto 0;
+  box-shadow: var(--shadow-sm);
+}
+
+body[data-page="search-results"] .empty-results-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.1rem;
+  border-radius: 50%;
+  background-color: var(--color-beige);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body[data-page="search-results"] .empty-results-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+body[data-page="search-results"] .empty-results-title {
+  font-size: 1.55rem;
+  color: var(--color-primary);
+  margin-bottom: 0.55rem;
+}
+
+body[data-page="search-results"] .empty-results-copy {
+  color: var(--color-muted);
+  max-width: 480px;
+  margin: 0 auto 1.4rem;
+}
+
+body[data-page="search-results"] .empty-results-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+body[data-page="search-results"] .empty-suggestions-wrap {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+body[data-page="search-results"] .empty-suggestions-label {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-bottom: 0.65rem;
+}
+
+body[data-page="search-results"] .empty-suggestions-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+body[data-page="search-results"] .empty-suggestion-btn {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+body[data-page="search-results"] .empty-suggestion-btn:hover {
+  background-color: var(--color-beige);
+  border-color: var(--color-primary);
+}
+
+/* Fallback Toast Container (when CraftoraUI isn't loaded) */
+.craftora-m2-toast-wrap {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.craftora-m2-toast {
+  background-color: #24483F;
+  color: #FFFFFF;
+  padding: 0.75rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+  border-left: 4px solid #D5BE8B;
+}
+
+/* Footer polish matching Craftora theme */
+body[data-page="search-results"] .site-footer {
+  background-color: var(--color-primary);
+  color: rgba(247, 244, 237, 0.86);
+  border-top: none;
+  padding: 2.25rem 0;
+}
+
+body[data-page="search-results"] .site-footer .footer-brand strong {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: #FFFFFF;
+}
+
+body[data-page="search-results"] .site-footer .footer-brand p,
+body[data-page="search-results"] .site-footer .footer-copy {
+  color: rgba(247, 244, 237, 0.74);
+}
+
+body[data-page="search-results"] .site-footer .footer-links a {
+  color: rgba(247, 244, 237, 0.9);
+}
+
+body[data-page="search-results"] .site-footer .footer-links a:hover {
+  color: var(--color-gold);
+}
+
+/* --------------------------------------------------------------------------
+   6. Responsive Breakpoints (Tablet & Mobile Readability)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  body[data-page="search-results"] .controls-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="search-results"] .control-group--action {
+    grid-column: 1 / -1;
+  }
+
+  body[data-page="search-results"] .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  body[data-page="search-results"] .header-inner {
+    flex-wrap: wrap;
+  }
+
+  body[data-page="search-results"] .nav-toggle {
+    display: inline-flex;
+  }
+
+  body[data-page="search-results"] .site-nav {
+    display: none;
+    order: 4;
+    width: 100%;
+    margin-top: 0.45rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  body[data-page="search-results"] .site-nav.open {
+    display: block;
+  }
+
+  body[data-page="search-results"] .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  body[data-page="search-results"] .search-bar-form {
+    flex-direction: column;
+  }
+
+  body[data-page="search-results"] .search-form-actions {
+    width: 100%;
+  }
+
+  body[data-page="search-results"] .search-submit-btn,
+  body[data-page="search-results"] .clear-search-btn {
+    flex: 1;
+    height: 48px;
+  }
+}
+
+@media (max-width: 560px) {
+  body[data-page="search-results"] .controls-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="search-results"] .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="search-results"] .product-actions {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="search-results"] .icon-counter-btn .counter-label {
+    display: none;
+  }
+}
