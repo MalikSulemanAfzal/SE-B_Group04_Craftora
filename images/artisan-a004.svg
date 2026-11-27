@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Portrait illustration of fictional demo artisan Bibi Zarina Kausar in her Swat embroidery studio">
+  <defs>
+    <linearGradient id="abg4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38665C"/>
+      <stop offset="100%" stop-color="#24483F"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#abg4)"/>
+  <circle cx="130" cy="460" r="100" fill="#BC6848" fill-opacity="0.22"/>
+  <circle cx="480" cy="140" r="70" fill="#B99A5B" fill-opacity="0.22"/>
+  <!-- Shawl with Swati embroidered border -->
+  <path d="M105 600 C115 435 190 385 300 385 C410 385 485 435 495 600 Z" fill="#BC6848"/>
+  <path d="M185 440 C175 300 205 145 300 145 C395 145 425 300 415 440 Z" fill="#EEE9DF" stroke="#BC6848" stroke-width="4"/>
+  <!-- Face -->
+  <ellipse cx="300" cy="258" rx="68" ry="84" fill="#DDA682"/>
+  <path d="M236 225 C246 184 276 172 300 172 C324 172 354 184 364 225 C340 204 318 198 300 198 C282 198 260 204 236 225 Z" fill="#252A27"/>
+  <circle cx="275" cy="250" r="5" fill="#252A27"/>
+  <circle cx="325" cy="250" r="5" fill="#252A27"/>
+  <path d="M276 294 Q300 312 324 294" fill="none" stroke="#8C3A28" stroke-width="4" stroke-linecap="round"/>
+  <!-- Embroidered geometric dots -->
+  <g fill="#24483F">
+    <circle cx="215" cy="470" r="6"/><circle cx="255" cy="485" r="6"/><circle cx="300" cy="492" r="6"/><circle cx="345" cy="485" r="6"/><circle cx="385" cy="470" r="6"/>
+  </g>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Portrait illustration of fictional demo artisan Haji Sheraz Khan in his Peshawar copper workshop">
+  <defs>
+    <linearGradient id="abg5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#252A27"/>
+      <stop offset="100%" stop-color="#4A3328"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#abg5)"/>
+  <circle cx="465" cy="165" r="85" fill="#BC6848" fill-opacity="0.22"/>
+  <circle cx="465" cy="165" r="58" fill="none" stroke="#B99A5B" stroke-opacity="0.35" stroke-width="2"/>
+  <!-- Waistcoat & Kameez -->
+  <path d="M110 600 C120 445 190 390 300 390 C410 390 480 445 490 600 Z" fill="#F7F4ED"/>
+  <path d="M165 600 C175 460 220 404 265 396 L286 525 L314 525 L335 396 C380 404 425 460 435 600 Z" fill="#38665C"/>
+  <rect x="268" y="325" width="64" height="80" rx="26" fill="#C98D68"/>
+  <ellipse cx="300" cy="256" rx="72" ry="86" fill="#D59A74"/>
+  <!-- Pakol Cap -->
+  <path d="M220 202 C220 144 260 128 300 128 C340 128 380 144 380 202 Z" fill="#8C7B6B"/>
+  <rect x="215" y="188" width="170" height="26" rx="13" fill="#6F6052"/>
+  <!-- Beard & Smile -->
+  <path d="M236 284 C244 330 268 352 300 352 C332 352 356 330 364 284 C346 306 326 316 300 316 C274 316 254 306 236 284 Z" fill="#3B3532"/>
+  <circle cx="272" cy="250" r="5" fill="#252A27"/>
+  <circle cx="328" cy="250" r="5" fill="#252A27"/>
+  <path d="M278 296 Q300 310 322 296" fill="none" stroke="#F7F4ED" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

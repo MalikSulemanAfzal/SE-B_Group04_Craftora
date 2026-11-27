@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Portrait illustration of fictional demo artisan Ustad Tariq Mehmood in his Multan pottery studio">
+  <defs>
+    <linearGradient id="abg1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#24483F"/>
+      <stop offset="100%" stop-color="#38665C"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#abg1)"/>
+  <!-- Subtle pottery silhouette on shelf -->
+  <rect x="40" y="155" width="170" height="8" rx="3" fill="#B99A5B" fill-opacity="0.45"/>
+  <path d="M85 155 C72 130 78 100 100 95 C122 100 128 130 115 155 Z" fill="#F7F4ED" fill-opacity="0.22"/>
+  <circle cx="485" cy="145" r="75" fill="#B99A5B" fill-opacity="0.14"/>
+  <!-- Shoulders & Waistcoat -->
+  <path d="M110 600 C115 450 185 390 300 390 C415 390 485 450 490 600 Z" fill="#EEE9DF"/>
+  <path d="M165 600 C172 465 215 405 262 396 L282 520 L318 520 L338 396 C385 405 428 465 435 600 Z" fill="#252A27"/>
+  <!-- Neck & Face -->
+  <rect x="266" y="325" width="68" height="85" rx="28" fill="#C98D68"/>
+  <ellipse cx="300" cy="255" rx="76" ry="92" fill="#D59A74"/>
+  <!-- Hair & Neat Beard -->
+  <path d="M224 235 C224 168 258 148 300 148 C342 148 376 168 376 235 C365 205 335 190 300 190 C265 190 235 205 224 235 Z" fill="#5D5954"/>
+  <path d="M230 278 C236 330 264 356 300 356 C336 356 364 330 370 278 C355 305 330 315 300 315 C270 315 245 305 230 278 Z" fill="#6F6B66"/>
+  <!-- Glasses & Warm Smile -->
+  <g stroke="#252A27" stroke-width="3" fill="none">
+    <circle cx="270" cy="248" r="18"/><circle cx="330" cy="248" r="18"/>
+    <line x1="288" y1="248" x2="312" y2="248"/>
+  </g>
+  <circle cx="270" cy="248" r="4" fill="#252A27"/>
+  <circle cx="330" cy="248" r="4" fill="#252A27"/>
+  <path d="M278 292 Q300 308 322 292" fill="none" stroke="#F7F4ED" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

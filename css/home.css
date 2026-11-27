@@ -1,0 +1,461 @@
+/* ==========================================================================
+   Craftora - Homepage Specific Styles (index.html)
+   Inherits colors, typography, and shared components from css/style.css.
+   ========================================================================== */
+
+/* 1. Hero Section (2-Column Editorial Layout) */
+.hero {
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-beige) 100%);
+  border-bottom: 1px solid var(--color-border);
+  padding: 4rem 0 4.5rem;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 1.15rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.hero h1 {
+  font-size: clamp(2.15rem, 4.4vw, 3.35rem);
+  color: var(--color-primary);
+  line-height: 1.12;
+  margin-bottom: 1.15rem;
+}
+
+.hero-lead {
+  font-size: 1.08rem;
+  color: var(--color-muted);
+  max-width: 52ch;
+  margin-bottom: 1.85rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 2.25rem;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.hero-stat strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  color: var(--color-primary);
+}
+
+.hero-stat span {
+  font-size: 0.84rem;
+  color: var(--color-muted);
+}
+
+.hero-visual {
+  position: relative;
+}
+
+.hero-frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.hero-caption-card {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  max-width: 340px;
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.05rem;
+  box-shadow: var(--shadow-md);
+}
+
+.hero-caption-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+}
+
+.hero-caption-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 0.15rem;
+}
+
+.hero-caption-meta {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+/* 2. Featured Categories */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.35rem;
+}
+
+.category-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-gold);
+}
+
+.category-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: var(--color-beige);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-card:hover .category-icon {
+  background-color: var(--color-primary);
+  color: var(--color-gold);
+}
+
+.category-card h3 {
+  font-size: 1.18rem;
+  color: var(--color-primary);
+}
+
+.category-card p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  flex: 1;
+}
+
+.category-link-text {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* 3. Brand Story Section */
+.story-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.story-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  background-color: var(--color-surface);
+}
+
+.story-media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.story-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.story-content p {
+  color: var(--color-muted);
+}
+
+.story-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.story-pillar {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.95rem 1rem;
+}
+
+.story-pillar strong {
+  display: block;
+  color: var(--color-primary);
+  font-size: 0.96rem;
+  margin-bottom: 0.2rem;
+}
+
+.story-pillar span {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+/* 4. Why Shop With Craftora */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.35rem;
+}
+
+.why-card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.why-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  color: var(--color-gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.why-card h3 {
+  font-size: 1.12rem;
+  color: var(--color-primary);
+}
+
+.why-card p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+/* 5. Customer Testimonials */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.testimonial-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.1rem;
+}
+
+.testimonial-stars {
+  color: var(--color-gold);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+}
+
+.testimonial-quote {
+  font-size: 0.96rem;
+  color: var(--color-text);
+}
+
+.testimonial-author {
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.testimonial-author strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--color-primary);
+}
+
+.testimonial-author span {
+  font-size: 0.83rem;
+  color: var(--color-muted);
+}
+
+/* 6. Newsletter Signup Section */
+.newsletter-box {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal) 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 2.25rem;
+  box-shadow: var(--shadow-md);
+}
+
+.newsletter-copy .section-eyebrow {
+  color: var(--color-gold);
+}
+
+.newsletter-copy h2 {
+  color: #FFFFFF;
+  font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+  margin-bottom: 0.6rem;
+}
+
+.newsletter-copy p {
+  color: rgba(247, 244, 237, 0.88);
+  font-size: 0.96rem;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.newsletter-input-group {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.newsletter-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.82rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background-color: #FFFFFF;
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+.newsletter-input.is-invalid {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(178, 58, 53, 0.25);
+}
+
+.newsletter-feedback {
+  min-height: 1.25rem;
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.newsletter-feedback.is-error {
+  color: #FFD3D0;
+}
+
+.newsletter-feedback.is-success {
+  color: #C7F5DC;
+}
+
+.newsletter-demo-note {
+  font-size: 0.8rem;
+  color: rgba(247, 244, 237, 0.82);
+}
+
+/* 7. Responsive Adjustments */
+@media (max-width: 991px) {
+  .hero-grid,
+  .story-grid,
+  .newsletter-box {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .categories-grid,
+  .why-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero {
+    padding: 2.5rem 0 3rem;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .hero-caption-card {
+    position: static;
+    margin-top: 0.85rem;
+    max-width: none;
+  }
+
+  .categories-grid,
+  .why-grid,
+  .story-pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-box {
+    padding: 2rem 1.35rem;
+  }
+
+  .newsletter-input-group {
+    flex-direction: column;
+  }
+}

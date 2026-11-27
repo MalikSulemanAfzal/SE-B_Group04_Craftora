@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Portrait illustration of fictional demo artisan Rukhsana Begum in her Bahawalpur Naqqashi studio">
+  <defs>
+    <linearGradient id="abg6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A66B18"/>
+      <stop offset="100%" stop-color="#764912"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#abg6)"/>
+  <circle cx="135" cy="145" r="78" fill="#FFF5D6" fill-opacity="0.18"/>
+  <!-- Dupatta & Tunic -->
+  <path d="M105 600 C115 435 190 385 300 385 C410 385 485 435 495 600 Z" fill="#24483F"/>
+  <path d="M185 445 C175 300 205 145 300 145 C395 145 425 300 415 445 Z" fill="#F7F4ED" stroke="#B99A5B" stroke-width="4"/>
+  <!-- Face -->
+  <ellipse cx="300" cy="258" rx="68" ry="84" fill="#D59A74"/>
+  <path d="M236 225 C246 184 276 172 300 172 C324 172 354 184 364 225 C340 204 318 198 300 198 C282 198 260 204 236 225 Z" fill="#252A27"/>
+  <circle cx="275" cy="250" r="5" fill="#252A27"/>
+  <circle cx="325" cy="250" r="5" fill="#252A27"/>
+  <path d="M276 294 Q300 312 324 294" fill="none" stroke="#8C3A28" stroke-width="4" stroke-linecap="round"/>
+  <!-- Gold embroidery dots on collar -->
+  <path d="M230 430 Q300 462 370 430" fill="none" stroke="#B99A5B" stroke-width="4" stroke-dasharray="6 6"/>
+</svg>

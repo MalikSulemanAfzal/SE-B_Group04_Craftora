@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Portrait illustration of fictional demo artisan Mian Farooq Ahmed in his Chiniot woodworking studio">
+  <defs>
+    <linearGradient id="abg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4A2B1A"/>
+      <stop offset="100%" stop-color="#7B4D33"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#abg3)"/>
+  <rect x="390" y="70" width="140" height="190" rx="8" fill="none" stroke="#B99A5B" stroke-opacity="0.32" stroke-width="3"/>
+  <circle cx="460" cy="165" r="36" fill="none" stroke="#B99A5B" stroke-opacity="0.32" stroke-width="2"/>
+  <!-- Kurta -->
+  <path d="M110 600 C120 445 190 390 300 390 C410 390 480 445 490 600 Z" fill="#EEE9DF"/>
+  <path d="M286 390 L314 390 L314 480 L286 480 Z" fill="#D4CBB8"/>
+  <!-- Neck & Head -->
+  <rect x="268" y="325" width="64" height="80" rx="26" fill="#C48660"/>
+  <ellipse cx="300" cy="252" rx="74" ry="88" fill="#CF916B"/>
+  <!-- Silver Hair & Moustache/Beard -->
+  <path d="M226 232 C226 164 260 144 300 144 C340 144 374 164 374 232 C360 202 332 188 300 188 C268 188 240 202 226 232 Z" fill="#A7A39D"/>
+  <path d="M236 286 C244 334 268 352 300 352 C332 352 356 334 364 286 C348 308 326 318 300 318 C274 318 252 308 236 286 Z" fill="#B5B1AB"/>
+  <circle cx="272" cy="246" r="5" fill="#252A27"/>
+  <circle cx="328" cy="246" r="5" fill="#252A27"/>
+  <path d="M276 296 Q300 310 324 296" fill="none" stroke="#F7F4ED" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

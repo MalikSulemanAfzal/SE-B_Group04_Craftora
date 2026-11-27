@@ -1,0 +1,76 @@
+{
+  "report": {
+    "title": "Craftora | Crafted by Hands. Inspired by Heritage.",
+    "totalImgs": 14,
+    "brokenImgs": [
+      "images/product-p001.svg",
+      "images/product-p002.svg",
+      "images/product-p003.svg",
+      "images/product-p004.svg",
+      "images/product-p005.svg",
+      "images/product-p006.svg",
+      "images/artisan-a001.svg",
+      "images/artisan-a002.svg",
+      "images/artisan-a003.svg",
+      "images/artisan-a004.svg",
+      "images/artisan-a005.svg",
+      "images/artisan-a006.svg",
+      "images/story-workshop.svg"
+    ],
+    "missingAlt": [],
+    "productCards": 6,
+    "artisanCards": 6,
+    "demoBadges": 6,
+    "heroHeading": "Crafted by Hands. Inspired by Heritage.",
+    "disclosure": true,
+    "pkrPrices": [
+      "PKR 4,250",
+      "PKR 3,600",
+      "PKR 5,400",
+      "PKR 2,450",
+      "PKR 6,800",
+      "PKR 7,900"
+    ],
+    "hasMarketplaceLink": true,
+    "hasArtisanLink": true,
+    "hasDetailP001Link": true,
+    "scrollWidth1280": 1265,
+    "innerWidth1280": 1280
+  },
+  "interactions": {
+    "cartCountAfterAdd": "2",
+    "wishCountAfterAdd": "1",
+    "storedCart": "[{\"id\":\"p001\",\"qty\":1},{\"id\":\"p002\",\"qty\":1}]",
+    "storedWishlist": "[\"p001\"]",
+    "modalOpen": true,
+    "qvTitle": "Chiniot Carved Sheesham Jewellery Box",
+    "modalClosed": true,
+    "emptyErr": "Please enter your email address before subscribing.",
+    "invalidErr": "Please enter a valid email address (for example, name@example.com).",
+    "validMsg": "Demo confirmed for ayesha@craftora.pk \u2014 no real email was sent."
+  },
+  "persisted": {
+    "cartCountAfterReload": "2",
+    "wishCountAfterReload": "1",
+    "p001WishActive": true
+  },
+  "viewports": {
+    "1280x800": {
+      "sw": 1265,
+      "iw": 1280
+    },
+    "768x1024": {
+      "sw": 768,
+      "iw": 768
+    },
+    "575x800": {
+      "sw": 575,
+      "iw": 575
+    },
+    "375x812": {
+      "sw": 375,
+      "iw": 375
+    }
+  },
+  "exceptions": []
+}
