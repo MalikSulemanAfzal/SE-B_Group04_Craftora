@@ -1,0 +1,2482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artisan Profile | Craftora</title>
+  <!-- Shared stylesheet used across all Craftora pages -->
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ==========================================================================
+       Craftora - Artisan Profile Page Styles
+       ========================================================================== */
+    :root {
+      --color-warm-tint: #f1e9df;
+      --color-success: #1f6f43;
+      --color-success-bg: #eaf6ef;
+      --color-success-border: #b7e1c7;
+      --color-error: #b42318;
+      --color-error-bg: #fef3f2;
+      --color-error-border: #fecdca;
+      --color-star: #c97a2b;
+      --shadow-sm: 0 2px 8px rgba(44, 38, 35, 0.06);
+      --shadow-md: 0 8px 24px rgba(44, 38, 35, 0.08);
+    }
+
+    /* Header utility pills for Wishlist & Cart */
+    .nav-utility-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.35rem;
+      height: 1.35rem;
+      padding: 0 0.35rem;
+      border-radius: 999px;
+      background-color: var(--color-primary);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    /* Breadcrumb Navigation */
+    .breadcrumb-bar {
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.85rem 0;
+    }
+
+    .breadcrumb-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .breadcrumb-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--color-muted);
+    }
+
+    .breadcrumb-list li {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-list li + li::before {
+      content: "/";
+      color: var(--color-border);
+    }
+
+    .breadcrumb-list a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .breadcrumb-list [aria-current="page"] {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    .artisan-quick-switch {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.85rem;
+      color: var(--color-muted);
+    }
+
+    .switch-pill {
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-weight: 500;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .switch-pill:hover,
+    .switch-pill.active {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #ffffff;
+    }
+
+    /* Toast / Live Feedback Notification */
+    .toast-region {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-width: 360px;
+      width: calc(100% - 2.5rem);
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface);
+      box-shadow: var(--shadow-md);
+      font-size: 0.92rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      animation: slideUp 0.2s ease-out;
+    }
+
+    .toast--success {
+      background-color: var(--color-success-bg);
+      border-color: var(--color-success-border);
+      color: var(--color-success);
+    }
+
+    .toast--error {
+      background-color: var(--color-error-bg);
+      border-color: var(--color-error-border);
+      color: var(--color-error);
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.75;
+    }
+
+    .toast-close:hover {
+      opacity: 1;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Artisan Cover Section */
+    .artisan-cover {
+      position: relative;
+      min-height: 230px;
+      background: linear-gradient(135deg, #6e3521 0%, #9c4a2b 52%, #c9865b 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem 0 4.5rem;
+      overflow: hidden;
+    }
+
+    .artisan-cover::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.14) 0%, transparent 42%),
+                        radial-gradient(circle at 82% 70%, rgba(255, 255, 255, 0.12) 0%, transparent 38%);
+      pointer-events: none;
+    }
+
+    .artisan-cover-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background-color: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+
+    .cover-tagline {
+      font-size: 0.98rem;
+      opacity: 0.95;
+      max-width: 520px;
+    }
+
+    /* Artisan Profile Identity Card */
+    .profile-identity-wrapper {
+      margin-top: -3.25rem;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 2.5rem;
+    }
+
+    .profile-identity-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .artisan-avatar {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      border: 4px solid var(--color-surface);
+      box-shadow: var(--shadow-sm);
+      background-color: var(--color-warm-tint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .artisan-avatar svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .identity-main {
+      min-width: 0;
+    }
+
+    .identity-top-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .artisan-name {
+      font-size: clamp(1.6rem, 3vw, 2.15rem);
+      line-height: 1.2;
+      color: var(--color-text);
+    }
+
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background-color: var(--color-warm-tint);
+      color: var(--color-primary-dark);
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .artisan-speciality {
+      font-size: 1.05rem;
+      color: var(--color-primary);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .identity-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.5rem;
+      color: var(--color-muted);
+      font-size: 0.94rem;
+    }
+
+    .meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .identity-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      align-items: stretch;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      padding: 0.7rem 1.25rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background-color: #fdfaf7;
+    }
+
+    .btn-primary {
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    /* Profile Sections Shared Layout */
+    .profile-section {
+      padding: 2rem 0;
+    }
+
+    .section-heading-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-heading {
+      font-size: 1.5rem;
+      color: var(--color-text);
+    }
+
+    .section-subtitle {
+      color: var(--color-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Bio, Experience & Craftsmanship Story Grid */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .panel-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .panel-card h2,
+    .panel-card h3 {
+      margin-bottom: 0.75rem;
+      color: var(--color-text);
+    }
+
+    .panel-card p + p {
+      margin-top: 0.85rem;
+    }
+
+    .bio-text,
+    .story-text {
+      color: var(--color-muted);
+      font-size: 0.98rem;
+    }
+
+    .story-divider {
+      border: 0;
+      border-top: 1px solid var(--color-border);
+      margin: 1.35rem 0;
+    }
+
+    .experience-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .stat-box {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 0.9rem;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 0.84rem;
+      color: var(--color-muted);
+    }
+
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .experience-list li {
+      padding-left: 1rem;
+      border-left: 3px solid var(--color-primary);
+      font-size: 0.93rem;
+      color: var(--color-muted);
+    }
+
+    .experience-list strong {
+      display: block;
+      color: var(--color-text);
+      font-size: 0.95rem;
+    }
+
+    /* Artisan Product Collection */
+    .collection-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #ffffff;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .product-media-link {
+      position: relative;
+      display: block;
+      background-color: var(--color-warm-tint);
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+
+    .product-media-link svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .product-category-tag {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      background-color: rgba(255, 255, 255, 0.92);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .product-body {
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 0.5rem;
+    }
+
+    .product-title-link {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+
+    .product-title-link:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .product-desc {
+      font-size: 0.9rem;
+      color: var(--color-muted);
+      flex: 1;
+    }
+
+    .product-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .product-price {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .product-stock {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-success);
+    }
+
+    .product-stock.out {
+      color: var(--color-error);
+    }
+
+    .product-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn-add-cart {
+      background-color: var(--color-primary);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.6rem 0.9rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-add-cart:hover:not(:disabled) {
+      background-color: var(--color-primary-dark);
+    }
+
+    .btn-add-cart:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-wishlist {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 0.6rem 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-wishlist:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .btn-wishlist.is-wishlisted {
+      background-color: #fdeee9;
+      border-color: var(--color-primary);
+      color: var(--color-primary-dark);
+    }
+
+    .btn-detail-link {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--color-muted);
+      transition: all 0.2s ease;
+    }
+
+    .btn-detail-link:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background-color: var(--color-bg);
+    }
+
+    /* Customer Reviews */
+    .reviews-summary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 0.5rem 0.9rem;
+      font-size: 0.95rem;
+    }
+
+    .star-rating {
+      color: var(--color-star);
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .review-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .reviewer-name {
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .review-date {
+      font-size: 0.82rem;
+      color: var(--color-muted);
+    }
+
+    .review-product-tag {
+      font-size: 0.82rem;
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .review-comment {
+      color: var(--color-muted);
+      font-size: 0.94rem;
+    }
+
+    /* Customization & Inquiry Split */
+    .inquiry-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .custom-details-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .custom-detail-item {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+    }
+
+    .custom-detail-item strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--color-text);
+      margin-bottom: 0.2rem;
+    }
+
+    .custom-detail-item span {
+      font-size: 0.92rem;
+      color: var(--color-muted);
+    }
+
+    .custom-status-pill {
+      display: inline-block;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background-color: var(--color-success-bg);
+      border: 1px solid var(--color-success-border);
+      color: var(--color-success);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* Inquiry Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .required-mark {
+      color: var(--color-error);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.65rem 0.8rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--color-text);
+      background-color: var(--color-surface);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(156, 74, 43, 0.15);
+    }
+
+    .form-control[aria-invalid="true"] {
+      border-color: var(--color-error);
+      background-color: #fffafa;
+    }
+
+    .field-error {
+      font-size: 0.83rem;
+      color: var(--color-error);
+      min-height: 1.1em;
+    }
+
+    .char-counter {
+      font-size: 0.8rem;
+      color: var(--color-muted);
+      text-align: right;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Contact Confirmation & Error Banner Area */
+    .contact-confirmation {
+      margin-top: 1.25rem;
+      border-radius: var(--radius);
+      padding: 1.15rem 1.25rem;
+      border: 1px solid var(--color-border);
+      display: none;
+    }
+
+    .contact-confirmation.is-visible {
+      display: block;
+    }
+
+    .contact-confirmation.is-success {
+      background-color: var(--color-success-bg);
+      border-color: var(--color-success-border);
+      color: var(--color-success);
+    }
+
+    .contact-confirmation.is-error {
+      background-color: var(--color-error-bg);
+      border-color: var(--color-error-border);
+      color: var(--color-error);
+    }
+
+    .confirmation-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+    }
+
+    .confirmation-summary {
+      margin-top: 0.75rem;
+      padding: 0.85rem;
+      border-radius: var(--radius);
+      background-color: rgba(255, 255, 255, 0.75);
+      border: 1px solid var(--color-success-border);
+      color: var(--color-text);
+      font-size: 0.9rem;
+    }
+
+    .confirmation-summary dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.35rem 1rem;
+    }
+
+    .confirmation-summary dt {
+      font-weight: 600;
+      color: var(--color-muted);
+    }
+
+    /* Invalid Artisan Profile State */
+    .invalid-state {
+      padding: 4rem 0;
+    }
+
+    .invalid-state-card {
+      max-width: 640px;
+      margin: 0 auto;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .invalid-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background-color: var(--color-error-bg);
+      color: var(--color-error);
+      border: 1px solid var(--color-error-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    .invalid-state-card h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .invalid-state-card p {
+      color: var(--color-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .invalid-id-pill {
+      display: inline-block;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 0.1rem 0.45rem;
+      font-family: monospace;
+      color: var(--color-error);
+    }
+
+    .invalid-suggestions {
+      margin-bottom: 1.75rem;
+    }
+
+    .invalid-suggestions-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.65rem;
+    }
+
+    .invalid-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 900px) {
+      .profile-identity-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+      }
+
+      .identity-top-row,
+      .identity-meta {
+        justify-content: center;
+      }
+
+      .identity-actions {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .story-grid,
+      .inquiry-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .identity-actions {
+        flex-direction: column;
+      }
+
+      .artisan-cover {
+        min-height: 185px;
+        padding-bottom: 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SHARED HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">Craftora</a>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        &#9776;
+      </button>
+
+      <nav id="main-nav" class="site-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li>
+            <a href="wishlist.html" class="nav-link nav-utility-link">
+              Wishlist <span id="nav-wishlist-count" class="nav-count-badge">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="cart.html" class="nav-link nav-utility-link">
+              Cart <span id="nav-cart-count" class="nav-count-badge">0</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= BREADCRUMB NAVIGATION ================= -->
+  <div class="breadcrumb-bar">
+    <div class="container breadcrumb-row">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Artisans</a></li>
+          <li id="breadcrumb-artisan" aria-current="page">Artisan Profile</li>
+        </ol>
+      </nav>
+
+      <div class="artisan-quick-switch" aria-label="Switch artisan profile">
+        <span>Featured Makers:</span>
+        <a href="?id=a001" class="switch-pill" data-artisan-link="a001">Amaya</a>
+        <a href="?id=a002" class="switch-pill" data-artisan-link="a002">Mateo</a>
+        <a href="?id=a003" class="switch-pill" data-artisan-link="a003">Kenji</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+
+    <!-- INVALID ARTISAN PROFILE STATE -->
+    <section id="invalid-artisan-state" class="invalid-state" aria-labelledby="invalid-heading" hidden>
+      <div class="container">
+        <div class="invalid-state-card">
+          <div class="invalid-icon" aria-hidden="true">!</div>
+          <h1 id="invalid-heading">Artisan Profile Not Found</h1>
+          <p>
+            We could not locate an artisan matching ID
+            <span id="invalid-artisan-id" class="invalid-id-pill">unknown</span>.
+            The profile link may be outdated or mistyped.
+          </p>
+
+          <div class="invalid-suggestions">
+            <span class="invalid-suggestions-label">Explore a verified Craftora artisan instead:</span>
+            <div class="invalid-actions">
+              <a href="?id=a001" class="switch-pill">Amaya Perera (a001)</a>
+              <a href="?id=a002" class="switch-pill">Mateo Morales (a002)</a>
+              <a href="?id=a003" class="switch-pill">Kenji Takahashi (a003)</a>
+            </div>
+          </div>
+
+          <div class="invalid-actions">
+            <a href="products.html" class="btn-primary">Browse All Products</a>
+            <a href="../index.html" class="btn-secondary">Return Home</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALID ARTISAN PROFILE CONTENT -->
+    <div id="artisan-profile-content">
+
+      <!-- Artisan Cover Section -->
+      <section id="artisan-cover" class="artisan-cover" aria-label="Artisan studio cover">
+        <div class="container artisan-cover-inner">
+          <span id="artisan-studio-badge" class="cover-badge">Independent Studio</span>
+          <p id="artisan-cover-tagline" class="cover-tagline">
+            Small-batch craftsmanship made with natural, responsibly sourced materials.
+          </p>
+        </div>
+      </section>
+
+      <!-- Artisan Profile Identity -->
+      <section class="profile-identity-wrapper" aria-labelledby="artisan-name">
+        <div class="container">
+          <div class="profile-identity-card">
+            <div id="artisan-avatar" class="artisan-avatar" aria-hidden="true"></div>
+
+            <div class="identity-main">
+              <div class="identity-top-row">
+                <h1 id="artisan-name" class="artisan-name">Artisan Name</h1>
+                <span id="artisan-verified" class="verified-badge">&#10003; Verified Craftora Maker</span>
+              </div>
+
+              <p id="artisan-speciality" class="artisan-speciality">Craft Speciality</p>
+
+              <div class="identity-meta">
+                <span class="meta-item">
+                  <strong aria-hidden="true">&#9906;</strong>
+                  <span class="sr-only">Location:</span>
+                  <span id="artisan-location">Location</span>
+                </span>
+                <span class="meta-item">
+                  <strong aria-hidden="true">&#9733;</strong>
+                  <span id="artisan-rating-summary">4.9 rating</span>
+                </span>
+                <span class="meta-item">
+                  <strong aria-hidden="true">&#9201;</strong>
+                  <span id="artisan-experience-badge">10+ years experience</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="identity-actions">
+              <a href="#artisan-inquiry-section" class="btn-primary">Draft Inquiry</a>
+              <a href="#artisan-products-section" class="btn-secondary">View Collection</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Artisan Biography, Experience Information & Craftsmanship Story -->
+      <section class="profile-section" aria-label="Artisan background and craftsmanship">
+        <div class="container story-grid">
+          <article class="panel-card">
+            <h2>Artisan Biography</h2>
+            <p id="artisan-bio" class="bio-text"></p>
+
+            <hr class="story-divider">
+
+            <h3>Craftsmanship Story</h3>
+            <p id="craftsmanship-story" class="story-text"></p>
+          </article>
+
+          <aside class="panel-card" aria-labelledby="experience-heading">
+            <h2 id="experience-heading">Experience Information</h2>
+
+            <div class="experience-stats">
+              <div class="stat-box">
+                <span id="stat-years" class="stat-value">0</span>
+                <span class="stat-label">Years Practicing</span>
+              </div>
+              <div class="stat-box">
+                <span id="stat-orders" class="stat-value">0</span>
+                <span class="stat-label">Pieces Crafted</span>
+              </div>
+            </div>
+
+            <ul id="experience-details-list" class="experience-list"></ul>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Artisan Product Collection -->
+      <section id="artisan-products-section" class="profile-section" aria-labelledby="collection-heading">
+        <div class="container">
+          <div class="section-heading-row">
+            <div>
+              <h2 id="collection-heading" class="section-heading">Artisan Product Collection</h2>
+              <p id="collection-count" class="section-subtitle">Showing handcrafted items from this studio.</p>
+            </div>
+
+            <div id="collection-filters" class="collection-controls" role="group" aria-label="Filter artisan products by category"></div>
+          </div>
+
+          <div id="product-grid" class="products-grid"></div>
+        </div>
+      </section>
+
+      <!-- Customer Review Section -->
+      <section id="customer-reviews-section" class="profile-section" aria-labelledby="reviews-heading">
+        <div class="container">
+          <div class="section-heading-row">
+            <div>
+              <h2 id="reviews-heading" class="section-heading">Customer Reviews</h2>
+              <p class="section-subtitle">Verified feedback from buyers who collected pieces from this maker.</p>
+            </div>
+
+            <div class="reviews-summary" aria-label="Average customer rating">
+              <span id="reviews-stars" class="star-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <strong id="average-rating">4.9</strong>
+              <span id="review-count" class="section-subtitle">(0 reviews)</span>
+            </div>
+          </div>
+
+          <div id="reviews-list" class="reviews-grid"></div>
+        </div>
+      </section>
+
+      <!-- Customization Information & Artisan Inquiry Form -->
+      <section id="artisan-inquiry-section" class="profile-section" aria-labelledby="inquiry-heading">
+        <div class="container inquiry-layout">
+
+          <!-- Customization Information -->
+          <article class="panel-card" aria-labelledby="customization-heading">
+            <span id="customization-availability" class="custom-status-pill">Open for Custom Commissions</span>
+            <h2 id="customization-heading">Customization Information</h2>
+            <p id="customization-summary" class="bio-text"></p>
+
+            <div class="custom-details-list">
+              <div class="custom-detail-item">
+                <strong>Available Options</strong>
+                <span id="customization-options"></span>
+              </div>
+              <div class="custom-detail-item">
+                <strong>Estimated Lead Time</strong>
+                <span id="customization-lead-time"></span>
+              </div>
+              <div class="custom-detail-item">
+                <strong>Minimum &amp; Pricing Note</strong>
+                <span id="customization-pricing-note"></span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Artisan Inquiry Form & Contact Confirmation Area -->
+          <article class="panel-card">
+            <h2 id="inquiry-heading">Artisan Inquiry Form</h2>
+            <p class="section-subtitle" style="margin-bottom: 1.15rem;">
+              Prepare an inquiry about a piece, custom dimensions, or a studio commission.
+              This static demo validates and saves your draft locally in your browser without sending an actual message.
+            </p>
+
+            <form id="artisan-inquiry-form" novalidate>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="inquiry-name" class="form-label">
+                    Your Name <span class="required-mark" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="inquiry-name"
+                    name="name"
+                    class="form-control"
+                    placeholder="e.g., Nimali Silva"
+                    autocomplete="name"
+                    required
+                  >
+                  <span id="error-inquiry-name" class="field-error" role="alert"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="inquiry-email" class="form-label">
+                    Email Address <span class="required-mark" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="inquiry-email"
+                    name="email"
+                    class="form-control"
+                    placeholder="e.g., nimali@example.com"
+                    autocomplete="email"
+                    required
+                  >
+                  <span id="error-inquiry-email" class="field-error" role="alert"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="inquiry-subject" class="form-label">
+                    Inquiry Type <span class="required-mark" aria-hidden="true">*</span>
+                  </label>
+                  <select id="inquiry-subject" name="subject" class="form-control" required>
+                    <option value="">Select an inquiry type</option>
+                    <option value="Custom Order Request">Custom Order Request</option>
+                    <option value="Product Question">Product Question</option>
+                    <option value="Wholesale / Bulk Order">Wholesale / Bulk Order</option>
+                    <option value="Studio Visit">Studio Visit</option>
+                  </select>
+                  <span id="error-inquiry-subject" class="field-error" role="alert"></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="inquiry-product" class="form-label">Related Product (Optional)</label>
+                  <select id="inquiry-product" name="product" class="form-control">
+                    <option value="">General Studio Inquiry</option>
+                  </select>
+                  <span class="field-error"></span>
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="inquiry-message" class="form-label">
+                    Message <span class="required-mark" aria-hidden="true">*</span>
+                  </label>
+                  <textarea
+                    id="inquiry-message"
+                    name="message"
+                    class="form-control"
+                    rows="4"
+                    maxlength="1000"
+                    placeholder="Share your preferred colours, sizing, quantities, or timeline..."
+                    required
+                  ></textarea>
+                  <div style="display: flex; justify-content: space-between; gap: 0.75rem;">
+                    <span id="error-inquiry-message" class="field-error" role="alert"></span>
+                    <span id="inquiry-char-count" class="char-counter">0 / 1000</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">Save Inquiry</button>
+                <button type="reset" id="inquiry-reset-btn" class="btn-secondary">Clear Form</button>
+              </div>
+            </form>
+
+            <!-- Contact Confirmation Area -->
+            <div
+              id="contact-confirmation"
+              class="contact-confirmation"
+              role="status"
+              aria-live="polite"
+              tabindex="-1"
+            ></div>
+          </article>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Live Toast Notification Region -->
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Craftora</strong>
+        <p>Supporting local craftsmanship and handmade quality.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <p class="footer-copy">&copy; 2026 Craftora. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Shared JavaScript file -->
+  <script src="../js/main.js" defer></script>
+
+  <!-- Page-specific JavaScript for Artisan Profile -->
+  <script>
+    (() => {
+      "use strict";
+
+      /* ======================================================================
+         1. Artisan & Product Datasets
+         ====================================================================== */
+      const ARTISANS = {
+        a001: {
+          id: "a001",
+          name: "Amaya Perera",
+          initials: "AP",
+          studioName: "Red Earth Pottery Studio",
+          location: "Kandy, Sri Lanka",
+          speciality: "Hand-Thrown Stoneware & Terracotta Pottery",
+          tagline: "Wheel-thrown tableware fired in small wood-and-gas kilns using local river clay.",
+          coverGradient: "linear-gradient(135deg, #6e3521 0%, #9c4a2b 55%, #c77b52 100%)",
+          avatarColors: { bg: "#f4dfd4", accent: "#9c4a2b", detail: "#6e3521" },
+          yearsExperience: 14,
+          piecesCrafted: "1,400+",
+          rating: 4.9,
+          biography:
+            "Amaya Perera grew up watching traditional potters shape water vessels along the Mahaweli River valley. After studying ceramic arts in Colombo and apprenticing with master kiln builders, she founded Red Earth Pottery Studio in Kandy in 2012. Every piece begins with locally dug clay that is aged, wedged by hand, and thrown on a kick wheel.",
+          craftsmanshipStory:
+            "Her signature glazes are formulated from wood ash, iron-rich slip, and crushed feldspar rather than synthetic pigments. Each batch is bisque-fired slowly over 18 hours and glazed to withstand daily kitchen use, creating subtle earth-toned speckles that make every vessel one of a kind.",
+          experienceHighlights: [
+            { title: "Master Ceramicist Apprenticeship", detail: "Trained 4 years under traditional Kandy earthenware artisans." },
+            { title: "National Craft Guild Award", detail: "Honoured for sustainable clay sourcing & contemporary form (2023)." },
+            { title: "Zero-Waste Kiln Practice", detail: "Reclaims 100% of studio trimming clay and uses rainwater filtration." }
+          ],
+          customization: {
+            available: true,
+            summary:
+              "Amaya welcomes bespoke dinnerware sets, monogrammed tea kettles, and custom-sized ceramic planters for homes and boutique cafes.",
+            options: "Glaze finish (Raw Terracotta, Ash Ivory, Moss Clay), rim engraving, and set sizing.",
+            leadTime: "2 to 3 weeks for custom glazing and kiln firing.",
+            pricingNote: "Custom orders start from $45; 15% studio discount on restaurant sets of 12+ pieces."
+          },
+          reviews: [
+            {
+              reviewer: "Dilshan Fernando",
+              date: "October 2026",
+              rating: 5,
+              product: "Terracotta Tea Kettle",
+              comment: "Pours cleanly without dripping and keeps herbal tea warm for ages. The glaze texture feels wonderful in the hand."
+            },
+            {
+              reviewer: "Hannah Bennett",
+              date: "September 2026",
+              rating: 5,
+              product: "Speckled Stoneware Dinner Set",
+              comment: "Amaya matched the plate diameter to our cabinet shelves via inquiry. Thoughtfully packed and arrived without a scratch."
+            },
+            {
+              reviewer: "Kavindi Jayasuriya",
+              date: "August 2026",
+              rating: 4.8,
+              product: "Ash-Glazed Espresso Cups",
+              comment: "Lovely weight and subtle variation between each cup. Easily our favourite morning ritual pieces."
+            }
+          ]
+        },
+        a002: {
+          id: "a002",
+          name: "Mateo Morales",
+          initials: "MM",
+          studioName: "Taller Sol & Indigo",
+          location: "Oaxaca, Mexico",
+          speciality: "Natural-Dye Handloom Textiles & Tapestries",
+          tagline: "Pedal-loom cotton and wool textiles coloured solely with botanical and mineral dyes.",
+          coverGradient: "linear-gradient(135deg, #273e57 0%, #3a5f7d 55%, #8b5a3c 100%)",
+          avatarColors: { bg: "#dde6ef", accent: "#2f4e6d", detail: "#9c4a2b" },
+          yearsExperience: 18,
+          piecesCrafted: "980+",
+          rating: 4.8,
+          biography:
+            "Mateo Morales is a third-generation weaver working on hand-built wooden pedal looms in Oaxaca. His studio collaborates with small cotton farmers and botanical dyers to preserve centuries-old Zapotec geometric motifs in modern living spaces.",
+          craftsmanshipStory:
+            "Before a single thread reaches the loom, skeins of unbleached cotton are simmered in copper vats with fermented indigo leaves, marigold petals, pomegranate rinds, and walnut hulls. Weaving a single throw blanket requires up to four days of steady rhythmic shuttle work.",
+          experienceHighlights: [
+            { title: "Third-Generation Pedal Loom Weaver", detail: "18 years crafting heirloom-grade flatweaves and table linens." },
+            { title: "100% Botanical Dye Atelier", detail: "Maintains a living dye garden with indigo, cochineal, and marigold." },
+            { title: "Fair Cooperative Lead", detail: "Mentors 6 regional weavers with fair-trade studio stipends." }
+          ],
+          customization: {
+            available: true,
+            summary:
+              "Custom runner lengths, colourway pairings from seasonal dye baths, and bespoke wall-hanging dimensions are available upon request.",
+            options: "Botanical palette selection, fringe or hemmed edges, and custom table runner lengths.",
+            leadTime: "3 to 4 weeks depending on dye bath scheduling and loom width.",
+            pricingNote: "No minimum order for custom runners; swatch kit available via inquiry."
+          },
+          reviews: [
+            {
+              reviewer: "Elena Rostova",
+              date: "November 2026",
+              rating: 5,
+              product: "Indigo Loom Table Runner",
+              comment: "The depth of the natural indigo blue is extraordinary in person. Soft weave yet sturdy enough for daily dining."
+            },
+            {
+              reviewer: "Marcus Chen",
+              date: "September 2026",
+              rating: 5,
+              product: "Woven Cotton Throw Blanket",
+              comment: "Breathable, substantial weight, and zero synthetic feel. Mateo answered my care questions promptly."
+            },
+            {
+              reviewer: "Sofia Alvarez",
+              date: "July 2026",
+              rating: 4.7,
+              product: "Botanical Dyed Cushion Covers",
+              comment: "Beautiful warm ochre and clay tones that tie our living room together effortlessly."
+            }
+          ]
+        },
+        a003: {
+          id: "a003",
+          name: "Kenji Takahashi",
+          initials: "KT",
+          studioName: "Hida Timber Craft",
+          location: "Takayama, Japan",
+          speciality: "Carved Hardwood & Joinery Kitchenware",
+          tagline: "Hand-planed hinoki cypress, walnut, and cedar kitchen tools finished with food-safe beeswax.",
+          coverGradient: "linear-gradient(135deg, #4b382a 0%, #7a573b 55%, #b3885d 100%)",
+          avatarColors: { bg: "#efe5d8", accent: "#6d4c33", detail: "#3b2a1e" },
+          yearsExperience: 22,
+          piecesCrafted: "2,100+",
+          rating: 5.0,
+          biography:
+            "Trained in the historic woodworking town of Takayama, Kenji Takahashi spent over two decades mastering traditional Japanese joinery and hand-tool carving. His workshop crafts tactile servingware designed to age gracefully over decades of family meals.",
+          craftsmanshipStory:
+            "Working exclusively with salvaged and sustainably thinned timber, Kenji shapes each tray and spoon with curved gouges and a kanna hand plane rather than harsh power sanders. This leaves a silky, water-shedding grain sealed only with organic camellia oil and raw beeswax.",
+          experienceHighlights: [
+            { title: "Certified Hida Joinery Craftsman", detail: "22 years specialising in nail-free wood joinery and hand carving." },
+            { title: "Sustainable Forestry Partner", detail: "Sources kiln-dried offcuts and certified Japanese cypress." },
+            { title: "Design Museum Exhibition", detail: "Featured in Craft & Everyday Tableware Showcase (2024)." }
+          ],
+          customization: {
+            available: true,
+            summary:
+              "Custom tray dimensions, wood species choice (Walnut, Hinoki, or Cedar), and subtle underside laser-free chisel engraving are offered.",
+            options: "Wood grain tone, handle profile, and custom serving tray dimensions up to 60 cm.",
+            leadTime: "2 weeks for carved utensils; 3 weeks for joined serving trays.",
+            pricingNote: "Personalised gift sets include a complimentary tin of beeswax wood balm."
+          },
+          reviews: [
+            {
+              reviewer: "Claire Dubois",
+              date: "November 2026",
+              rating: 5,
+              product: "Walnut Serving Tray",
+              comment: "The dovetail corners are seamless and the finish feels like satin. Truly museum-quality woodwork."
+            },
+            {
+              reviewer: "Arjun Nair",
+              date: "October 2026",
+              rating: 5,
+              product: "Hand-Carved Hinoki Salad Spoons",
+              comment: "Feather-light with a gentle citrus-wood scent. They never scratch our stoneware bowls."
+            },
+            {
+              reviewer: "Grace Thompson",
+              date: "August 2026",
+              rating: 5,
+              product: "Cedar Spice Mortar & Pestle",
+              comment: "Incredible craftsmanship and fast communication when I asked about left-handed carving balance."
+            }
+          ]
+        }
+      };
+
+      const PRODUCTS = [
+        {
+          id: "p101",
+          artisanId: "a001",
+          name: "Terracotta Tea Kettle",
+          category: "Pottery",
+          price: 48.0,
+          stock: 6,
+          description: "Hand-thrown natural terracotta kettle with iron-slip interior glaze and bamboo-wrapped handle.",
+          motif: "kettle",
+          palette: ["#f3e3d7", "#9c4a2b", "#6e3521"]
+        },
+        {
+          id: "p102",
+          artisanId: "a001",
+          name: "Speckled Stoneware Dinner Set",
+          category: "Tableware",
+          price: 86.0,
+          stock: 4,
+          description: "Four-piece wheel-thrown stoneware set featuring dinner plate, side plate, bowl, and mug.",
+          motif: "plates",
+          palette: ["#efe8df", "#8a5a44", "#4f3a30"]
+        },
+        {
+          id: "p103",
+          artisanId: "a001",
+          name: "Matte Clay Planter Bowl",
+          category: "Home Decor",
+          price: 34.0,
+          stock: 9,
+          description: "Breathable unglazed exterior clay planter with matching drainage saucer for indoor botanicals.",
+          motif: "planter",
+          palette: ["#f2e4d8", "#b5603e", "#4b6b50"]
+        },
+        {
+          id: "p104",
+          artisanId: "a001",
+          name: "Ash-Glazed Espresso Cups (Pair)",
+          category: "Tableware",
+          price: 38.0,
+          stock: 0,
+          description: "Double-fired ceramic espresso cups finished in warm wood-ash ivory glaze.",
+          motif: "cups",
+          palette: ["#f5efe6", "#9c7a5b", "#5c4033"]
+        },
+        {
+          id: "p201",
+          artisanId: "a002",
+          name: "Indigo Loom Table Runner",
+          category: "Textiles",
+          price: 54.0,
+          stock: 7,
+          description: "Handwoven organic cotton table runner dyed in fermented natural indigo with knotted fringe.",
+          motif: "runner",
+          palette: ["#dfe7f0", "#2f4e6d", "#1d3147"]
+        },
+        {
+          id: "p202",
+          artisanId: "a002",
+          name: "Woven Cotton Throw Blanket",
+          category: "Textiles",
+          price: 112.0,
+          stock: 3,
+          description: "Generously sized pedal-loom throw featuring marigold ochre and warm terracotta stripes.",
+          motif: "blanket",
+          palette: ["#f5eadc", "#c97a2b", "#9c4a2b"]
+        },
+        {
+          id: "p203",
+          artisanId: "a002",
+          name: "Botanical Dyed Cushion Covers",
+          category: "Home Decor",
+          price: 46.0,
+          stock: 5,
+          description: "Set of two textured handloom cushion covers coloured with pomegranate rind and walnut dye.",
+          motif: "cushion",
+          palette: ["#efe4d6", "#8c5b3e", "#5b3a29"]
+        },
+        {
+          id: "p301",
+          artisanId: "a003",
+          name: "Walnut Serving Tray",
+          category: "Woodwork",
+          price: 72.0,
+          stock: 5,
+          description: "Traditional spline-joined black walnut serving tray finished with organic camellia oil.",
+          motif: "tray",
+          palette: ["#ede2d5", "#6d4c33", "#3e2a1b"]
+        },
+        {
+          id: "p302",
+          artisanId: "a003",
+          name: "Hand-Carved Hinoki Salad Spoons",
+          category: "Kitchenware",
+          price: 29.0,
+          stock: 11,
+          description: "Lightweight pair of hand-gouged Japanese cypress servers gentle on ceramic and enamelware.",
+          motif: "spoons",
+          palette: ["#f4ebd9", "#b08454", "#6e4e2e"]
+        },
+        {
+          id: "p303",
+          artisanId: "a003",
+          name: "Cedar Spice Mortar & Pestle",
+          category: "Kitchenware",
+          price: 44.0,
+          stock: 4,
+          description: "Turned aromatic cedar mortar paired with a balanced hardwood pestle for whole spices.",
+          motif: "mortar",
+          palette: ["#efe2d4", "#8e5c3c", "#4d311f"]
+        }
+      ];
+
+      /* ======================================================================
+         2. LocalStorage Keys & State Helpers
+         ====================================================================== */
+      const STORAGE_KEYS = {
+        CART: "craftora_cart",
+        WISHLIST: "craftora_wishlist",
+        INQUIRIES: "craftora_inquiries",
+        SELECTED_PRODUCT: "craftora_selected_product"
+      };
+
+      const state = {
+        artisan: null,
+        artisanProducts: [],
+        activeCategory: "All"
+      };
+
+      function readStorage(key) {
+        try {
+          const raw = localStorage.getItem(key);
+          const parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function writeStorage(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      function formatCurrency(amount) {
+        return `$${Number(amount).toFixed(2)}`;
+      }
+
+      /* ======================================================================
+         3. Inline SVG Generators (Zero external image dependency)
+         ====================================================================== */
+      function createArtisanAvatarSvg(artisan) {
+        const { bg, accent, detail } = artisan.avatarColors;
+        return `
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${artisan.name}">
+            <rect width="120" height="120" fill="${bg}"/>
+            <circle cx="60" cy="44" r="22" fill="${accent}" opacity="0.22"/>
+            <path d="M22 112 C24 84, 96 84, 98 112" fill="${accent}" opacity="0.28"/>
+            <circle cx="60" cy="60" r="52" fill="none" stroke="${detail}" stroke-width="2" stroke-dasharray="4 4" opacity="0.35"/>
+            <text x="60" y="69" text-anchor="middle" font-family="system-ui, sans-serif" font-size="32" font-weight="700" fill="${detail}">
+              ${artisan.initials}
+            </text>
+          </svg>
+        `;
+      }
+
+      function createProductArtworkSvg(product) {
+        const [bg, primary, dark] = product.palette;
+        const shapes = {
+          kettle: `
+            <path d="M75 72 C75 45, 145 45, 145 72" fill="none" stroke="${dark}" stroke-width="7" stroke-linecap="round"/>
+            <ellipse cx="110" cy="110" rx="44" ry="34" fill="${primary}"/>
+            <path d="M150 100 L176 84 L179 94 L152 114 Z" fill="${dark}"/>
+            <ellipse cx="110" cy="77" rx="22" ry="6" fill="${dark}"/>
+          `,
+          plates: `
+            <ellipse cx="110" cy="112" rx="58" ry="36" fill="${dark}" opacity="0.2"/>
+            <circle cx="110" cy="96" r="46" fill="${primary}"/>
+            <circle cx="110" cy="96" r="32" fill="${bg}" opacity="0.5"/>
+            <circle cx="110" cy="96" r="18" fill="${dark}" opacity="0.25"/>
+          `,
+          planter: `
+            <polygon points="72,68 148,68 136,128 84,128" fill="${primary}"/>
+            <rect x="68" y="60" width="84" height="12" rx="6" fill="${dark}"/>
+            <ellipse cx="110" cy="134" rx="34" ry="7" fill="${dark}" opacity="0.45"/>
+            <path d="M110 60 C102 36, 86 38, 88 58 M110 60 C118 32, 134 38, 130 58" fill="none" stroke="#3f6a45" stroke-width="5" stroke-linecap="round"/>
+          `,
+          cups: `
+            <rect x="60" y="76" width="38" height="44" rx="8" fill="${primary}"/>
+            <path d="M98 86 C110 86, 110 108, 98 108" fill="none" stroke="${dark}" stroke-width="5"/>
+            <rect x="122" y="76" width="38" height="44" rx="8" fill="${dark}"/>
+            <path d="M160 86 C172 86, 172 108, 160 108" fill="none" stroke="${primary}" stroke-width="5"/>
+          `,
+          runner: `
+            <rect x="44" y="64" width="132" height="58" rx="6" fill="${primary}"/>
+            <line x1="60" y1="64" x2="60" y2="122" stroke="${bg}" stroke-width="4"/>
+            <line x1="160" y1="64" x2="160" y2="122" stroke="${bg}" stroke-width="4"/>
+            <polygon points="110,74 128,93 110,112 92,93" fill="${bg}" opacity="0.85"/>
+          `,
+          blanket: `
+            <rect x="52" y="54" width="116" height="76" rx="10" fill="${primary}"/>
+            <rect x="52" y="74" width="116" height="14" fill="${dark}"/>
+            <rect x="52" y="100" width="116" height="10" fill="${bg}" opacity="0.7"/>
+          `,
+          cushion: `
+            <rect x="64" y="52" width="92" height="82" rx="14" fill="${primary}"/>
+            <rect x="78" y="66" width="64" height="54" rx="8" fill="none" stroke="${bg}" stroke-width="3" stroke-dasharray="6 4"/>
+          `,
+          tray: `
+            <polygon points="44,82 176,82 162,126 58,126" fill="${primary}"/>
+            <rect x="42" y="74" width="136" height="12" rx="4" fill="${dark}"/>
+            <rect x="66" y="92" width="22" height="8" rx="4" fill="${bg}" opacity="0.7"/>
+            <rect x="132" y="92" width="22" height="8" rx="4" fill="${bg}" opacity="0.7"/>
+          `,
+          spoons: `
+            <ellipse cx="86" cy="64" rx="16" ry="24" fill="${primary}" transform="rotate(-15 86 64)"/>
+            <rect x="86" y="84" width="8" height="56" rx="4" fill="${dark}" transform="rotate(-15 86 84)"/>
+            <ellipse cx="136" cy="66" rx="16" ry="24" fill="${dark}" transform="rotate(15 136 66)"/>
+            <rect x="128" y="84" width="8" height="56" rx="4" fill="${primary}" transform="rotate(15 128 84)"/>
+          `,
+          mortar: `
+            <path d="M68 78 L152 78 L138 128 L82 128 Z" fill="${primary}"/>
+            <ellipse cx="110" cy="78" rx="42" ry="10" fill="${dark}"/>
+            <rect x="122" y="42" width="14" height="44" rx="7" fill="${dark}" transform="rotate(24 122 42)"/>
+          `
+        };
+
+        return `
+          <svg viewBox="0 0 220 165" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${product.name}">
+            <rect width="220" height="165" fill="${bg}"/>
+            <circle cx="180" cy="30" r="28" fill="${primary}" opacity="0.1"/>
+            <circle cx="38" cy="142" r="34" fill="${dark}" opacity="0.08"/>
+            ${shapes[product.motif] || shapes.kettle}
+          </svg>
+        `;
+      }
+
+      /* ======================================================================
+         4. Toast Notification & Badge Updaters
+         ====================================================================== */
+      function showToast(message, type = "success") {
+        const region = document.getElementById("toast-region");
+        if (!region) return;
+
+        const toast = document.createElement("div");
+        toast.className = `toast toast--${type}`;
+
+        const textSpan = document.createElement("span");
+        textSpan.textContent = message;
+
+        const closeBtn = document.createElement("button");
+        closeBtn.type = "button";
+        closeBtn.className = "toast-close";
+        closeBtn.setAttribute("aria-label", "Dismiss notification");
+        closeBtn.textContent = "\u00D7";
+        closeBtn.addEventListener("click", () => toast.remove());
+
+        toast.append(textSpan, closeBtn);
+        region.appendChild(toast);
+
+        window.setTimeout(() => {
+          if (toast.isConnected) toast.remove();
+        }, 4200);
+      }
+
+      function updateHeaderCounts() {
+        const wishlist = readStorage(STORAGE_KEYS.WISHLIST);
+        const cart = readStorage(STORAGE_KEYS.CART);
+
+        const totalCartQty = cart.reduce((sum, item) => sum + (Number(item.quantity) || 1), 0);
+        const wishlistBadge = document.getElementById("nav-wishlist-count");
+        const cartBadge = document.getElementById("nav-cart-count");
+
+        if (wishlistBadge) wishlistBadge.textContent = String(wishlist.length);
+        if (cartBadge) cartBadge.textContent = String(totalCartQty);
+      }
+
+      /* ======================================================================
+         5. Wishlist & Cart Interactions
+         ====================================================================== */
+      function isProductWishlisted(productId) {
+        const wishlist = readStorage(STORAGE_KEYS.WISHLIST);
+        return wishlist.some((item) => (typeof item === "string" ? item === productId : item.id === productId));
+      }
+
+      function getProductsForArtisan(artisanId) {
+        const normalizedId = String(artisanId || "").trim().toLowerCase();
+        if (!normalizedId) return [];
+        return PRODUCTS.filter(
+          (product) => String(product.artisanId || "").trim().toLowerCase() === normalizedId
+        );
+      }
+
+      function toggleWishlist(product) {
+        if (!state.artisan || product.artisanId !== state.artisan.id) return false;
+        let wishlist = readStorage(STORAGE_KEYS.WISHLIST);
+        const exists = wishlist.some((item) => (typeof item === "string" ? item === product.id : item.id === product.id));
+
+        if (exists) {
+          wishlist = wishlist.filter((item) => (typeof item === "string" ? item !== product.id : item.id !== product.id));
+          if (!writeStorage(STORAGE_KEYS.WISHLIST, wishlist)) {
+            showToast("Unable to update wishlist storage in this browser.", "error");
+            return false;
+          }
+          showToast(`Removed "${product.name}" from your wishlist.`, "success");
+        } else {
+          wishlist.push({
+            id: product.id,
+            artisanId: product.artisanId,
+            artisanName: state.artisan.name,
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            addedAt: new Date().toISOString()
+          });
+          if (!writeStorage(STORAGE_KEYS.WISHLIST, wishlist)) {
+            showToast("Unable to save item to wishlist storage.", "error");
+            return false;
+          }
+          showToast(`Saved "${product.name}" to your wishlist.`, "success");
+        }
+
+        updateHeaderCounts();
+        return !exists;
+      }
+
+      function addToCart(product, triggerBtn) {
+        if (!state.artisan || product.artisanId !== state.artisan.id) return;
+        if (product.stock <= 0) {
+          showToast(`"${product.name}" is currently out of stock.`, "error");
+          return;
+        }
+
+        const cart = readStorage(STORAGE_KEYS.CART);
+        const existingIndex = cart.findIndex((item) => item.id === product.id);
+
+        if (existingIndex >= 0) {
+          const currentQty = Number(cart[existingIndex].quantity) || 1;
+          if (currentQty >= product.stock) {
+            showToast(`Only ${product.stock} unit(s) of "${product.name}" are available.`, "error");
+            return;
+          }
+          cart[existingIndex].quantity = currentQty + 1;
+        } else {
+          cart.push({
+            id: product.id,
+            artisanId: product.artisanId,
+            artisanName: state.artisan.name,
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            quantity: 1
+          });
+        }
+
+        if (!writeStorage(STORAGE_KEYS.CART, cart)) {
+          showToast("Unable to update cart storage in this browser.", "error");
+          return;
+        }
+
+        updateHeaderCounts();
+        showToast(`Added "${product.name}" to your cart.`, "success");
+
+        if (triggerBtn) {
+          const originalLabel = triggerBtn.dataset.originalLabel || "Add to Cart";
+          triggerBtn.dataset.originalLabel = originalLabel;
+          triggerBtn.textContent = "Added!";
+          window.setTimeout(() => {
+            if (triggerBtn.isConnected) triggerBtn.textContent = originalLabel;
+          }, 1200);
+        }
+      }
+
+      /* ======================================================================
+         6. Product Detail Navigation & Product Collection Rendering
+         ====================================================================== */
+      function buildProductDetailUrl(product) {
+        return `product-detail.html?id=${encodeURIComponent(product.id)}&artisan=${encodeURIComponent(product.artisanId)}`;
+      }
+
+      function rememberSelectedProduct(product) {
+        try {
+          localStorage.setItem(
+            STORAGE_KEYS.SELECTED_PRODUCT,
+            JSON.stringify({ ...product, artisanName: state.artisan.name })
+          );
+        } catch {
+          // Non-critical if storage is unavailable
+        }
+      }
+
+      function renderCategoryFilters(products) {
+        const filterContainer = document.getElementById("collection-filters");
+        if (!filterContainer) return;
+
+        const artisanProducts = state.artisan
+          ? products.filter((product) => product.artisanId === state.artisan.id)
+          : [];
+
+        filterContainer.innerHTML = "";
+        const categories = ["All", ...new Set(artisanProducts.map((p) => p.category))];
+
+        categories.forEach((category) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = `filter-btn${state.activeCategory === category ? " active" : ""}`;
+          btn.textContent = category;
+          btn.setAttribute("aria-pressed", String(state.activeCategory === category));
+
+          btn.addEventListener("click", () => {
+            state.activeCategory = category;
+            renderCategoryFilters(state.artisanProducts);
+            renderProductCollection();
+          });
+
+          filterContainer.appendChild(btn);
+        });
+      }
+
+      function renderProductCollection() {
+        const grid = document.getElementById("product-grid");
+        const countEl = document.getElementById("collection-count");
+        if (!grid || !countEl) return;
+
+        const artisanProducts = state.artisan ? getProductsForArtisan(state.artisan.id) : [];
+        state.artisanProducts = artisanProducts;
+
+        const filteredProducts =
+          state.activeCategory === "All"
+            ? artisanProducts
+            : artisanProducts.filter((product) => product.category === state.activeCategory);
+
+        countEl.textContent =
+          state.activeCategory === "All"
+            ? `Showing ${filteredProducts.length} handcrafted piece${filteredProducts.length === 1 ? "" : "s"} by ${state.artisan ? state.artisan.name : "this artisan"}.`
+            : `Showing ${filteredProducts.length} piece${filteredProducts.length === 1 ? "" : "s"} in ${state.activeCategory}.`;
+
+        grid.innerHTML = "";
+
+        if (filteredProducts.length === 0) {
+          const empty = document.createElement("p");
+          empty.className = "section-subtitle";
+          empty.textContent =
+            artisanProducts.length === 0
+              ? "No products are currently listed for this artisan."
+              : "No products match this category filter.";
+          grid.appendChild(empty);
+          return;
+        }
+
+        filteredProducts.forEach((product) => {
+          const detailUrl = buildProductDetailUrl(product);
+          const wishlisted = isProductWishlisted(product.id);
+          const inStock = product.stock > 0;
+
+          const card = document.createElement("article");
+          card.className = "product-card";
+          card.dataset.productId = product.id;
+
+          // Clickable image for Product Detail Navigation
+          const mediaLink = document.createElement("a");
+          mediaLink.href = detailUrl;
+          mediaLink.className = "product-media-link";
+          mediaLink.setAttribute("aria-label", `View details for ${product.name}`);
+          mediaLink.innerHTML = createProductArtworkSvg(product);
+
+          const categoryTag = document.createElement("span");
+          categoryTag.className = "product-category-tag";
+          categoryTag.textContent = product.category;
+          mediaLink.appendChild(categoryTag);
+          mediaLink.addEventListener("click", () => rememberSelectedProduct(product));
+
+          const body = document.createElement("div");
+          body.className = "product-body";
+
+          // Clickable title for Product Detail Navigation
+          const titleLink = document.createElement("a");
+          titleLink.href = detailUrl;
+          titleLink.className = "product-title-link";
+          titleLink.textContent = product.name;
+          titleLink.addEventListener("click", () => rememberSelectedProduct(product));
+
+          const desc = document.createElement("p");
+          desc.className = "product-desc";
+          desc.textContent = product.description;
+
+          const metaRow = document.createElement("div");
+          metaRow.className = "product-meta-row";
+
+          const priceEl = document.createElement("span");
+          priceEl.className = "product-price";
+          priceEl.textContent = formatCurrency(product.price);
+
+          const stockEl = document.createElement("span");
+          stockEl.className = `product-stock${inStock ? "" : " out"}`;
+          stockEl.textContent = inStock ? `${product.stock} in stock` : "Sold Out";
+
+          metaRow.append(priceEl, stockEl);
+
+          const actions = document.createElement("div");
+          actions.className = "product-actions";
+
+          const addCartBtn = document.createElement("button");
+          addCartBtn.type = "button";
+          addCartBtn.className = "btn-add-cart";
+          addCartBtn.disabled = !inStock;
+          addCartBtn.textContent = inStock ? "Add to Cart" : "Out of Stock";
+          addCartBtn.addEventListener("click", () => addToCart(product, addCartBtn));
+
+          const wishlistBtn = document.createElement("button");
+          wishlistBtn.type = "button";
+          wishlistBtn.className = `btn-wishlist${wishlisted ? " is-wishlisted" : ""}`;
+          wishlistBtn.setAttribute("aria-pressed", String(wishlisted));
+          wishlistBtn.setAttribute("aria-label", `${wishlisted ? "Remove" : "Add"} ${product.name} ${wishlisted ? "from" : "to"} wishlist`);
+          wishlistBtn.textContent = wishlisted ? "\u2665 Saved" : "\u2661 Save";
+
+          wishlistBtn.addEventListener("click", () => {
+            const nowWishlisted = toggleWishlist(product);
+            wishlistBtn.classList.toggle("is-wishlisted", nowWishlisted);
+            wishlistBtn.setAttribute("aria-pressed", String(nowWishlisted));
+            wishlistBtn.setAttribute(
+              "aria-label",
+              `${nowWishlisted ? "Remove" : "Add"} ${product.name} ${nowWishlisted ? "from" : "to"} wishlist`
+            );
+            wishlistBtn.textContent = nowWishlisted ? "\u2665 Saved" : "\u2661 Save";
+          });
+
+          const detailLink = document.createElement("a");
+          detailLink.href = detailUrl;
+          detailLink.className = "btn-detail-link";
+          detailLink.textContent = "View Product Details";
+          detailLink.addEventListener("click", () => rememberSelectedProduct(product));
+
+          actions.append(addCartBtn, wishlistBtn, detailLink);
+          body.append(titleLink, desc, metaRow, actions);
+          card.append(mediaLink, body);
+          grid.appendChild(card);
+        });
+      }
+
+      /* ======================================================================
+         7. Artisan Profile Population & Invalid State Handling
+         ====================================================================== */
+      function renderStars(score) {
+        const rounded = Math.round(score);
+        return "\u2605".repeat(rounded) + "\u2606".repeat(Math.max(0, 5 - rounded));
+      }
+
+      function populateArtisanProfile(artisan) {
+        state.artisan = artisan;
+        // Filter global products strictly by artisan ID
+        state.artisanProducts = getProductsForArtisan(artisan.id);
+        state.activeCategory = "All";
+
+        document.title = `${artisan.name} | Craftora Artisan Profile`;
+        document.getElementById("breadcrumb-artisan").textContent = artisan.name;
+
+        // Highlight active quick-switch link
+        document.querySelectorAll("[data-artisan-link]").forEach((link) => {
+          link.classList.toggle("active", link.dataset.artisanLink === artisan.id);
+        });
+
+        // Cover section
+        const coverEl = document.getElementById("artisan-cover");
+        coverEl.style.background = artisan.coverGradient;
+        document.getElementById("artisan-studio-badge").textContent = artisan.studioName;
+        document.getElementById("artisan-cover-tagline").textContent = artisan.tagline;
+
+        // Identity section
+        document.getElementById("artisan-avatar").innerHTML = createArtisanAvatarSvg(artisan);
+        document.getElementById("artisan-name").textContent = artisan.name;
+        document.getElementById("artisan-speciality").textContent = artisan.speciality;
+        document.getElementById("artisan-location").textContent = artisan.location;
+        document.getElementById("artisan-rating-summary").textContent =
+          `${artisan.rating.toFixed(1)} rating (${artisan.reviews.length} reviews)`;
+        document.getElementById("artisan-experience-badge").textContent =
+          `${artisan.yearsExperience} years experience`;
+
+        // Bio, Story, Experience
+        document.getElementById("artisan-bio").textContent = artisan.biography;
+        document.getElementById("craftsmanship-story").textContent = artisan.craftsmanshipStory;
+        document.getElementById("stat-years").textContent = `${artisan.yearsExperience}+`;
+        document.getElementById("stat-orders").textContent = artisan.piecesCrafted;
+
+        const expList = document.getElementById("experience-details-list");
+        expList.innerHTML = "";
+        artisan.experienceHighlights.forEach((item) => {
+          const li = document.createElement("li");
+          const strong = document.createElement("strong");
+          strong.textContent = item.title;
+          const span = document.createElement("span");
+          span.textContent = item.detail;
+          li.append(strong, span);
+          expList.appendChild(li);
+        });
+
+        // Product collection
+        renderCategoryFilters(state.artisanProducts);
+        renderProductCollection();
+
+        // Customer Reviews
+        document.getElementById("reviews-stars").textContent = renderStars(artisan.rating);
+        document.getElementById("average-rating").textContent = artisan.rating.toFixed(1);
+        document.getElementById("review-count").textContent =
+          `(${artisan.reviews.length} verified review${artisan.reviews.length === 1 ? "" : "s"})`;
+
+        const reviewsList = document.getElementById("reviews-list");
+        reviewsList.innerHTML = "";
+        artisan.reviews.forEach((review) => {
+          const card = document.createElement("article");
+          card.className = "review-card";
+
+          const header = document.createElement("div");
+          header.className = "review-header";
+
+          const authorWrap = document.createElement("div");
+          const nameEl = document.createElement("div");
+          nameEl.className = "reviewer-name";
+          nameEl.textContent = review.reviewer;
+          const dateEl = document.createElement("div");
+          dateEl.className = "review-date";
+          dateEl.textContent = review.date;
+          authorWrap.append(nameEl, dateEl);
+
+          const starsEl = document.createElement("span");
+          starsEl.className = "star-rating";
+          starsEl.setAttribute("aria-label", `${review.rating} out of 5 stars`);
+          starsEl.textContent = renderStars(review.rating);
+
+          header.append(authorWrap, starsEl);
+
+          const productTag = document.createElement("div");
+          productTag.className = "review-product-tag";
+          productTag.textContent = `Purchased: ${review.product}`;
+
+          const commentEl = document.createElement("p");
+          commentEl.className = "review-comment";
+          commentEl.textContent = `"${review.comment}"`;
+
+          card.append(header, productTag, commentEl);
+          reviewsList.appendChild(card);
+        });
+
+        // Customization information
+        const availEl = document.getElementById("customization-availability");
+        availEl.textContent = artisan.customization.available
+          ? "Open for Custom Commissions"
+          : "Custom Commissions Temporarily Paused";
+        document.getElementById("customization-summary").textContent = artisan.customization.summary;
+        document.getElementById("customization-options").textContent = artisan.customization.options;
+        document.getElementById("customization-lead-time").textContent = artisan.customization.leadTime;
+        document.getElementById("customization-pricing-note").textContent = artisan.customization.pricingNote;
+
+        // Populate Inquiry Product Dropdown with this artisan's filtered products
+        const productSelect = document.getElementById("inquiry-product");
+        productSelect.innerHTML = '<option value="">General Studio Inquiry</option>';
+        state.artisanProducts.forEach((product) => {
+          const option = document.createElement("option");
+          option.value = product.name;
+          option.textContent = `${product.name} (${formatCurrency(product.price)})`;
+          productSelect.appendChild(option);
+        });
+
+        document.getElementById("invalid-artisan-state").hidden = true;
+        document.getElementById("artisan-profile-content").hidden = false;
+      }
+
+      function showInvalidArtisanState(requestedId) {
+        state.artisan = null;
+        state.artisanProducts = [];
+        state.activeCategory = "All";
+
+        document.title = "Artisan Not Found | Craftora";
+        document.getElementById("breadcrumb-artisan").textContent = "Artisan Not Found";
+        document.getElementById("invalid-artisan-id").textContent = requestedId || "(empty)";
+
+        const grid = document.getElementById("product-grid");
+        const filters = document.getElementById("collection-filters");
+        const reviewsList = document.getElementById("reviews-list");
+        const productSelect = document.getElementById("inquiry-product");
+        if (grid) grid.innerHTML = "";
+        if (filters) filters.innerHTML = "";
+        if (reviewsList) reviewsList.innerHTML = "";
+        if (productSelect) productSelect.innerHTML = '<option value="">General Studio Inquiry</option>';
+
+        document.getElementById("artisan-profile-content").hidden = true;
+        document.getElementById("invalid-artisan-state").hidden = false;
+      }
+
+      function initArtisanFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const hasIdParam = params.has("id");
+        const rawId = hasIdParam ? params.get("id").trim().toLowerCase() : "a001";
+
+        const artisan = rawId ? ARTISANS[rawId] : null;
+        if (artisan) {
+          populateArtisanProfile(artisan);
+        } else {
+          showInvalidArtisanState(params.get("id"));
+        }
+      }
+
+      /* ======================================================================
+         8. Inquiry Form Validation & Contact Confirmation Area
+         ====================================================================== */
+      function setupInquiryForm() {
+        const form = document.getElementById("artisan-inquiry-form");
+        const nameInput = document.getElementById("inquiry-name");
+        const emailInput = document.getElementById("inquiry-email");
+        const subjectSelect = document.getElementById("inquiry-subject");
+        const productSelect = document.getElementById("inquiry-product");
+        const messageInput = document.getElementById("inquiry-message");
+        const charCount = document.getElementById("inquiry-char-count");
+        const confirmationBox = document.getElementById("contact-confirmation");
+        const resetBtn = document.getElementById("inquiry-reset-btn");
+
+        if (!form) return;
+
+        const fieldRules = {
+          name: {
+            input: nameInput,
+            errorEl: document.getElementById("error-inquiry-name"),
+            validate: (val) => {
+              if (!val) return "Please enter your name.";
+              if (val.length < 2) return "Name must be at least 2 characters.";
+              return "";
+            }
+          },
+          email: {
+            input: emailInput,
+            errorEl: document.getElementById("error-inquiry-email"),
+            validate: (val) => {
+              if (!val) return "Please enter your email address.";
+              const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+              if (!emailPattern.test(val)) return "Please enter a valid email address (e.g., name@domain.com).";
+              return "";
+            }
+          },
+          subject: {
+            input: subjectSelect,
+            errorEl: document.getElementById("error-inquiry-subject"),
+            validate: (val) => (!val ? "Please select an inquiry type." : "")
+          },
+          message: {
+            input: messageInput,
+            errorEl: document.getElementById("error-inquiry-message"),
+            validate: (val) => {
+              if (!val) return "Please enter a message for the artisan.";
+              if (val.length < 15) return `Please provide at least 15 characters (${15 - val.length} more needed).`;
+              if (val.length > 1000) return "Message cannot exceed 1000 characters.";
+              return "";
+            }
+          }
+        };
+
+        function setFieldError(rule, errorMessage) {
+          rule.errorEl.textContent = errorMessage;
+          rule.input.setAttribute("aria-invalid", errorMessage ? "true" : "false");
+        }
+
+        function clearConfirmation() {
+          confirmationBox.className = "contact-confirmation";
+          confirmationBox.innerHTML = "";
+        }
+
+        function renderConfirmationError(errors) {
+          confirmationBox.className = "contact-confirmation is-visible is-error";
+          confirmationBox.innerHTML = "";
+
+          const title = document.createElement("div");
+          title.className = "confirmation-title";
+          title.textContent = "Please fix the highlighted errors before saving your inquiry:";
+
+          const list = document.createElement("ul");
+          list.style.paddingLeft = "1.2rem";
+          list.style.listStyle = "disc";
+          errors.forEach((msg) => {
+            const li = document.createElement("li");
+            li.textContent = msg;
+            list.appendChild(li);
+          });
+
+          confirmationBox.append(title, list);
+          showToast("Please review and fix the inquiry form errors.", "error");
+        }
+
+        function renderConfirmationSuccess(submission) {
+          confirmationBox.className = "contact-confirmation is-visible is-success";
+          confirmationBox.innerHTML = "";
+
+          const title = document.createElement("div");
+          title.className = "confirmation-title";
+          title.textContent = `Inquiry saved locally for ${submission.artisanName} (No message sent)`;
+
+          const note = document.createElement("p");
+          note.textContent =
+            "This static preview validated and saved your inquiry only in this browser's local storage. No email or message was actually sent to the artisan.";
+
+          const summary = document.createElement("div");
+          summary.className = "confirmation-summary";
+
+          const dl = document.createElement("dl");
+          const rows = [
+            ["Reference ID", submission.referenceId],
+            ["Selected Studio", `${submission.artisanName} (${submission.studioName})`],
+            ["Delivery Status", "Saved locally in browser (not sent)"],
+            ["From", `${submission.name} <${submission.email}>`],
+            ["Inquiry Type", submission.subject],
+            ["Related Product", submission.product || "General Studio Inquiry"],
+            ["Message Preview", submission.message.length > 140 ? `${submission.message.slice(0, 140)}...` : submission.message]
+          ];
+
+          rows.forEach(([label, val]) => {
+            const dt = document.createElement("dt");
+            dt.textContent = `${label}:`;
+            const dd = document.createElement("dd");
+            dd.textContent = val;
+            dl.append(dt, dd);
+          });
+
+          summary.appendChild(dl);
+          confirmationBox.append(title, note, summary);
+          confirmationBox.focus();
+          showToast(
+            `Inquiry (${submission.referenceId}) saved locally in this browser. No message was sent.`,
+            "success"
+          );
+        }
+
+        // Live character count & live error clearing
+        messageInput.addEventListener("input", () => {
+          charCount.textContent = `${messageInput.value.length} / 1000`;
+        });
+
+        Object.values(fieldRules).forEach((rule) => {
+          const eventName = rule.input.tagName === "SELECT" ? "change" : "input";
+          rule.input.addEventListener(eventName, () => {
+            if (rule.input.getAttribute("aria-invalid") === "true") {
+              setFieldError(rule, rule.validate(rule.input.value.trim()));
+            }
+          });
+        });
+
+        resetBtn.addEventListener("click", () => {
+          Object.values(fieldRules).forEach((rule) => setFieldError(rule, ""));
+          charCount.textContent = "0 / 1000";
+          clearConfirmation();
+        });
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          if (!state.artisan) return;
+
+          const errors = [];
+          let firstInvalidInput = null;
+
+          Object.values(fieldRules).forEach((rule) => {
+            const errorMsg = rule.validate(rule.input.value.trim());
+            setFieldError(rule, errorMsg);
+            if (errorMsg) {
+              errors.push(errorMsg);
+              if (!firstInvalidInput) firstInvalidInput = rule.input;
+            }
+          });
+
+          if (errors.length > 0) {
+            renderConfirmationError(errors);
+            firstInvalidInput.focus();
+            return;
+          }
+
+          const submission = {
+            referenceId: `INQ-${Math.random().toString(36).slice(2, 7).toUpperCase()}`,
+            artisanId: state.artisan.id,
+            artisanName: state.artisan.name,
+            studioName: state.artisan.studioName,
+            name: nameInput.value.trim(),
+            email: emailInput.value.trim(),
+            subject: subjectSelect.value,
+            product: productSelect.value,
+            message: messageInput.value.trim(),
+            status: "saved_locally_not_sent",
+            submittedAt: new Date().toISOString()
+          };
+
+          const existingInquiries = readStorage(STORAGE_KEYS.INQUIRIES);
+          existingInquiries.push(submission);
+          if (!writeStorage(STORAGE_KEYS.INQUIRIES, existingInquiries)) {
+            showToast("Unable to save inquiry in browser storage.", "error");
+            return;
+          }
+
+          form.reset();
+          charCount.textContent = "0 / 1000";
+          Object.values(fieldRules).forEach((rule) => setFieldError(rule, ""));
+          renderConfirmationSuccess(submission);
+        });
+      }
+
+      /* ======================================================================
+         9. Initialize Page
+         ====================================================================== */
+      document.addEventListener("DOMContentLoaded", () => {
+        initArtisanFromUrl();
+        updateHeaderCounts();
+        setupInquiryForm();
+      });
+    })();
+  </script>
+</body>
+</html>

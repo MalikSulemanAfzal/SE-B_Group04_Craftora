@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist | Craftora</title>
+  <!-- Shared stylesheet used across all Craftora pages -->
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ==========================================================================
+       Craftora - Wishlist Page Styles
+       ========================================================================== */
+    :root {
+      --color-warm-tint: #f1e9df;
+      --color-success: #1f6f43;
+      --color-success-bg: #eaf6ef;
+      --color-success-border: #b7e1c7;
+      --color-error: #b42318;
+      --color-error-bg: #fef3f2;
+      --color-error-border: #fecdca;
+      --shadow-sm: 0 2px 8px rgba(44, 38, 35, 0.06);
+      --shadow-md: 0 8px 24px rgba(44, 38, 35, 0.08);
+    }
+
+    /* Header utility pills for Wishlist & Cart */
+    .nav-utility-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.35rem;
+      height: 1.35rem;
+      padding: 0 0.35rem;
+      border-radius: 999px;
+      background-color: var(--color-primary);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    /* Breadcrumb Navigation */
+    .breadcrumb-bar {
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.85rem 0;
+    }
+
+    .breadcrumb-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--color-muted);
+    }
+
+    .breadcrumb-list li {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-list li + li::before {
+      content: "/";
+      color: var(--color-border);
+    }
+
+    .breadcrumb-list a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .breadcrumb-list [aria-current="page"] {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    /* Page Section & Wishlist Header */
+    .wishlist-page-section {
+      padding: 2.25rem 0 3.5rem;
+    }
+
+    .wishlist-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .wishlist-header-copy {
+      max-width: 660px;
+    }
+
+    .wishlist-heading {
+      font-size: clamp(1.7rem, 3vw, 2.25rem);
+      line-height: 1.2;
+      color: var(--color-text);
+      margin-bottom: 0.45rem;
+    }
+
+    .wishlist-intro {
+      color: var(--color-muted);
+      font-size: 0.98rem;
+    }
+
+    .wishlist-header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .wishlist-count-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background-color: var(--color-primary);
+      color: #ffffff;
+      border: none;
+      padding: 0.72rem 1.3rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.94rem;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--color-primary-dark);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      padding: 0.68rem 1.2rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.93rem;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background-color: #fdfaf7;
+    }
+
+    /* Saved Product Grid */
+    .wishlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .wishlist-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .wishlist-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .wishlist-card--unavailable {
+      border-color: var(--color-error-border);
+      background-color: #fffdfd;
+    }
+
+    .wishlist-media-link {
+      position: relative;
+      display: block;
+      background-color: var(--color-warm-tint);
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+
+    .wishlist-product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .wishlist-card:hover .wishlist-product-img {
+      transform: scale(1.02);
+    }
+
+    .wishlist-card--unavailable .wishlist-product-img {
+      filter: grayscale(30%);
+      opacity: 0.85;
+    }
+
+    .wishlist-category-tag {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      background-color: rgba(255, 255, 255, 0.93);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .wishlist-card-body {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 0.55rem;
+    }
+
+    .wishlist-product-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+
+    .wishlist-product-title a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .wishlist-artisan-info {
+      font-size: 0.88rem;
+      color: var(--color-muted);
+    }
+
+    .wishlist-artisan-info a {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .wishlist-artisan-info a:hover {
+      text-decoration: underline;
+    }
+
+    .wishlist-price-availability {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .wishlist-product-price {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+    }
+
+    .availability-badge--available {
+      background-color: var(--color-success-bg);
+      border-color: var(--color-success-border);
+      color: var(--color-success);
+    }
+
+    .availability-badge--unavailable {
+      background-color: var(--color-error-bg);
+      border-color: var(--color-error-border);
+      color: var(--color-error);
+    }
+
+    .unavailable-note {
+      font-size: 0.83rem;
+      color: var(--color-error);
+      background-color: var(--color-error-bg);
+      border: 1px solid var(--color-error-border);
+      border-radius: var(--radius);
+      padding: 0.45rem 0.65rem;
+    }
+
+    .wishlist-card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-top: 0.45rem;
+    }
+
+    .wishlist-primary-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .btn-add-cart {
+      width: 100%;
+      background-color: var(--color-primary);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.65rem 0.9rem;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn-add-cart:hover:not(:disabled) {
+      background-color: var(--color-primary-dark);
+    }
+
+    .btn-add-cart:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-remove-wishlist {
+      width: 100%;
+      background-color: var(--color-bg);
+      color: var(--color-error);
+      border: 1px solid var(--color-error-border);
+      border-radius: var(--radius);
+      padding: 0.58rem 0.85rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-remove-wishlist:hover {
+      background-color: var(--color-error-bg);
+      border-color: var(--color-error);
+    }
+
+    .btn-detail-link {
+      text-align: center;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--color-muted);
+      transition: all 0.2s ease;
+    }
+
+    .btn-detail-link:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background-color: var(--color-bg);
+    }
+
+    /* Empty Wishlist State */
+    .empty-wishlist-card {
+      max-width: 620px;
+      margin: 1.5rem auto;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .empty-wishlist-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 1.15rem;
+      border-radius: 50%;
+      background-color: var(--color-warm-tint);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-wishlist-card h2 {
+      font-size: 1.55rem;
+      margin-bottom: 0.6rem;
+      color: var(--color-text);
+    }
+
+    .empty-wishlist-card p {
+      color: var(--color-muted);
+      max-width: 450px;
+      margin: 0 auto 1.6rem;
+    }
+
+    .empty-wishlist-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    /* Toast / Live Feedback Notification */
+    .toast-region {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-width: 360px;
+      width: calc(100% - 2.5rem);
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface);
+      box-shadow: var(--shadow-md);
+      font-size: 0.92rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      animation: slideUp 0.2s ease-out;
+    }
+
+    .toast--success {
+      background-color: var(--color-success-bg);
+      border-color: var(--color-success-border);
+      color: var(--color-success);
+    }
+
+    .toast--error {
+      background-color: var(--color-error-bg);
+      border-color: var(--color-error-border);
+      color: var(--color-error);
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.75;
+    }
+
+    .toast-close:hover {
+      opacity: 1;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (max-width: 600px) {
+      .wishlist-header {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SHARED HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">Craftora</a>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        &#9776;
+      </button>
+
+      <nav id="main-nav" class="site-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li>
+            <a href="wishlist.html" class="nav-link nav-utility-link active" aria-current="page">
+              Wishlist <span id="nav-wishlist-count" class="nav-count-badge">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="cart.html" class="nav-link nav-utility-link">
+              Cart <span id="nav-cart-count" class="nav-count-badge">0</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= BREADCRUMB NAVIGATION ================= -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li aria-current="page">Wishlist</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+    <section class="wishlist-page-section" aria-labelledby="wishlist-heading">
+      <div class="container">
+
+        <!-- Wishlist Heading & Introduction -->
+        <header class="wishlist-header">
+          <div class="wishlist-header-copy">
+            <h1 id="wishlist-heading" class="wishlist-heading">Your Saved Wishlist</h1>
+            <p id="wishlist-intro" class="wishlist-intro">
+              Keep track of handcrafted pottery, woodwork, and textiles you love. Move available pieces
+              into your cart whenever you are ready to order.
+            </p>
+          </div>
+
+          <div class="wishlist-header-meta">
+            <span id="wishlist-count-pill" class="wishlist-count-pill" aria-live="polite">0 saved items</span>
+            <a href="products.html" class="btn-secondary">Browse Products</a>
+          </div>
+        </header>
+
+        <!-- Empty-Wishlist State -->
+        <section id="empty-wishlist-state" class="empty-wishlist-card" aria-labelledby="empty-wishlist-heading" hidden>
+          <div class="empty-wishlist-icon" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20.5s-7.5-4.7-9.6-9.1C.7 7.9 2.7 4 6.6 4c2.1 0 3.9 1.1 5.4 2.8C13.5 5.1 15.3 4 17.4 4c3.9 0 5.9 3.9 4.2 7.4-2.1 4.4-9.6 9.1-9.6 9.1z"></path>
+            </svg>
+          </div>
+          <h2 id="empty-wishlist-heading">Your wishlist is currently empty</h2>
+          <p>
+            Save your favourite handmade pieces while browsing Craftora so you can compare crafts,
+            check availability, and add them to your cart later.
+          </p>
+          <div class="empty-wishlist-actions">
+            <a href="products.html" class="btn-primary">Explore Handcrafted Goods</a>
+            <a href="artisan-profile.html?id=a001" class="btn-secondary">Meet Our Artisans</a>
+          </div>
+        </section>
+
+        <!-- Saved Product Grid -->
+        <div id="wishlist-grid" class="wishlist-grid" role="list" aria-label="Saved wishlist products"></div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Live Toast Notification Region -->
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Craftora</strong>
+        <p>Supporting local craftsmanship and handmade quality.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <p class="footer-copy">&copy; 2026 Craftora. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Shared JavaScript file -->
+  <script src="../js/main.js" defer></script>
+
+  <!-- Page-specific JavaScript for Wishlist -->
+  <script>
+    (() => {
+      "use strict";
+
+      /* ======================================================================
+         1. Storage Keys & Catalog Metadata
+         ====================================================================== */
+      const STORAGE_KEYS = {
+        WISHLIST: "craftora_wishlist",
+        CART: "craftora_cart",
+        SELECTED_PRODUCT: "craftora_selected_product"
+      };
+
+      const ARTISAN_CATALOG = {
+        a001: { id: "a001", name: "Amaya Perera", studioName: "Red Earth Pottery Studio", location: "Kandy, Sri Lanka" },
+        a002: { id: "a002", name: "Mateo Morales", studioName: "Taller Sol & Indigo", location: "Oaxaca, Mexico" },
+        a003: { id: "a003", name: "Kenji Takahashi", studioName: "Hida Timber Craft", location: "Takayama, Japan" }
+      };
+
+      const PRODUCT_CATALOG = {
+        p101: {
+          id: "p101",
+          artisanId: "a001",
+          name: "Terracotta Tea Kettle",
+          category: "Pottery",
+          price: 48.0,
+          stock: 6,
+          motif: "kettle",
+          palette: ["#f3e3d7", "#9c4a2b", "#6e3521"]
+        },
+        p102: {
+          id: "p102",
+          artisanId: "a001",
+          name: "Speckled Stoneware Dinner Set",
+          category: "Tableware",
+          price: 86.0,
+          stock: 4,
+          motif: "plates",
+          palette: ["#efe8df", "#8a5a44", "#4f3a30"]
+        },
+        p103: {
+          id: "p103",
+          artisanId: "a001",
+          name: "Matte Clay Planter Bowl",
+          category: "Home Decor",
+          price: 34.0,
+          stock: 9,
+          motif: "planter",
+          palette: ["#f2e4d8", "#b5603e", "#4b6b50"]
+        },
+        p104: {
+          id: "p104",
+          artisanId: "a001",
+          name: "Ash-Glazed Espresso Cups (Pair)",
+          category: "Tableware",
+          price: 38.0,
+          stock: 0,
+          motif: "cups",
+          palette: ["#f5efe6", "#9c7a5b", "#5c4033"]
+        },
+        p201: {
+          id: "p201",
+          artisanId: "a002",
+          name: "Indigo Loom Table Runner",
+          category: "Textiles",
+          price: 54.0,
+          stock: 7,
+          motif: "runner",
+          palette: ["#dfe7f0", "#2f4e6d", "#1d3147"]
+        },
+        p202: {
+          id: "p202",
+          artisanId: "a002",
+          name: "Woven Cotton Throw Blanket",
+          category: "Textiles",
+          price: 112.0,
+          stock: 3,
+          motif: "blanket",
+          palette: ["#f5eadc", "#c97a2b", "#9c4a2b"]
+        },
+        p203: {
+          id: "p203",
+          artisanId: "a002",
+          name: "Botanical Dyed Cushion Covers",
+          category: "Home Decor",
+          price: 46.0,
+          stock: 5,
+          motif: "cushion",
+          palette: ["#efe4d6", "#8c5b3e", "#5b3a29"]
+        },
+        p301: {
+          id: "p301",
+          artisanId: "a003",
+          name: "Walnut Serving Tray",
+          category: "Woodwork",
+          price: 72.0,
+          stock: 5,
+          motif: "tray",
+          palette: ["#ede2d5", "#6d4c33", "#3e2a1b"]
+        },
+        p302: {
+          id: "p302",
+          artisanId: "a003",
+          name: "Hand-Carved Hinoki Salad Spoons",
+          category: "Kitchenware",
+          price: 29.0,
+          stock: 11,
+          motif: "spoons",
+          palette: ["#f4ebd9", "#b08454", "#6e4e2e"]
+        },
+        p303: {
+          id: "p303",
+          artisanId: "a003",
+          name: "Cedar Spice Mortar & Pestle",
+          category: "Kitchenware",
+          price: 44.0,
+          stock: 4,
+          motif: "mortar",
+          palette: ["#efe2d4", "#8e5c3c", "#4d311f"]
+        }
+      };
+
+      /* ======================================================================
+         2. Utility & Storage Helpers
+         ====================================================================== */
+      function readStorageArray(key) {
+        try {
+          const raw = localStorage.getItem(key);
+          const parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function writeStorage(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      function parsePrice(value) {
+        if (typeof value === "number") {
+          return Number.isFinite(value) && value >= 0 ? value : 0;
+        }
+        const cleaned = String(value ?? "").replace(/[^0-9.-]/g, "");
+        const parsed = Number(cleaned);
+        return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+      }
+
+      function formatCurrency(amount) {
+        return `$${parsePrice(amount).toFixed(2)}`;
+      }
+
+      function sanitizeHexColor(value, fallback) {
+        return typeof value === "string" && /^#[0-9a-fA-F]{3,8}$/.test(value.trim()) ? value.trim() : fallback;
+      }
+
+      function getItemVariant(item) {
+        const raw = item.variant ?? item.selectedVariant ?? item.variantName ?? item.option ?? "";
+        if (typeof raw === "string") {
+          return raw.trim() || "Standard";
+        }
+        if (raw && typeof raw === "object") {
+          const formatted = Object.entries(raw)
+            .filter(([, val]) => val !== undefined && val !== null && String(val).trim() !== "")
+            .map(([key, val]) => `${key}: ${val}`)
+            .join(", ");
+          return formatted || "Standard";
+        }
+        return "Standard";
+      }
+
+      function getCartCompositeKey(id, variant) {
+        return `${String(id)}::${String(variant || "Standard").trim().toLowerCase()}`;
+      }
+
+      /* ======================================================================
+         3. Wishlist Retrieval, Normalization & Availability Handling
+         ====================================================================== */
+      function resolveAvailability(rawItem, catalogProduct) {
+        // Explicit unavailability flags always take precedence
+        if (rawItem && typeof rawItem === "object") {
+          const status = String(rawItem.status || rawItem.availability || "").trim().toLowerCase();
+          if (
+            rawItem.available === false ||
+            rawItem.inStock === false ||
+            rawItem.isAvailable === false ||
+            status === "unavailable" ||
+            status === "out of stock" ||
+            status === "out_of_stock" ||
+            status === "sold out" ||
+            status === "discontinued"
+          ) {
+            return {
+              isAvailable: false,
+              stock: 0,
+              label: status === "discontinued" ? "Discontinued" : "Out of Stock",
+              reason:
+                status === "discontinued"
+                  ? "This craft piece is no longer offered by the studio."
+                  : "This piece is currently sold out and cannot be added to your cart."
+            };
+          }
+
+          if (rawItem.stock !== undefined && rawItem.stock !== null && rawItem.stock !== "") {
+            const explicitStock = Number(rawItem.stock);
+            if (Number.isFinite(explicitStock)) {
+              if (explicitStock <= 0) {
+                return {
+                  isAvailable: false,
+                  stock: 0,
+                  label: "Out of Stock",
+                  reason: "This piece is currently sold out and cannot be added to your cart."
+                };
+              }
+              return {
+                isAvailable: true,
+                stock: Math.floor(explicitStock),
+                label: `In Stock (${Math.floor(explicitStock)} available)`,
+                reason: ""
+              };
+            }
+          }
+        }
+
+        // Fall back to catalog stock when available
+        if (catalogProduct) {
+          if (catalogProduct.stock <= 0) {
+            return {
+              isAvailable: false,
+              stock: 0,
+              label: "Out of Stock",
+              reason: "This piece is currently sold out and cannot be added to your cart."
+            };
+          }
+          return {
+            isAvailable: true,
+            stock: catalogProduct.stock,
+            label: `In Stock (${catalogProduct.stock} available)`,
+            reason: ""
+          };
+        }
+
+        // Unknown product ID saved as plain string without details -> treat as unavailable
+        if (typeof rawItem === "string") {
+          return {
+            isAvailable: false,
+            stock: 0,
+            label: "Currently Unavailable",
+            reason: "Product details are no longer available in the catalog."
+          };
+        }
+
+        // Custom product object without explicit stock count -> assume available
+        return {
+          isAvailable: true,
+          stock: null,
+          label: "In Stock",
+          reason: ""
+        };
+      }
+
+      function retrieveWishlistFromStorage() {
+        const rawEntries = readStorageArray(STORAGE_KEYS.WISHLIST);
+        const normalized = [];
+
+        rawEntries.forEach((entry, index) => {
+          if (typeof entry === "string") {
+            const id = entry.trim();
+            if (!id) return;
+
+            const catalogProduct = PRODUCT_CATALOG[id] || null;
+            const artisanId = catalogProduct ? catalogProduct.artisanId : "";
+            const catalogArtisan = artisanId ? ARTISAN_CATALOG[artisanId] : null;
+            const availability = resolveAvailability(entry, catalogProduct);
+
+            normalized.push({
+              storageIndex: index,
+              id,
+              name: catalogProduct ? catalogProduct.name : `Saved Piece (${id})`,
+              category: catalogProduct ? catalogProduct.category : "Handcrafted",
+              price: catalogProduct ? catalogProduct.price : 0,
+              hasKnownPrice: Boolean(catalogProduct),
+              artisanId,
+              artisanName: catalogArtisan ? catalogArtisan.name : "Craftora Studio",
+              studioName: catalogArtisan ? catalogArtisan.studioName : "",
+              artisanLocation: catalogArtisan ? catalogArtisan.location : "",
+              variant: "Standard",
+              image: "",
+              motif: catalogProduct ? catalogProduct.motif : "kettle",
+              palette: catalogProduct ? catalogProduct.palette : ["#f1e9df", "#9c4a2b", "#6e3521"],
+              ...availability
+            });
+            return;
+          }
+
+          if (!entry || typeof entry !== "object") return;
+
+          const id = String(entry.id ?? entry.productId ?? entry.name ?? "").trim();
+          if (!id) return;
+
+          const catalogProduct = PRODUCT_CATALOG[id] || null;
+          const artisanId = String(entry.artisanId || (catalogProduct ? catalogProduct.artisanId : "")).trim();
+          const catalogArtisan = artisanId ? ARTISAN_CATALOG[artisanId] : null;
+          const availability = resolveAvailability(entry, catalogProduct);
+
+          const rawPrice = entry.price ?? entry.unitPrice ?? (catalogProduct ? catalogProduct.price : null);
+          const hasKnownPrice = rawPrice !== null && rawPrice !== undefined && rawPrice !== "";
+
+          normalized.push({
+            ...entry,
+            storageIndex: index,
+            id,
+            name: String(entry.name || (catalogProduct ? catalogProduct.name : "Handcrafted Artisan Piece")).trim(),
+            category: String(entry.category || (catalogProduct ? catalogProduct.category : "Handcrafted")).trim(),
+            price: parsePrice(rawPrice),
+            hasKnownPrice,
+            artisanId,
+            artisanName: String(
+              entry.artisanName || entry.artisan || (catalogArtisan ? catalogArtisan.name : "Craftora Artisan")
+            ).trim(),
+            studioName: String(
+              entry.studioName || entry.artisanStudio || (catalogArtisan ? catalogArtisan.studioName : "")
+            ).trim(),
+            artisanLocation: String(
+              entry.artisanLocation || (catalogArtisan ? catalogArtisan.location : "")
+            ).trim(),
+            variant: getItemVariant(entry),
+            image: typeof entry.image === "string" ? entry.image.trim() : (typeof entry.imageUrl === "string" ? entry.imageUrl.trim() : ""),
+            motif: entry.motif || (catalogProduct ? catalogProduct.motif : "kettle"),
+            palette: Array.isArray(entry.palette) && entry.palette.length >= 3
+              ? entry.palette
+              : (catalogProduct ? catalogProduct.palette : ["#f1e9df", "#9c4a2b", "#6e3521"]),
+            ...availability
+          });
+        });
+
+        return normalized;
+      }
+
+      /* ======================================================================
+         4. Inline SVG Fallback Artwork for Product Images
+         ====================================================================== */
+      function createProductArtworkDataUrl(item) {
+        const rawPalette = Array.isArray(item.palette) ? item.palette : [];
+        const bg = sanitizeHexColor(rawPalette[0], "#f1e9df");
+        const primary = sanitizeHexColor(rawPalette[1], "#9c4a2b");
+        const dark = sanitizeHexColor(rawPalette[2], "#6e3521");
+        const shapes = {
+          kettle: `<path d="M75 72 C75 45, 145 45, 145 72" fill="none" stroke="${dark}" stroke-width="7" stroke-linecap="round"/><ellipse cx="110" cy="110" rx="44" ry="34" fill="${primary}"/><path d="M150 100 L176 84 L179 94 L152 114 Z" fill="${dark}"/><ellipse cx="110" cy="77" rx="22" ry="6" fill="${dark}"/>`,
+          plates: `<ellipse cx="110" cy="112" rx="58" ry="36" fill="${dark}" opacity="0.2"/><circle cx="110" cy="96" r="46" fill="${primary}"/><circle cx="110" cy="96" r="32" fill="${bg}" opacity="0.5"/><circle cx="110" cy="96" r="18" fill="${dark}" opacity="0.25"/>`,
+          planter: `<polygon points="72,68 148,68 136,128 84,128" fill="${primary}"/><rect x="68" y="60" width="84" height="12" rx="6" fill="${dark}"/><ellipse cx="110" cy="134" rx="34" ry="7" fill="${dark}" opacity="0.45"/><path d="M110 60 C102 36, 86 38, 88 58 M110 60 C118 32, 134 38, 130 58" fill="none" stroke="#3f6a45" stroke-width="5" stroke-linecap="round"/>`,
+          cups: `<rect x="60" y="76" width="38" height="44" rx="8" fill="${primary}"/><path d="M98 86 C110 86, 110 108, 98 108" fill="none" stroke="${dark}" stroke-width="5"/><rect x="122" y="76" width="38" height="44" rx="8" fill="${dark}"/><path d="M160 86 C172 86, 172 108, 160 108" fill="none" stroke="${primary}" stroke-width="5"/>`,
+          runner: `<rect x="44" y="64" width="132" height="58" rx="6" fill="${primary}"/><line x1="60" y1="64" x2="60" y2="122" stroke="${bg}" stroke-width="4"/><line x1="160" y1="64" x2="160" y2="122" stroke="${bg}" stroke-width="4"/><polygon points="110,74 128,93 110,112 92,93" fill="${bg}" opacity="0.85"/>`,
+          blanket: `<rect x="52" y="54" width="116" height="76" rx="10" fill="${primary}"/><rect x="52" y="74" width="116" height="14" fill="${dark}"/><rect x="52" y="100" width="116" height="10" fill="${bg}" opacity="0.7"/>`,
+          cushion: `<rect x="64" y="52" width="92" height="82" rx="14" fill="${primary}"/><rect x="78" y="66" width="64" height="54" rx="8" fill="none" stroke="${bg}" stroke-width="3" stroke-dasharray="6 4"/>`,
+          tray: `<polygon points="44,82 176,82 162,126 58,126" fill="${primary}"/><rect x="42" y="74" width="136" height="12" rx="4" fill="${dark}"/><rect x="66" y="92" width="22" height="8" rx="4" fill="${bg}" opacity="0.7"/><rect x="132" y="92" width="22" height="8" rx="4" fill="${bg}" opacity="0.7"/>`,
+          spoons: `<ellipse cx="86" cy="64" rx="16" ry="24" fill="${primary}" transform="rotate(-15 86 64)"/><rect x="86" y="84" width="8" height="56" rx="4" fill="${dark}" transform="rotate(-15 86 84)"/><ellipse cx="136" cy="66" rx="16" ry="24" fill="${dark}" transform="rotate(15 136 66)"/><rect x="128" y="84" width="8" height="56" rx="4" fill="${primary}" transform="rotate(15 128 84)"/>`,
+          mortar: `<path d="M68 78 L152 78 L138 128 L82 128 Z" fill="${primary}"/><ellipse cx="110" cy="78" rx="42" ry="10" fill="${dark}"/><rect x="122" y="42" width="14" height="44" rx="7" fill="${dark}" transform="rotate(24 122 42)"/>`
+        };
+
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 165"><rect width="220" height="165" fill="${bg}"/><circle cx="180" cy="30" r="28" fill="${primary}" opacity="0.1"/><circle cx="38" cy="142" r="34" fill="${dark}" opacity="0.08"/>${shapes[item.motif] || shapes.kettle}</svg>`;
+        return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+      }
+
+      /* ======================================================================
+         5. Notifications & Header Counter Updaters
+         ====================================================================== */
+      function showToast(message, type = "success") {
+        const region = document.getElementById("toast-region");
+        if (!region) return;
+
+        const toast = document.createElement("div");
+        toast.className = `toast toast--${type}`;
+
+        const textSpan = document.createElement("span");
+        textSpan.textContent = message;
+
+        const closeBtn = document.createElement("button");
+        closeBtn.type = "button";
+        closeBtn.className = "toast-close";
+        closeBtn.setAttribute("aria-label", "Dismiss notification");
+        closeBtn.textContent = "\u00D7";
+        closeBtn.addEventListener("click", () => toast.remove());
+
+        toast.append(textSpan, closeBtn);
+        region.appendChild(toast);
+
+        window.setTimeout(() => {
+          if (toast.isConnected) toast.remove();
+        }, 4000);
+      }
+
+      function updateWishlistCount(items) {
+        const wishlistItems = Array.isArray(items) ? items : retrieveWishlistFromStorage();
+        const count = wishlistItems.length;
+
+        const wishlistBadge = document.getElementById("nav-wishlist-count");
+        const countPill = document.getElementById("wishlist-count-pill");
+
+        if (wishlistBadge) wishlistBadge.textContent = String(count);
+        if (countPill) {
+          countPill.textContent = `${count} saved item${count === 1 ? "" : "s"}`;
+        }
+      }
+
+      function updateCartCount() {
+        const cart = readStorageArray(STORAGE_KEYS.CART);
+        const totalCartQty = cart.reduce((sum, item) => {
+          const qty = Math.floor(Number(item && (item.quantity ?? item.qty)));
+          return sum + (Number.isFinite(qty) && qty >= 1 ? qty : 1);
+        }, 0);
+
+        const cartBadge = document.getElementById("nav-cart-count");
+        if (cartBadge) cartBadge.textContent = String(totalCartQty);
+      }
+
+      function updateAllCounts(wishlistItems) {
+        updateWishlistCount(wishlistItems);
+        updateCartCount();
+      }
+
+      /* ======================================================================
+         6. Wishlist Actions (Remove, Add to Cart, Navigate to Details)
+         ====================================================================== */
+      function buildProductDetailUrl(item) {
+        const params = new URLSearchParams();
+        params.set("id", item.id);
+        if (item.artisanId) params.set("artisan", item.artisanId);
+        return `product-detail.html?${params.toString()}`;
+      }
+
+      function rememberSelectedProduct(item) {
+        try {
+          localStorage.setItem(
+            STORAGE_KEYS.SELECTED_PRODUCT,
+            JSON.stringify({
+              id: item.id,
+              artisanId: item.artisanId,
+              artisanName: item.artisanName,
+              name: item.name,
+              price: item.price,
+              category: item.category,
+              stock: item.stock,
+              motif: item.motif,
+              palette: item.palette
+            })
+          );
+        } catch {
+          // Non-critical if storage is unavailable
+        }
+      }
+
+      function removeFromWishlist(item) {
+        const rawWishlist = readStorageArray(STORAGE_KEYS.WISHLIST);
+        const updatedWishlist = rawWishlist.filter((entry, idx) => {
+          if (idx === item.storageIndex) return false;
+          if (typeof entry === "string") return entry.trim() !== item.id;
+          if (entry && typeof entry === "object") {
+            const entryId = String(entry.id ?? entry.productId ?? entry.name ?? "").trim();
+            return entryId !== item.id;
+          }
+          return true;
+        });
+
+        if (!writeStorage(STORAGE_KEYS.WISHLIST, updatedWishlist)) {
+          showToast("Unable to update wishlist storage in this browser.", "error");
+          return;
+        }
+
+        showToast(`Removed "${item.name}" from your wishlist.`, "success");
+        renderWishlist();
+      }
+
+      function addWishlistProductToCart(item, triggerBtn) {
+        if (!item.isAvailable) {
+          showToast(`"${item.name}" is currently unavailable and cannot be added to your cart.`, "error");
+          return;
+        }
+
+        const cart = readStorageArray(STORAGE_KEYS.CART);
+        const targetKey = getCartCompositeKey(item.id, item.variant);
+        const existingIndex = cart.findIndex((cartItem) => {
+          if (!cartItem || typeof cartItem !== "object") return false;
+          const cartId = String(cartItem.id ?? cartItem.productId ?? cartItem.name ?? "").trim();
+          const cartVariant = getItemVariant(cartItem);
+          return getCartCompositeKey(cartId, cartVariant) === targetKey;
+        });
+
+        if (existingIndex >= 0) {
+          const currentQty = Math.max(1, Math.floor(Number(cart[existingIndex].quantity ?? cart[existingIndex].qty ?? 1) || 1));
+          if (item.stock && currentQty >= item.stock) {
+            showToast(`Only ${item.stock} unit(s) of "${item.name}" are available.`, "error");
+            return;
+          }
+          cart[existingIndex].quantity = currentQty + 1;
+        } else {
+          cart.push({
+            id: item.id,
+            artisanId: item.artisanId,
+            artisanName: item.artisanName,
+            studioName: item.studioName,
+            artisanLocation: item.artisanLocation,
+            name: item.name,
+            price: item.price,
+            category: item.category,
+            variant: item.variant,
+            image: item.image,
+            stock: item.stock,
+            quantity: 1
+          });
+        }
+
+        if (!writeStorage(STORAGE_KEYS.CART, cart)) {
+          showToast("Unable to update cart storage in this browser.", "error");
+          return;
+        }
+
+        updateCartCount();
+        showToast(`Added "${item.name}" to your cart.`, "success");
+
+        if (triggerBtn) {
+          const originalLabel = triggerBtn.dataset.originalLabel || "Add to Cart";
+          triggerBtn.dataset.originalLabel = originalLabel;
+          triggerBtn.textContent = "Added to Cart!";
+          window.setTimeout(() => {
+            if (triggerBtn.isConnected) triggerBtn.textContent = originalLabel;
+          }, 1200);
+        }
+      }
+
+      /* ======================================================================
+         7. DOM Rendering (Saved Product Cards & Empty State)
+         ====================================================================== */
+      function buildWishlistCard(item) {
+        const detailUrl = buildProductDetailUrl(item);
+
+        const card = document.createElement("article");
+        card.className = `wishlist-card${item.isAvailable ? "" : " wishlist-card--unavailable"}`;
+        card.setAttribute("role", "listitem");
+        card.dataset.productId = item.id;
+
+        // Product Image (clickable link to Product Details)
+        const mediaLink = document.createElement("a");
+        mediaLink.href = detailUrl;
+        mediaLink.className = "wishlist-media-link";
+        mediaLink.setAttribute("aria-label", `View details for ${item.name}`);
+        mediaLink.addEventListener("click", () => rememberSelectedProduct(item));
+
+        const img = document.createElement("img");
+        img.className = "wishlist-product-img";
+        const fallbackDataUrl = createProductArtworkDataUrl(item);
+        const hasCustomImage =
+          item.image &&
+          (/^(https?:\/\/|data:image\/|\.\.?\/|[a-zA-Z0-9_-]+\/)/.test(item.image));
+        img.src = hasCustomImage ? item.image : fallbackDataUrl;
+        img.alt = item.name;
+        img.addEventListener("error", () => {
+          if (img.src !== fallbackDataUrl) {
+            img.src = fallbackDataUrl;
+          }
+        });
+
+        const categoryTag = document.createElement("span");
+        categoryTag.className = "wishlist-category-tag";
+        categoryTag.textContent = item.category;
+
+        mediaLink.append(img, categoryTag);
+
+        // Card Body
+        const body = document.createElement("div");
+        body.className = "wishlist-card-body";
+
+        // Product Name (clickable link to Product Details)
+        const titleEl = document.createElement("h2");
+        titleEl.className = "wishlist-product-title";
+        const titleLink = document.createElement("a");
+        titleLink.href = detailUrl;
+        titleLink.textContent = item.name;
+        titleLink.addEventListener("click", () => rememberSelectedProduct(item));
+        titleEl.appendChild(titleLink);
+
+        // Artisan Information
+        const artisanInfoEl = document.createElement("p");
+        artisanInfoEl.className = "wishlist-artisan-info";
+        artisanInfoEl.append("By ");
+
+        if (item.artisanId) {
+          const artisanLink = document.createElement("a");
+          artisanLink.href = `artisan-profile.html?id=${encodeURIComponent(item.artisanId)}`;
+          artisanLink.textContent = item.artisanName;
+          artisanInfoEl.appendChild(artisanLink);
+        } else {
+          const artisanStrong = document.createElement("strong");
+          artisanStrong.textContent = item.artisanName;
+          artisanInfoEl.appendChild(artisanStrong);
+        }
+
+        if (item.studioName) {
+          artisanInfoEl.append(` \u2022 ${item.studioName}`);
+        }
+        if (item.artisanLocation) {
+          artisanInfoEl.append(` (${item.artisanLocation})`);
+        }
+
+        // Price & Product Availability
+        const priceAvailabilityRow = document.createElement("div");
+        priceAvailabilityRow.className = "wishlist-price-availability";
+
+        const priceEl = document.createElement("span");
+        priceEl.className = "wishlist-product-price";
+        priceEl.textContent = item.hasKnownPrice ? formatCurrency(item.price) : "Price unavailable";
+
+        const availabilityEl = document.createElement("span");
+        availabilityEl.className = `availability-badge ${
+          item.isAvailable ? "availability-badge--available" : "availability-badge--unavailable"
+        }`;
+        availabilityEl.textContent = item.label;
+
+        priceAvailabilityRow.append(priceEl, availabilityEl);
+
+        body.append(titleEl, artisanInfoEl, priceAvailabilityRow);
+
+        if (!item.isAvailable && item.reason) {
+          const unavailableNote = document.createElement("p");
+          unavailableNote.className = "unavailable-note";
+          unavailableNote.textContent = item.reason;
+          body.appendChild(unavailableNote);
+        }
+
+        // Action Buttons (Add to Cart, Remove from Wishlist, Product Details)
+        const actions = document.createElement("div");
+        actions.className = "wishlist-card-actions";
+
+        const addCartBtn = document.createElement("button");
+        addCartBtn.type = "button";
+        addCartBtn.className = "btn-add-cart";
+        addCartBtn.disabled = !item.isAvailable;
+        addCartBtn.textContent = item.isAvailable ? "Add to Cart" : item.label;
+        addCartBtn.addEventListener("click", () => addWishlistProductToCart(item, addCartBtn));
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "btn-remove-wishlist";
+        removeBtn.textContent = "Remove from Wishlist";
+        removeBtn.setAttribute("aria-label", `Remove ${item.name} from wishlist`);
+        removeBtn.addEventListener("click", () => removeFromWishlist(item));
+
+        const detailLink = document.createElement("a");
+        detailLink.href = detailUrl;
+        detailLink.className = "btn-detail-link";
+        detailLink.textContent = "View Product Details";
+        detailLink.addEventListener("click", () => rememberSelectedProduct(item));
+
+        actions.append(addCartBtn, removeBtn, detailLink);
+        body.appendChild(actions);
+
+        card.append(mediaLink, body);
+        return card;
+      }
+
+      function renderWishlist() {
+        const items = retrieveWishlistFromStorage();
+        const emptyStateEl = document.getElementById("empty-wishlist-state");
+        const gridEl = document.getElementById("wishlist-grid");
+
+        updateAllCounts(items);
+
+        if (items.length === 0) {
+          gridEl.innerHTML = "";
+          gridEl.hidden = true;
+          emptyStateEl.hidden = false;
+          return;
+        }
+
+        emptyStateEl.hidden = true;
+        gridEl.hidden = false;
+        gridEl.innerHTML = "";
+
+        items.forEach((item) => {
+          gridEl.appendChild(buildWishlistCard(item));
+        });
+      }
+
+      /* ======================================================================
+         8. Initialize & Sync Across Tabs
+         ====================================================================== */
+      window.addEventListener("storage", (event) => {
+        if (event.key === STORAGE_KEYS.WISHLIST || event.key === STORAGE_KEYS.CART) {
+          renderWishlist();
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderWishlist();
+      });
+    })();
+  </script>
+</body>
+</html>

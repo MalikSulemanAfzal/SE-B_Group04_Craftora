@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart | Craftora</title>
+  <!-- Shared stylesheet used across all Craftora pages -->
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ==========================================================================
+       Craftora - Shopping Cart Page Styles
+       ========================================================================== */
+    :root {
+      --color-warm-tint: #f1e9df;
+      --color-success: #1f6f43;
+      --color-success-bg: #eaf6ef;
+      --color-success-border: #b7e1c7;
+      --color-error: #b42318;
+      --color-error-bg: #fef3f2;
+      --color-error-border: #fecdca;
+      --shadow-sm: 0 2px 8px rgba(44, 38, 35, 0.06);
+      --shadow-md: 0 8px 24px rgba(44, 38, 35, 0.08);
+    }
+
+    /* Header utility pills for Wishlist & Cart */
+    .nav-utility-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.35rem;
+      height: 1.35rem;
+      padding: 0 0.35rem;
+      border-radius: 999px;
+      background-color: var(--color-primary);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    /* Breadcrumb Navigation */
+    .breadcrumb-bar {
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.85rem 0;
+    }
+
+    .breadcrumb-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--color-muted);
+    }
+
+    .breadcrumb-list li {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-list li + li::before {
+      content: "/";
+      color: var(--color-border);
+    }
+
+    .breadcrumb-list a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .breadcrumb-list [aria-current="page"] {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    /* Page Header / Shopping Cart Heading */
+    .cart-page-section {
+      padding: 2.25rem 0 3.5rem;
+    }
+
+    .cart-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.15rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .cart-heading {
+      font-size: clamp(1.65rem, 3vw, 2.2rem);
+      line-height: 1.2;
+      color: var(--color-text);
+    }
+
+    .cart-subheading {
+      color: var(--color-muted);
+      font-size: 0.96rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background-color: var(--color-primary);
+      color: #ffffff;
+      border: none;
+      padding: 0.78rem 1.45rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.96rem;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--color-primary-dark);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      padding: 0.72rem 1.25rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.95rem;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background-color: #fdfaf7;
+    }
+
+    /* Two-column Cart Layout */
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+    }
+
+    .cart-items-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .cart-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Cart Item Card */
+    .cart-item-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 112px 1fr auto;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .cart-item-media {
+      width: 112px;
+      height: 92px;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-warm-tint);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .cart-item-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cart-item-details {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .cart-item-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+
+    .cart-item-title a:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .cart-item-artisan {
+      font-size: 0.9rem;
+      color: var(--color-muted);
+    }
+
+    .cart-item-artisan a {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .cart-item-artisan a:hover {
+      text-decoration: underline;
+    }
+
+    .cart-item-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.15rem;
+    }
+
+    .cart-item-variant {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      padding: 0.18rem 0.65rem;
+      font-size: 0.82rem;
+      color: var(--color-text);
+      font-weight: 500;
+    }
+
+    .cart-item-unit-price {
+      font-size: 0.9rem;
+      color: var(--color-muted);
+    }
+
+    .cart-item-unit-price strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    .cart-item-controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.9rem;
+      margin-top: 0.55rem;
+    }
+
+    /* Quantity Selector */
+    .quantity-selector {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background-color: var(--color-bg);
+      overflow: hidden;
+    }
+
+    .qty-btn {
+      width: 34px;
+      height: 34px;
+      border: none;
+      background-color: transparent;
+      color: var(--color-text);
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .qty-btn:hover:not(:disabled) {
+      background-color: var(--color-warm-tint);
+      color: var(--color-primary);
+    }
+
+    .qty-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .qty-input {
+      width: 48px;
+      height: 34px;
+      border: none;
+      border-left: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-align: center;
+      -moz-appearance: textfield;
+    }
+
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .qty-input:focus {
+      outline: 2px solid var(--color-primary);
+      outline-offset: -2px;
+    }
+
+    /* Remove Button */
+    .btn-remove-item {
+      background: none;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      padding: 0.38rem 0.7rem;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--color-error);
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-remove-item:hover {
+      background-color: var(--color-error-bg);
+      border-color: var(--color-error-border);
+    }
+
+    /* Line Total Column */
+    .cart-item-total-col {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+    }
+
+    .line-total-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-muted);
+    }
+
+    .line-total-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .cart-list-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-top: 0.5rem;
+    }
+
+    /* Order Summary Card */
+    .order-summary-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 5.25rem;
+    }
+
+    .summary-title {
+      font-size: 1.3rem;
+      color: var(--color-text);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* Discount Code Form & Info */
+    .discount-section {
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .discount-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.45rem;
+    }
+
+    .discount-input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .discount-input {
+      flex: 1;
+      min-width: 0;
+      padding: 0.62rem 0.8rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.93rem;
+      color: var(--color-text);
+      background-color: var(--color-surface);
+      text-transform: uppercase;
+    }
+
+    .discount-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(156, 74, 43, 0.15);
+    }
+
+    .btn-apply-discount {
+      padding: 0.62rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-primary);
+      background-color: var(--color-warm-tint);
+      color: var(--color-primary-dark);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-apply-discount:hover {
+      background-color: var(--color-primary);
+      color: #ffffff;
+    }
+
+    .discount-info-box {
+      margin-top: 0.65rem;
+      padding: 0.65rem 0.8rem;
+      border-radius: var(--radius);
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      font-size: 0.86rem;
+      color: var(--color-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .discount-info-box.is-applied {
+      background-color: var(--color-success-bg);
+      border-color: var(--color-success-border);
+      color: var(--color-success);
+      font-weight: 500;
+    }
+
+    .discount-info-box.is-error {
+      background-color: var(--color-error-bg);
+      border-color: var(--color-error-border);
+      color: var(--color-error);
+      font-weight: 500;
+    }
+
+    .btn-remove-discount {
+      background: none;
+      border: none;
+      color: inherit;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: underline;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Totals Breakdown */
+    .summary-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.96rem;
+      color: var(--color-muted);
+    }
+
+    .summary-row strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    .summary-row--discount strong {
+      color: var(--color-success);
+    }
+
+    .summary-divider {
+      border: 0;
+      border-top: 1px solid var(--color-border);
+      margin: 0.25rem 0;
+    }
+
+    .summary-row--total {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text);
+      padding-top: 0.25rem;
+    }
+
+    .summary-row--total strong {
+      font-size: 1.35rem;
+      color: var(--color-primary);
+    }
+
+    .delivery-note {
+      font-size: 0.83rem;
+      color: var(--color-muted);
+      margin-bottom: 1.15rem;
+    }
+
+    .summary-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .summary-actions .btn-primary,
+    .summary-actions .btn-secondary {
+      width: 100%;
+    }
+
+    /* Empty Cart State */
+    .empty-cart-card {
+      max-width: 620px;
+      margin: 1.5rem auto;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .empty-cart-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 1.15rem;
+      border-radius: 50%;
+      background-color: var(--color-warm-tint);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-cart-card h2 {
+      font-size: 1.55rem;
+      margin-bottom: 0.6rem;
+      color: var(--color-text);
+    }
+
+    .empty-cart-card p {
+      color: var(--color-muted);
+      max-width: 440px;
+      margin: 0 auto 1.6rem;
+    }
+
+    .empty-cart-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    /* Toast / Live Feedback Notification */
+    .toast-region {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      max-width: 360px;
+      width: calc(100% - 2.5rem);
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface);
+      box-shadow: var(--shadow-md);
+      font-size: 0.92rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      animation: slideUp 0.2s ease-out;
+    }
+
+    .toast--success {
+      background-color: var(--color-success-bg);
+      border-color: var(--color-success-border);
+      color: var(--color-success);
+    }
+
+    .toast--error {
+      background-color: var(--color-error-bg);
+      border-color: var(--color-error-border);
+      color: var(--color-error);
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.75;
+    }
+
+    .toast-close:hover {
+      opacity: 1;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 900px) {
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .order-summary-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cart-item-card {
+        grid-template-columns: 84px 1fr;
+      }
+
+      .cart-item-media {
+        width: 84px;
+        height: 76px;
+      }
+
+      .cart-item-total-col {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--color-border);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SHARED HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-logo">Craftora</a>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        &#9776;
+      </button>
+
+      <nav id="main-nav" class="site-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li>
+            <a href="wishlist.html" class="nav-link nav-utility-link">
+              Wishlist <span id="nav-wishlist-count" class="nav-count-badge">0</span>
+            </a>
+          </li>
+          <li>
+            <a href="cart.html" class="nav-link nav-utility-link active" aria-current="page">
+              Cart <span id="nav-cart-count" class="nav-count-badge">0</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= BREADCRUMB NAVIGATION ================= -->
+  <div class="breadcrumb-bar">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol class="breadcrumb-list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li aria-current="page">Shopping Cart</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+    <section class="cart-page-section" aria-labelledby="cart-heading">
+      <div class="container">
+
+        <!-- Shopping Cart Heading -->
+        <div class="cart-header">
+          <div>
+            <h1 id="cart-heading" class="cart-heading">Shopping Cart</h1>
+            <p id="cart-item-count-text" class="cart-subheading">Loading your handcrafted items...</p>
+          </div>
+
+          <a href="products.html" class="btn-secondary">Continue Shopping</a>
+        </div>
+
+        <!-- Empty-Cart State -->
+        <section id="empty-cart-state" class="empty-cart-card" aria-labelledby="empty-cart-heading" hidden>
+          <div class="empty-cart-icon" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="20" r="1.5"></circle>
+              <circle cx="17" cy="20" r="1.5"></circle>
+              <path d="M3 4h2l2.4 10.5a2 2 0 0 0 2 1.5h7.8a2 2 0 0 0 1.95-1.55L21 7H6.2"></path>
+            </svg>
+          </div>
+          <h2 id="empty-cart-heading">Your shopping cart is empty</h2>
+          <p>
+            You haven't added any handcrafted pieces yet. Browse our artisan studios to
+            discover handmade pottery, woodwork, and woven textiles.
+          </p>
+          <div class="empty-cart-actions">
+            <a href="products.html" class="btn-primary">Continue Shopping</a>
+            <a href="artisan-profile.html?id=a001" class="btn-secondary">Explore Featured Artisans</a>
+          </div>
+        </section>
+
+        <!-- Populated Cart Layout -->
+        <div id="cart-layout" class="cart-layout" hidden>
+
+          <!-- Cart Item List -->
+          <div class="cart-items-panel">
+            <div id="cart-items-list" class="cart-items-list" role="list" aria-label="Shopping cart items"></div>
+
+            <div class="cart-list-footer">
+              <a href="products.html" class="btn-secondary">&larr; Continue Shopping</a>
+            </div>
+          </div>
+
+          <!-- Order Summary Panel -->
+          <aside class="order-summary-card" aria-labelledby="order-summary-heading">
+            <h2 id="order-summary-heading" class="summary-title">Order Summary</h2>
+
+            <!-- Discount Code Field & Discount Information -->
+            <form id="discount-form" class="discount-section" novalidate>
+              <label for="discount-code-input" class="discount-label">Discount Code</label>
+              <div class="discount-input-group">
+                <input
+                  type="text"
+                  id="discount-code-input"
+                  name="discountCode"
+                  class="discount-input"
+                  placeholder="Enter code (e.g. CRAFT10)"
+                  autocomplete="off"
+                  aria-describedby="discount-info-box"
+                >
+                <button type="submit" id="apply-discount-btn" class="btn-apply-discount">Apply</button>
+              </div>
+              <div id="discount-info-box" class="discount-info-box" role="status" aria-live="polite">
+                <span id="discount-info-text">Use code <strong>CRAFT10</strong> for 10% off your order.</span>
+                <button type="button" id="remove-discount-btn" class="btn-remove-discount" hidden>Remove</button>
+              </div>
+            </form>
+
+            <!-- Price Breakdown -->
+            <div class="summary-rows">
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <strong id="summary-subtotal">$0.00</strong>
+              </div>
+
+              <div id="summary-discount-row" class="summary-row summary-row--discount">
+                <span id="summary-discount-label">Discount</span>
+                <strong id="summary-discount">$0.00</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Standard Delivery</span>
+                <strong id="summary-delivery">$0.00</strong>
+              </div>
+
+              <hr class="summary-divider">
+
+              <div class="summary-row summary-row--total">
+                <span>Grand Total</span>
+                <strong id="summary-total">$0.00</strong>
+              </div>
+            </div>
+
+            <p class="delivery-note">
+              Standard delivery is a flat $5.00 rate on all artisan orders, packaged sustainably by each studio.
+            </p>
+
+            <!-- Summary Actions -->
+            <div class="summary-actions">
+              <button type="button" id="proceed-checkout-btn" class="btn-primary">
+                Proceed to Checkout
+              </button>
+              <a href="products.html" class="btn-secondary">Continue Shopping</a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Live Toast Notification Region -->
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Craftora</strong>
+        <p>Supporting local craftsmanship and handmade quality.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <p class="footer-copy">&copy; 2026 Craftora. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Shared JavaScript file -->
+  <script src="../js/main.js" defer></script>
+
+  <!-- Page-specific JavaScript for Shopping Cart -->
+  <script>
+    (() => {
+      "use strict";
+
+      /* ======================================================================
+         1. Configuration, Storage Keys & Catalog Fallback Metadata
+         ====================================================================== */
+      const STORAGE_KEYS = {
+        CART: "craftora_cart",
+        WISHLIST: "craftora_wishlist",
+        DISCOUNT_CODE: "craftora_discount_code",
+        CHECKOUT_SUMMARY: "craftora_checkout_summary"
+      };
+
+      const STANDARD_DELIVERY_FEE = 5.0;
+      const DISCOUNT_CODES = {
+        CRAFT10: {
+          code: "CRAFT10",
+          rate: 0.1,
+          label: "CRAFT10 (10% off)"
+        }
+      };
+
+      const ARTISAN_CATALOG = {
+        a001: { name: "Amaya Perera", studioName: "Red Earth Pottery Studio", location: "Kandy, Sri Lanka" },
+        a002: { name: "Mateo Morales", studioName: "Taller Sol & Indigo", location: "Oaxaca, Mexico" },
+        a003: { name: "Kenji Takahashi", studioName: "Hida Timber Craft", location: "Takayama, Japan" }
+      };
+
+      const PRODUCT_CATALOG = {
+        p101: { artisanId: "a001", motif: "kettle", palette: ["#f3e3d7", "#9c4a2b", "#6e3521"], stock: 6 },
+        p102: { artisanId: "a001", motif: "plates", palette: ["#efe8df", "#8a5a44", "#4f3a30"], stock: 4 },
+        p103: { artisanId: "a001", motif: "planter", palette: ["#f2e4d8", "#b5603e", "#4b6b50"], stock: 9 },
+        p104: { artisanId: "a001", motif: "cups", palette: ["#f5efe6", "#9c7a5b", "#5c4033"], stock: 0 },
+        p201: { artisanId: "a002", motif: "runner", palette: ["#dfe7f0", "#2f4e6d", "#1d3147"], stock: 7 },
+        p202: { artisanId: "a002", motif: "blanket", palette: ["#f5eadc", "#c97a2b", "#9c4a2b"], stock: 3 },
+        p203: { artisanId: "a002", motif: "cushion", palette: ["#efe4d6", "#8c5b3e", "#5b3a29"], stock: 5 },
+        p301: { artisanId: "a003", motif: "tray", palette: ["#ede2d5", "#6d4c33", "#3e2a1b"], stock: 5 },
+        p302: { artisanId: "a003", motif: "spoons", palette: ["#f4ebd9", "#b08454", "#6e4e2e"], stock: 11 },
+        p303: { artisanId: "a003", motif: "mortar", palette: ["#efe2d4", "#8e5c3c", "#4d311f"], stock: 4 }
+      };
+
+      const state = {
+        appliedDiscountCode: "",
+        discountMessage: "",
+        discountMessageType: "info" // "info" | "applied" | "error"
+      };
+
+      /* ======================================================================
+         2. Utility & Storage Helpers
+         ====================================================================== */
+      function roundCurrency(value) {
+        return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+      }
+
+      function formatCurrency(amount) {
+        return `$${roundCurrency(Number(amount) || 0).toFixed(2)}`;
+      }
+
+      function readStorageArray(key) {
+        try {
+          const raw = localStorage.getItem(key);
+          const parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function writeStorage(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+          return true;
+        } catch {
+          return false;
+        }
+      }
+
+      function readSavedDiscountCode() {
+        try {
+          const code = (localStorage.getItem(STORAGE_KEYS.DISCOUNT_CODE) || "").trim().toUpperCase();
+          return DISCOUNT_CODES[code] ? code : "";
+        } catch {
+          return "";
+        }
+      }
+
+      function saveDiscountCode(code) {
+        try {
+          if (code) {
+            localStorage.setItem(STORAGE_KEYS.DISCOUNT_CODE, code);
+          } else {
+            localStorage.removeItem(STORAGE_KEYS.DISCOUNT_CODE);
+          }
+        } catch {
+          // Ignore storage errors when persisting discount preference
+        }
+      }
+
+      /* ======================================================================
+         3. Cart Item Normalization & Composite Variant Key Handling
+         ====================================================================== */
+      function getItemVariant(item) {
+        const raw = item.variant ?? item.selectedVariant ?? item.variantName ?? item.option ?? "";
+        if (typeof raw === "string") {
+          return raw.trim() || "Standard";
+        }
+        if (raw && typeof raw === "object") {
+          const formatted = Object.entries(raw)
+            .filter(([, val]) => val !== undefined && val !== null && String(val).trim() !== "")
+            .map(([key, val]) => `${key}: ${val}`)
+            .join(", ");
+          return formatted || "Standard";
+        }
+        return "Standard";
+      }
+
+      function getItemCompositeKey(id, variant) {
+        return `${String(id)}::${String(variant || "Standard").trim().toLowerCase()}`;
+      }
+
+      function parsePrice(value) {
+        if (typeof value === "number") {
+          return Number.isFinite(value) && value >= 0 ? value : 0;
+        }
+        const cleaned = String(value ?? "").replace(/[^0-9.-]/g, "");
+        const parsed = Number(cleaned);
+        return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+      }
+
+      function sanitizeHexColor(value, fallback) {
+        return typeof value === "string" && /^#[0-9a-fA-F]{3,8}$/.test(value.trim()) ? value.trim() : fallback;
+      }
+
+      function parsePositiveQuantity(value) {
+        const parsed = Math.floor(Number(value));
+        return Number.isFinite(parsed) && parsed >= 1 ? parsed : 1;
+      }
+
+      function retrieveCartFromStorage() {
+        const rawItems = readStorageArray(STORAGE_KEYS.CART);
+        const normalized = [];
+        const indexByKey = new Map();
+
+        rawItems.forEach((rawItem) => {
+          if (!rawItem || typeof rawItem !== "object") return;
+
+          const id = String(rawItem.id ?? rawItem.productId ?? rawItem.name ?? "").trim();
+          if (!id) return;
+
+          const catalogProduct = PRODUCT_CATALOG[id] || null;
+          const artisanId = rawItem.artisanId || (catalogProduct ? catalogProduct.artisanId : "");
+          const catalogArtisan = artisanId ? ARTISAN_CATALOG[artisanId] : null;
+
+          const variant = getItemVariant(rawItem);
+          const key = getItemCompositeKey(id, variant);
+          const price = parsePrice(rawItem.price ?? rawItem.unitPrice ?? 0);
+          const quantity = parsePositiveQuantity(rawItem.quantity ?? rawItem.qty ?? 1);
+          const maxStock =
+            Number(rawItem.stock) > 0
+              ? Number(rawItem.stock)
+              : catalogProduct && catalogProduct.stock > 0
+                ? catalogProduct.stock
+                : null;
+
+          // Merge only when BOTH product ID and selected variant match
+          if (indexByKey.has(key)) {
+            const existing = normalized[indexByKey.get(key)];
+            const combinedQty = existing.quantity + quantity;
+            existing.quantity = maxStock ? Math.min(combinedQty, maxStock) : combinedQty;
+            return;
+          }
+
+          const item = {
+            ...rawItem,
+            id,
+            name: String(rawItem.name || "Handcrafted Artisan Piece").trim(),
+            artisanId,
+            artisanName: String(
+              rawItem.artisanName || rawItem.artisan || (catalogArtisan ? catalogArtisan.name : "Craftora Artisan")
+            ).trim(),
+            studioName: String(
+              rawItem.studioName || rawItem.artisanStudio || (catalogArtisan ? catalogArtisan.studioName : "")
+            ).trim(),
+            artisanLocation: String(
+              rawItem.artisanLocation || (catalogArtisan ? catalogArtisan.location : "")
+            ).trim(),
+            variant,
+            price,
+            quantity: maxStock ? Math.min(quantity, maxStock) : quantity,
+            maxStock,
+            image: typeof rawItem.image === "string" ? rawItem.image.trim() : (typeof rawItem.imageUrl === "string" ? rawItem.imageUrl.trim() : ""),
+            motif: rawItem.motif || (catalogProduct ? catalogProduct.motif : "kettle"),
+            palette: Array.isArray(rawItem.palette) && rawItem.palette.length >= 3
+              ? rawItem.palette
+              : (catalogProduct ? catalogProduct.palette : ["#f1e9df", "#9c4a2b", "#6e3521"]),
+            itemKey: key
+          };
+
+          indexByKey.set(key, normalized.length);
+          normalized.push(item);
+        });
+
+        return normalized;
+      }
+
+      function persistCart(items) {
+        // Strip internal UI-only fields while preserving original item properties
+        const serializable = items.map(({ itemKey, maxStock, ...rest }) => rest);
+        return writeStorage(STORAGE_KEYS.CART, serializable);
+      }
+
+      /* ======================================================================
+         4. Inline SVG Fallback Artwork for Product Images
+         ====================================================================== */
+      function createProductArtworkDataUrl(item) {
+        const rawPalette = Array.isArray(item.palette) ? item.palette : [];
+        const bg = sanitizeHexColor(rawPalette[0], "#f1e9df");
+        const primary = sanitizeHexColor(rawPalette[1], "#9c4a2b");
+        const dark = sanitizeHexColor(rawPalette[2], "#6e3521");
+        const shapes = {
+          kettle: `<path d="M75 72 C75 45, 145 45, 145 72" fill="none" stroke="${dark}" stroke-width="7" stroke-linecap="round"/><ellipse cx="110" cy="110" rx="44" ry="34" fill="${primary}"/><path d="M150 100 L176 84 L179 94 L152 114 Z" fill="${dark}"/><ellipse cx="110" cy="77" rx="22" ry="6" fill="${dark}"/>`,
+          plates: `<ellipse cx="110" cy="112" rx="58" ry="36" fill="${dark}" opacity="0.2"/><circle cx="110" cy="96" r="46" fill="${primary}"/><circle cx="110" cy="96" r="32" fill="${bg}" opacity="0.5"/><circle cx="110" cy="96" r="18" fill="${dark}" opacity="0.25"/>`,
+          planter: `<polygon points="72,68 148,68 136,128 84,128" fill="${primary}"/><rect x="68" y="60" width="84" height="12" rx="6" fill="${dark}"/><ellipse cx="110" cy="134" rx="34" ry="7" fill="${dark}" opacity="0.45"/><path d="M110 60 C102 36, 86 38, 88 58 M110 60 C118 32, 134 38, 130 58" fill="none" stroke="#3f6a45" stroke-width="5" stroke-linecap="round"/>`,
+          cups: `<rect x="60" y="76" width="38" height="44" rx="8" fill="${primary}"/><path d="M98 86 C110 86, 110 108, 98 108" fill="none" stroke="${dark}" stroke-width="5"/><rect x="122" y="76" width="38" height="44" rx="8" fill="${dark}"/><path d="M160 86 C172 86, 172 108, 160 108" fill="none" stroke="${primary}" stroke-width="5"/>`,
+          runner: `<rect x="44" y="64" width="132" height="58" rx="6" fill="${primary}"/><line x1="60" y1="64" x2="60" y2="122" stroke="${bg}" stroke-width="4"/><line x1="160" y1="64" x2="160" y2="122" stroke="${bg}" stroke-width="4"/><polygon points="110,74 128,93 110,112 92,93" fill="${bg}" opacity="0.85"/>`,
+          blanket: `<rect x="52" y="54" width="116" height="76" rx="10" fill="${primary}"/><rect x="52" y="74" width="116" height="14" fill="${dark}"/><rect x="52" y="100" width="116" height="10" fill="${bg}" opacity="0.7"/>`,
+          cushion: `<rect x="64" y="52" width="92" height="82" rx="14" fill="${primary}"/><rect x="78" y="66" width="64" height="54" rx="8" fill="none" stroke="${bg}" stroke-width="3" stroke-dasharray="6 4"/>`,
+          tray: `<polygon points="44,82 176,82 162,126 58,126" fill="${primary}"/><rect x="42" y="74" width="136" height="12" rx="4" fill="${dark}"/><rect x="66" y="92" width="22" height="8" rx="4" fill="${bg}" opacity="0.7"/><rect x="132" y="92" width="22" height="8" rx="4" fill="${bg}" opacity="0.7"/>`,
+          spoons: `<ellipse cx="86" cy="64" rx="16" ry="24" fill="${primary}" transform="rotate(-15 86 64)"/><rect x="86" y="84" width="8" height="56" rx="4" fill="${dark}" transform="rotate(-15 86 84)"/><ellipse cx="136" cy="66" rx="16" ry="24" fill="${dark}" transform="rotate(15 136 66)"/><rect x="128" y="84" width="8" height="56" rx="4" fill="${primary}" transform="rotate(15 128 84)"/>`,
+          mortar: `<path d="M68 78 L152 78 L138 128 L82 128 Z" fill="${primary}"/><ellipse cx="110" cy="78" rx="42" ry="10" fill="${dark}"/><rect x="122" y="42" width="14" height="44" rx="7" fill="${dark}" transform="rotate(24 122 42)"/>`
+        };
+
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 165"><rect width="220" height="165" fill="${bg}"/><circle cx="180" cy="30" r="28" fill="${primary}" opacity="0.1"/><circle cx="38" cy="142" r="34" fill="${dark}" opacity="0.08"/>${shapes[item.motif] || shapes.kettle}</svg>`;
+        return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+      }
+
+      /* ======================================================================
+         5. Price & Order Calculations
+         ====================================================================== */
+      function calculateLineTotal(item) {
+        return roundCurrency(item.price * item.quantity);
+      }
+
+      function calculateSubtotal(items) {
+        const sum = items.reduce((acc, item) => acc + calculateLineTotal(item), 0);
+        return roundCurrency(sum);
+      }
+
+      function calculateDiscount(subtotal, discountCode) {
+        const promo = DISCOUNT_CODES[discountCode];
+        if (!promo || subtotal <= 0) return 0;
+        return roundCurrency(subtotal * promo.rate);
+      }
+
+      function calculateStandardDelivery(items) {
+        return items.length > 0 ? STANDARD_DELIVERY_FEE : 0;
+      }
+
+      function calculateOrderTotals(items) {
+        const subtotal = calculateSubtotal(items);
+        const discountAmount = calculateDiscount(subtotal, state.appliedDiscountCode);
+        const deliveryFee = calculateStandardDelivery(items);
+        const grandTotal = roundCurrency(Math.max(0, subtotal - discountAmount) + deliveryFee);
+
+        return {
+          subtotal,
+          discountCode: state.appliedDiscountCode,
+          discountAmount,
+          deliveryFee,
+          grandTotal
+        };
+      }
+
+      /* ======================================================================
+         6. Notifications & Header Cart Count Updater
+         ====================================================================== */
+      function showToast(message, type = "success") {
+        const region = document.getElementById("toast-region");
+        if (!region) return;
+
+        const toast = document.createElement("div");
+        toast.className = `toast toast--${type}`;
+
+        const textSpan = document.createElement("span");
+        textSpan.textContent = message;
+
+        const closeBtn = document.createElement("button");
+        closeBtn.type = "button";
+        closeBtn.className = "toast-close";
+        closeBtn.setAttribute("aria-label", "Dismiss notification");
+        closeBtn.textContent = "\u00D7";
+        closeBtn.addEventListener("click", () => toast.remove());
+
+        toast.append(textSpan, closeBtn);
+        region.appendChild(toast);
+
+        window.setTimeout(() => {
+          if (toast.isConnected) toast.remove();
+        }, 4000);
+      }
+
+      function updateHeaderCounts(items) {
+        const cartItems = Array.isArray(items) ? items : retrieveCartFromStorage();
+        const wishlist = readStorageArray(STORAGE_KEYS.WISHLIST);
+
+        const totalCartQty = cartItems.reduce((sum, item) => sum + parsePositiveQuantity(item.quantity), 0);
+
+        const wishlistBadge = document.getElementById("nav-wishlist-count");
+        const cartBadge = document.getElementById("nav-cart-count");
+        const cartHeadingSubtitle = document.getElementById("cart-item-count-text");
+
+        if (wishlistBadge) wishlistBadge.textContent = String(wishlist.length);
+        if (cartBadge) cartBadge.textContent = String(totalCartQty);
+
+        if (cartHeadingSubtitle) {
+          if (totalCartQty === 0) {
+            cartHeadingSubtitle.textContent = "Your cart currently has 0 items.";
+          } else {
+            const lineLabel = `${cartItems.length} product line${cartItems.length === 1 ? "" : "s"}`;
+            cartHeadingSubtitle.textContent = `${totalCartQty} item${totalCartQty === 1 ? "" : "s"} (${lineLabel}) ready for checkout.`;
+          }
+        }
+      }
+
+      /* ======================================================================
+         7. Cart Mutations (Quantity Update, Removal, Discount, Checkout)
+         ====================================================================== */
+      function updateItemQuantity(itemKey, requestedQuantity) {
+        const items = retrieveCartFromStorage();
+        const target = items.find((item) => item.itemKey === itemKey);
+        if (!target) return;
+
+        let nextQty = Math.floor(Number(requestedQuantity));
+        if (!Number.isFinite(nextQty) || nextQty < 1) {
+          nextQty = 1;
+          showToast(`Quantity for "${target.name}" must be at least 1.`, "error");
+        }
+
+        if (target.maxStock && nextQty > target.maxStock) {
+          nextQty = target.maxStock;
+          showToast(`Only ${target.maxStock} unit(s) of "${target.name}" are available in stock.`, "error");
+        }
+
+        target.quantity = nextQty;
+        if (!persistCart(items)) {
+          showToast("Unable to update cart storage in this browser.", "error");
+          return;
+        }
+
+        renderCart();
+      }
+
+      function removeCartItem(itemKey) {
+        const items = retrieveCartFromStorage();
+        const target = items.find((item) => item.itemKey === itemKey);
+        if (!target) return;
+
+        const remaining = items.filter((item) => item.itemKey !== itemKey);
+        if (!persistCart(remaining)) {
+          showToast("Unable to update cart storage in this browser.", "error");
+          return;
+        }
+
+        const variantLabel = target.variant ? ` (${target.variant})` : "";
+        showToast(`Removed "${target.name}${variantLabel}" from your cart.`, "success");
+        renderCart();
+      }
+
+      function applyDiscountCode(rawCode) {
+        const normalizedCode = String(rawCode || "").trim().toUpperCase();
+
+        if (!normalizedCode) {
+          state.discountMessage = "Please enter a discount code (try CRAFT10 for 10% off).";
+          state.discountMessageType = "error";
+          renderSummary(retrieveCartFromStorage());
+          return;
+        }
+
+        const promo = DISCOUNT_CODES[normalizedCode];
+        if (!promo) {
+          state.discountMessage = `Code "${normalizedCode}" is not valid. Use CRAFT10 for 10% off.`;
+          state.discountMessageType = "error";
+          renderSummary(retrieveCartFromStorage());
+          showToast("Invalid discount code entered.", "error");
+          return;
+        }
+
+        state.appliedDiscountCode = promo.code;
+        state.discountMessage = `${promo.label} applied to your cart subtotal.`;
+        state.discountMessageType = "applied";
+        saveDiscountCode(promo.code);
+
+        renderSummary(retrieveCartFromStorage());
+        showToast(`Discount code ${promo.code} applied (10% off).`, "success");
+      }
+
+      function removeDiscountCode() {
+        state.appliedDiscountCode = "";
+        state.discountMessage = "";
+        state.discountMessageType = "info";
+        saveDiscountCode("");
+
+        const input = document.getElementById("discount-code-input");
+        if (input) input.value = "";
+
+        renderSummary(retrieveCartFromStorage());
+        showToast("Discount code removed.", "success");
+      }
+
+      function navigateToCheckout() {
+        const items = retrieveCartFromStorage();
+        if (items.length === 0) {
+          showToast("Add at least one item to your cart before proceeding to checkout.", "error");
+          renderCart();
+          return;
+        }
+
+        const totals = calculateOrderTotals(items);
+        writeStorage(STORAGE_KEYS.CHECKOUT_SUMMARY, {
+          items: items.map(({ itemKey, maxStock, ...item }) => ({
+            ...item,
+            lineTotal: calculateLineTotal(item)
+          })),
+          ...totals,
+          createdAt: new Date().toISOString()
+        });
+
+        window.location.href = "checkout.html";
+      }
+
+      /* ======================================================================
+         8. DOM Rendering (Cart Items, Summary, Empty State)
+         ====================================================================== */
+      function buildCartItemElement(item) {
+        const card = document.createElement("article");
+        card.className = "cart-item-card";
+        card.setAttribute("role", "listitem");
+        card.dataset.itemKey = item.itemKey;
+
+        // Product Image
+        const mediaWrap = document.createElement("div");
+        mediaWrap.className = "cart-item-media";
+
+        const img = document.createElement("img");
+        img.className = "cart-item-img";
+        const fallbackDataUrl = createProductArtworkDataUrl(item);
+        const hasCustomImage =
+          item.image &&
+          (/^(https?:\/\/|data:image\/|\.\.?\/|[a-zA-Z0-9_-]+\/)/.test(item.image));
+        img.src = hasCustomImage ? item.image : fallbackDataUrl;
+        img.alt = `${item.name} (${item.variant})`;
+        img.addEventListener("error", () => {
+          if (img.src !== fallbackDataUrl) {
+            img.src = fallbackDataUrl;
+          }
+        });
+        mediaWrap.appendChild(img);
+
+        // Product Details (Name, Artisan Info, Variant, Unit Price, Quantity, Remove)
+        const details = document.createElement("div");
+        details.className = "cart-item-details";
+
+        const titleEl = document.createElement("h2");
+        titleEl.className = "cart-item-title";
+        if (item.id && !item.id.includes(" ")) {
+          const titleLink = document.createElement("a");
+          const artisanQuery = item.artisanId ? `&artisan=${encodeURIComponent(item.artisanId)}` : "";
+          titleLink.href = `product-detail.html?id=${encodeURIComponent(item.id)}${artisanQuery}`;
+          titleLink.textContent = item.name;
+          titleEl.appendChild(titleLink);
+        } else {
+          titleEl.textContent = item.name;
+        }
+
+        // Artisan Information
+        const artisanEl = document.createElement("p");
+        artisanEl.className = "cart-item-artisan";
+        artisanEl.append("Crafted by ");
+
+        if (item.artisanId) {
+          const artisanLink = document.createElement("a");
+          artisanLink.href = `artisan-profile.html?id=${encodeURIComponent(item.artisanId)}`;
+          artisanLink.textContent = item.artisanName;
+          artisanEl.appendChild(artisanLink);
+        } else {
+          const artisanSpan = document.createElement("strong");
+          artisanSpan.textContent = item.artisanName;
+          artisanEl.appendChild(artisanSpan);
+        }
+
+        if (item.studioName) {
+          artisanEl.append(` \u2022 ${item.studioName}`);
+        }
+        if (item.artisanLocation) {
+          artisanEl.append(` (${item.artisanLocation})`);
+        }
+
+        // Selected Variant & Unit Price
+        const metaPills = document.createElement("div");
+        metaPills.className = "cart-item-meta-pills";
+
+        const variantBadge = document.createElement("span");
+        variantBadge.className = "cart-item-variant";
+        variantBadge.textContent = `Variant: ${item.variant}`;
+
+        const unitPriceEl = document.createElement("span");
+        unitPriceEl.className = "cart-item-unit-price";
+        unitPriceEl.append("Unit price: ");
+        const unitPriceStrong = document.createElement("strong");
+        unitPriceStrong.textContent = formatCurrency(item.price);
+        unitPriceEl.appendChild(unitPriceStrong);
+
+        metaPills.append(variantBadge, unitPriceEl);
+
+        // Quantity Selector & Remove Button
+        const controlsRow = document.createElement("div");
+        controlsRow.className = "cart-item-controls-row";
+
+        const qtySelector = document.createElement("div");
+        qtySelector.className = "quantity-selector";
+        qtySelector.setAttribute("role", "group");
+        qtySelector.setAttribute("aria-label", `Quantity for ${item.name} (${item.variant})`);
+
+        const decBtn = document.createElement("button");
+        decBtn.type = "button";
+        decBtn.className = "qty-btn";
+        decBtn.textContent = "\u2212";
+        decBtn.disabled = item.quantity <= 1;
+        decBtn.setAttribute("aria-label", `Decrease quantity of ${item.name} (${item.variant})`);
+        decBtn.addEventListener("click", () => updateItemQuantity(item.itemKey, item.quantity - 1));
+
+        const qtyInput = document.createElement("input");
+        qtyInput.type = "number";
+        qtyInput.className = "qty-input";
+        qtyInput.min = "1";
+        if (item.maxStock) qtyInput.max = String(item.maxStock);
+        qtyInput.value = String(item.quantity);
+        qtyInput.setAttribute("aria-label", `Quantity for ${item.name} (${item.variant})`);
+        qtyInput.addEventListener("change", () => updateItemQuantity(item.itemKey, qtyInput.value));
+
+        const incBtn = document.createElement("button");
+        incBtn.type = "button";
+        incBtn.className = "qty-btn";
+        incBtn.textContent = "+";
+        incBtn.disabled = Boolean(item.maxStock && item.quantity >= item.maxStock);
+        incBtn.setAttribute("aria-label", `Increase quantity of ${item.name} (${item.variant})`);
+        incBtn.addEventListener("click", () => updateItemQuantity(item.itemKey, item.quantity + 1));
+
+        qtySelector.append(decBtn, qtyInput, incBtn);
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "btn-remove-item";
+        removeBtn.textContent = "Remove";
+        removeBtn.setAttribute("aria-label", `Remove ${item.name} (${item.variant}) from cart`);
+        removeBtn.addEventListener("click", () => removeCartItem(item.itemKey));
+
+        controlsRow.append(qtySelector, removeBtn);
+        details.append(titleEl, artisanEl, metaPills, controlsRow);
+
+        // Line Total Column
+        const totalCol = document.createElement("div");
+        totalCol.className = "cart-item-total-col";
+
+        const lineLabel = document.createElement("span");
+        lineLabel.className = "line-total-label";
+        lineLabel.textContent = "Line Total";
+
+        const lineValue = document.createElement("strong");
+        lineValue.className = "line-total-value";
+        lineValue.textContent = formatCurrency(calculateLineTotal(item));
+
+        totalCol.append(lineLabel, lineValue);
+
+        card.append(mediaWrap, details, totalCol);
+        return card;
+      }
+
+      function renderSummary(items) {
+        const totals = calculateOrderTotals(items);
+
+        document.getElementById("summary-subtotal").textContent = formatCurrency(totals.subtotal);
+        document.getElementById("summary-delivery").textContent = formatCurrency(totals.deliveryFee);
+        document.getElementById("summary-total").textContent = formatCurrency(totals.grandTotal);
+
+        const discountLabelEl = document.getElementById("summary-discount-label");
+        const discountValueEl = document.getElementById("summary-discount");
+        const discountInfoBox = document.getElementById("discount-info-box");
+        const discountInfoText = document.getElementById("discount-info-text");
+        const removeDiscountBtn = document.getElementById("remove-discount-btn");
+        const discountInput = document.getElementById("discount-code-input");
+        const checkoutBtn = document.getElementById("proceed-checkout-btn");
+
+        if (totals.discountCode && DISCOUNT_CODES[totals.discountCode]) {
+          const promo = DISCOUNT_CODES[totals.discountCode];
+          discountLabelEl.textContent = `Discount (${promo.code} - 10% off)`;
+          discountValueEl.textContent = `-${formatCurrency(totals.discountAmount)}`;
+          discountInfoBox.className = "discount-info-box is-applied";
+          discountInfoText.textContent = `${promo.label} applied — you save ${formatCurrency(totals.discountAmount)}.`;
+          removeDiscountBtn.hidden = false;
+          if (discountInput && !discountInput.value.trim()) {
+            discountInput.value = promo.code;
+          }
+        } else {
+          discountLabelEl.textContent = "Discount";
+          discountValueEl.textContent = "$0.00";
+          removeDiscountBtn.hidden = true;
+
+          if (state.discountMessageType === "error" && state.discountMessage) {
+            discountInfoBox.className = "discount-info-box is-error";
+            discountInfoText.textContent = state.discountMessage;
+          } else {
+            discountInfoBox.className = "discount-info-box";
+            discountInfoText.innerHTML = 'Use code <strong>CRAFT10</strong> for 10% off your order.';
+          }
+        }
+
+        if (checkoutBtn) {
+          checkoutBtn.disabled = items.length === 0;
+        }
+      }
+
+      function renderCart() {
+        const items = retrieveCartFromStorage();
+        const emptyStateEl = document.getElementById("empty-cart-state");
+        const cartLayoutEl = document.getElementById("cart-layout");
+        const listEl = document.getElementById("cart-items-list");
+
+        updateHeaderCounts(items);
+
+        if (items.length === 0) {
+          listEl.innerHTML = "";
+          cartLayoutEl.hidden = true;
+          emptyStateEl.hidden = false;
+          renderSummary(items);
+          return;
+        }
+
+        emptyStateEl.hidden = true;
+        cartLayoutEl.hidden = false;
+        listEl.innerHTML = "";
+
+        items.forEach((item) => {
+          listEl.appendChild(buildCartItemElement(item));
+        });
+
+        renderSummary(items);
+      }
+
+      /* ======================================================================
+         9. Event Wiring & Page Initialization
+         ====================================================================== */
+      function setupEventListeners() {
+        const discountForm = document.getElementById("discount-form");
+        const discountInput = document.getElementById("discount-code-input");
+        const removeDiscountBtn = document.getElementById("remove-discount-btn");
+        const checkoutBtn = document.getElementById("proceed-checkout-btn");
+
+        if (discountForm && discountInput) {
+          discountForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            applyDiscountCode(discountInput.value);
+          });
+        }
+
+        if (removeDiscountBtn) {
+          removeDiscountBtn.addEventListener("click", removeDiscountCode);
+        }
+
+        if (checkoutBtn) {
+          checkoutBtn.addEventListener("click", navigateToCheckout);
+        }
+
+        window.addEventListener("storage", (event) => {
+          if (event.key === STORAGE_KEYS.CART || event.key === STORAGE_KEYS.WISHLIST) {
+            renderCart();
+          }
+          if (event.key === STORAGE_KEYS.DISCOUNT_CODE) {
+            state.appliedDiscountCode = readSavedDiscountCode();
+            renderCart();
+          }
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        state.appliedDiscountCode = readSavedDiscountCode();
+        if (state.appliedDiscountCode) {
+          state.discountMessageType = "applied";
+        }
+        setupEventListeners();
+        renderCart();
+      });
+    })();
+  </script>
+</body>
+</html>
