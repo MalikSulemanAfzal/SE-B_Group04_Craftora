@@ -37,7 +37,7 @@
     "handmade-gifts": "Artisanal hand-cut woodwork, folk motif lacquer painting, and protective velvet interior lining"
   };
 
-  // Category variants options
+  // Category variants options fallback
   const VARIANT_OPTIONS = {
     "handwoven-textiles": [
       "Traditional Indigo & Madder Red",
@@ -85,6 +85,22 @@
       "Truck-Art Folk Yellow",
       "Cobalt Floral Enamel",
       "Terracotta Lacquer"
+    ]
+  };
+
+  // Product-specific variant overrides (e.g. p012 leather folio sizes vs p005 khussa footwear sizes)
+  const PRODUCT_SPECIFIC_VARIANTS = {
+    p005: [
+      "EU 38 (PK 5)",
+      "EU 39 (PK 6)",
+      "EU 40 (PK 7)",
+      "EU 41 (PK 8)",
+      "EU 42 (PK 9)"
+    ],
+    p012: [
+      "A5 Journal Size",
+      "B5 Executive Size",
+      "A4 Portfolio Size"
     ]
   };
 
@@ -160,45 +176,78 @@
       badgeEl.textContent = product.badge || "Curated";
     }
 
-    // Curate 4 clean angles reusing existing images without generating new files
-    // 1. Studio Front View
-    // 2. Workshop Process View (story-workshop.png)
-    // 3. Heritage Raw Texture View (hero-craft.png)
-    // 4. Companion Craft View (from another product of same artisan or category)
-    const companionProduct = global.CraftoraData.products.find(
-      (p) => p.artisanId === product.artisanId && p.id !== product.id
-    ) || global.CraftoraData.products.find(
-      (p) => p.category === product.category && p.id !== product.id
+    // Determine whether this product has 3 variant images (product-pXXX-v2 & -v3)
+    const hasImageVariants = Boolean(
+      product.variants &&
+      product.variants.length >= 3 &&
+      product.variants[0].image &&
+      product.variants[1].image &&
+      product.variants[0].image !== product.variants[1].image
     );
 
-    const companionImgPath = companionProduct
-      ? resolveAsset(companionProduct.image)
-      : resolveAsset("images/hero-craft.png");
+    let angles = [];
 
-    const angles = [
-      {
-        src: primaryImgPath,
-        alt: `${product.name} - Studio Main Portrait`,
-        label: "Studio View"
-      },
-      {
-        src: resolveAsset("images/story-workshop.png"),
-        alt: `${product.name} - Workshop Crafting Process in ${product.origin}`,
-        label: "Workshop Process"
-      },
-      {
-        src: resolveAsset("images/hero-craft.png"),
-        alt: `${product.name} - Heritage Materials & Living Weave Texture`,
-        label: "Heritage Texture"
-      },
-      {
-        src: companionImgPath,
-        alt: companionProduct
-          ? `${companionProduct.name} - Artisan Companion Edition`
-          : `${product.name} - Studio Angle`,
-        label: companionProduct ? "Guild Companion" : "Detail Angle"
-      }
-    ];
+    if (hasImageVariants) {
+      // 2. Set the 4 thumbnails to: [Variant 1 image, Variant 2 image, Variant 3 image, and images/craftora-packaging.*]
+      angles = [
+        {
+          src: resolveAsset(product.variants[0].image),
+          alt: `${product.name} - ${product.variants[0].name}`,
+          label: product.variants[0].name
+        },
+        {
+          src: resolveAsset(product.variants[1].image),
+          alt: `${product.name} - ${product.variants[1].name}`,
+          label: product.variants[1].name
+        },
+        {
+          src: resolveAsset(product.variants[2].image),
+          alt: `${product.name} - ${product.variants[2].name}`,
+          label: product.variants[2].name
+        },
+        {
+          src: resolveAsset("images/craftora-packaging.png"),
+          alt: `${product.name} - Workshop Crafting Process in ${product.origin}`,
+          label: "Workshop Process"
+        }
+      ];
+    } else {
+      // For size-only or single-image products (e.g. p005 khussa, p012 folio, p009, p010, p011)
+      const companionProduct = global.CraftoraData.products.find(
+        (p) => p.artisanId === product.artisanId && p.id !== product.id
+      ) || global.CraftoraData.products.find(
+        (p) => p.category === product.category && p.id !== product.id
+      );
+
+      const companionImgPath = companionProduct
+        ? resolveAsset(companionProduct.image)
+        : resolveAsset("images/hero-craft.png");
+
+      angles = [
+        {
+          src: primaryImgPath,
+          alt: `${product.name} - Studio Main Portrait`,
+          label: "Studio View"
+        },
+        {
+          src: resolveAsset("images/craftora-packaging.png"),
+          alt: `${product.name} - Workshop Crafting Process in ${product.origin}`,
+          label: "Workshop Process"
+        },
+        {
+          src: resolveAsset("images/hero-craft.png"),
+          alt: `${product.name} - Heritage Materials & Living Weave Texture`,
+          label: "Heritage Texture"
+        },
+        {
+          src: companionImgPath,
+          alt: companionProduct
+            ? `${companionProduct.name} - Artisan Companion Edition`
+            : `${product.name} - Studio Angle`,
+          label: companionProduct ? "Guild Companion" : "Detail Angle"
+        }
+      ];
+    }
 
     thumbGallery.innerHTML = "";
 
@@ -208,24 +257,28 @@
       btn.className = "thumb-item" + (idx === 0 ? " is-active" : "");
       btn.setAttribute("aria-label", `View ${angle.label}`);
       btn.setAttribute("aria-current", idx === 0 ? "true" : "false");
+      btn.setAttribute("data-thumb-index", String(idx));
       btn.innerHTML = `<img src="${angle.src}" alt="${angle.alt}" width="150" height="150">`;
 
       btn.addEventListener("click", () => {
-        // Swap main image
-        mainImg.style.opacity = "0.4";
-        window.setTimeout(() => {
-          mainImg.src = angle.src;
-          mainImg.alt = angle.alt;
-          mainImg.style.opacity = "1";
-        }, 120);
+        // Swap main image immediately
+        mainImg.src = angle.src;
+        mainImg.alt = angle.alt;
 
         // Update active thumbnail border
-        thumbGallery.querySelectorAll(".thumb-item").forEach((el) => {
-          el.classList.remove("is-active");
-          el.setAttribute("aria-current", "false");
+        thumbGallery.querySelectorAll(".thumb-item").forEach((el, tIdx) => {
+          const isActive = tIdx === idx;
+          el.classList.toggle("is-active", isActive);
+          el.setAttribute("aria-current", isActive ? "true" : "false");
         });
-        btn.classList.add("is-active");
-        btn.setAttribute("aria-current", "true");
+
+        // 3. Clicking any of the first 3 thumbnails also selects the matching variant button and updates the "Selected Edition / Variant" label
+        if (hasImageVariants && idx < 3) {
+          const vList = document.getElementById("variant-options-list");
+          if (vList && typeof vList._selectVariantByIndex === "function") {
+            vList._selectVariantByIndex(idx);
+          }
+        }
       });
 
       thumbGallery.appendChild(btn);
@@ -276,40 +329,107 @@
   function setupVariants(product) {
     const variantListEl = document.getElementById("variant-options-list");
     const activeDisplay = document.getElementById("variant-active-name");
+    const thumbGallery = document.getElementById("thumbnail-gallery");
+    const mainImg = document.getElementById("main-product-img");
     if (!variantListEl) return;
 
-    const options = VARIANT_OPTIONS[product.category] || [
-      "Standard Guild Edition",
-      "Artisan Signed Reserve",
-      "Heritage Collector's Edition"
-    ];
+    // Resolve variants list (prefer product.variants from js/data.js, then PRODUCT_SPECIFIC_VARIANTS, then category fallback)
+    let options = [];
+    if (product.variants && product.variants.length > 0) {
+      options = product.variants;
+    } else if (PRODUCT_SPECIFIC_VARIANTS[product.id]) {
+      options = PRODUCT_SPECIFIC_VARIANTS[product.id];
+    } else if (VARIANT_OPTIONS[product.category]) {
+      options = VARIANT_OPTIONS[product.category];
+    } else {
+      options = [
+        "Standard Guild Edition",
+        "Artisan Signed Reserve",
+        "Heritage Collector's Edition"
+      ];
+    }
 
-    activeVariant = options[0];
+    const firstOpt = options[0];
+    const firstOptName = typeof firstOpt === "string" ? firstOpt : firstOpt.name;
+    activeVariant = firstOptName;
     if (activeDisplay) activeDisplay.textContent = activeVariant;
+
+    // Check whether this product has 3 variant-specific photos
+    const hasImageVariants = Boolean(
+      product.variants &&
+      product.variants.length >= 3 &&
+      product.variants[0].image &&
+      product.variants[1].image &&
+      product.variants[0].image !== product.variants[1].image
+    );
+
+    function selectVariantByIndex(idx) {
+      if (idx < 0 || idx >= options.length) return;
+      const targetOpt = options[idx];
+      const name = typeof targetOpt === "string" ? targetOpt : targetOpt.name;
+      activeVariant = name;
+      if (activeDisplay) activeDisplay.textContent = name;
+
+      // Update pills
+      variantListEl.querySelectorAll(".variant-pill").forEach((el, pIdx) => {
+        const isActive = pIdx === idx;
+        el.classList.toggle("is-active", isActive);
+        el.setAttribute("aria-checked", isActive ? "true" : "false");
+      });
+
+      // 3. Immediately switch main product image to variant photo AND highlight matching thumbnail
+      if (hasImageVariants) {
+        const variantImgPath = (typeof targetOpt === "object" && targetOpt.image)
+          ? targetOpt.image
+          : (product.variants && product.variants[idx] ? product.variants[idx].image : product.image);
+
+        if (mainImg) {
+          mainImg.src = resolveAsset(variantImgPath);
+          mainImg.alt = `${product.name} - ${name}`;
+        }
+
+        if (thumbGallery) {
+          thumbGallery.querySelectorAll(".thumb-item").forEach((el, tIdx) => {
+            const isActive = tIdx === idx;
+            el.classList.toggle("is-active", isActive);
+            el.setAttribute("aria-current", isActive ? "true" : "false");
+          });
+        }
+      } else {
+        // Size-only or single-image products (p005 khussa, p012 folio, etc.): keep main image & highlight thumbnail 0
+        if (mainImg) {
+          mainImg.src = resolveAsset(product.image);
+          mainImg.alt = product.alt;
+        }
+        if (thumbGallery) {
+          thumbGallery.querySelectorAll(".thumb-item").forEach((el, tIdx) => {
+            const isActive = tIdx === 0;
+            el.classList.toggle("is-active", isActive);
+            el.setAttribute("aria-current", isActive ? "true" : "false");
+          });
+        }
+      }
+    }
 
     variantListEl.innerHTML = "";
     options.forEach((opt, idx) => {
+      const optName = typeof opt === "string" ? opt : opt.name;
       const pill = document.createElement("button");
       pill.type = "button";
       pill.className = "variant-pill" + (idx === 0 ? " is-active" : "");
       pill.setAttribute("role", "radio");
       pill.setAttribute("aria-checked", idx === 0 ? "true" : "false");
-      pill.textContent = opt;
+      pill.setAttribute("data-variant-index", String(idx));
+      pill.textContent = optName;
 
       pill.addEventListener("click", () => {
-        activeVariant = opt;
-        if (activeDisplay) activeDisplay.textContent = opt;
-
-        variantListEl.querySelectorAll(".variant-pill").forEach((el) => {
-          el.classList.remove("is-active");
-          el.setAttribute("aria-checked", "false");
-        });
-        pill.classList.add("is-active");
-        pill.setAttribute("aria-checked", "true");
+        selectVariantByIndex(idx);
       });
 
       variantListEl.appendChild(pill);
     });
+
+    variantListEl._selectVariantByIndex = selectVariantByIndex;
   }
 
   /* ==========================================================================

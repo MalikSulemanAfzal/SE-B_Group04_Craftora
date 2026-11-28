@@ -156,7 +156,7 @@
   ];
 
   // Official Craftora product catalogue in PKR
-  // Reuses existing image assets (product-p001.webp - product-p006.webp) without generating new files
+  // Reuses existing image assets without generating new files
   const PRODUCTS = [
     {
       id: "p001",
@@ -176,9 +176,20 @@
       createdAt: "2026-03-10",
       material: "100% handloom cotton, botanical indigo & madder dye",
       dimensions: "240 cm x 110 cm with hand-knotted fringe",
-      image: "images/product-p001.png ",
+      image: "images/product-p001.png",
       alt: "Studio photograph of a crimson and indigo block-printed Sindhi Ajrak Dupatta by Zainab's Loom",
-      description: "Double-sided block-printed Ajrak dupatta crafted in Matiari using hand-carved wooden stamps, resist clay paste, and rich natural indigo and crimson dyes."
+      description: "Double-sided block-printed Ajrak dupatta crafted in Matiari using hand-carved wooden stamps, resist clay paste, and rich natural indigo and crimson dyes.",
+      variants: [
+        { name: "Traditional Indigo & Madder Red", image: "images/product-p001.png" },
+        { name: "Kashmiri Mustard & Ochre", image: "images/product-p001-v2.png" },
+        { name: "Sage Green & Madder", image: "images/product-p001-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p001.png",
+        "images/product-p001-v2.png",
+        "images/product-p001-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p002",
@@ -200,7 +211,18 @@
       dimensions: "Height 26 cm x Diameter 15 cm",
       image: "images/product-p002.png",
       alt: "Studio photograph of a hand-painted Multani Blue Pottery Vase with cobalt floral motifs by Kashi Studio",
-      description: "Hand-thrown from Multan's signature quartz-rich clay and hand-painted with traditional Kashi floral brushwork before kiln glazing."
+      description: "Hand-thrown from Multan's signature quartz-rich clay and hand-painted with traditional Kashi floral brushwork before kiln glazing.",
+      variants: [
+        { name: "Cobalt Blossom (Classic)", image: "images/product-p002.png" },
+        { name: "Turquoise Lagoon", image: "images/product-p002-v2.png" },
+        { name: "Lapis Lazuli Geometric", image: "images/product-p002-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p002.png",
+        "images/product-p002-v2.png",
+        "images/product-p002-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p003",
@@ -222,7 +244,18 @@
       dimensions: "25 cm x 17 cm x 11 cm",
       image: "images/product-p003.png",
       alt: "Studio photograph of a Chinioti Carved Wooden Box in seasoned Sheesham rosewood by Darakht Works",
-      description: "Hand-chiselled solid Sheesham keepsake chest featuring traditional Chinioti floral relief carving, velvet lining, and brass clasp hardware."
+      description: "Hand-chiselled solid Sheesham keepsake chest featuring traditional Chinioti floral relief carving, velvet lining, and brass clasp hardware.",
+      variants: [
+        { name: "Natural Sheesham Rosewood", image: "images/product-p003.png" },
+        { name: "Dark Walnut Finish", image: "images/product-p003-v2.png" },
+        { name: "Antiqued Teak & Brass", image: "images/product-p003-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p003.png",
+        "images/product-p003-v2.png",
+        "images/product-p003-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p004",
@@ -244,7 +277,18 @@
       dimensions: "45 cm x 45 cm (18 x 18 in)",
       image: "images/product-p004.png",
       alt: "Studio photograph of a hand-embroidered Sindhi Cushion Cover by Gulzar Needlecraft in Hala",
-      description: "Tactile cushion cover hand-embroidered in Hala with geometric heritage stitches and subtle mirror accents on breathable woven cotton."
+      description: "Tactile cushion cover hand-embroidered in Hala with geometric heritage stitches and subtle mirror accents on breathable woven cotton.",
+      variants: [
+        { name: "Ivory & Terracotta (Classic)", image: "images/product-p004.png" },
+        { name: "Desert Ochre & Cobalt", image: "images/product-p004-v2.png" },
+        { name: "Emerald Green & Gold", image: "images/product-p004-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p004.png",
+        "images/product-p004-v2.png",
+        "images/product-p004-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p005",
@@ -266,7 +310,20 @@
       dimensions: "Available in EU 37–44 (PK 4–10)",
       image: "images/product-p005.png",
       alt: "Studio photograph of a pair of Traditional Leather Khussa shoes handcrafted by Qissa Leather House in Lahore",
-      description: "Supple hand-lasted Lahore leather khussa stitched with zero nails or synthetic glue, finished with fine tilla-inspired embossed detailing."
+      description: "Supple hand-lasted Lahore leather khussa stitched with zero nails or synthetic glue, finished with fine tilla-inspired embossed detailing.",
+      variants: [
+        { name: "EU 38 (PK 5)", image: "images/product-p005.png" },
+        { name: "EU 39 (PK 6)", image: "images/product-p005.png" },
+        { name: "EU 40 (PK 7)", image: "images/product-p005.png" },
+        { name: "EU 41 (PK 8)", image: "images/product-p005.png" },
+        { name: "EU 42 (PK 9)", image: "images/product-p005.png" }
+      ],
+      thumbnails: [
+        "images/product-p005.png",
+        "images/story-workshop.png",
+        "images/hero-craft.png",
+        "images/product-p012.png"
+      ]
     },
     {
       id: "p006",
@@ -288,7 +345,18 @@
       dimensions: "36 cm x 24 cm x 4 cm",
       image: "images/product-p006.png",
       alt: "Studio photograph of a hand-painted Truck-Art Decorative Tray by Rang Caravan in Rawalpindi",
-      description: "Vibrant hand-painted serving and centrepiece tray by Rawalpindi truck artists, sealed with a durable food-safe protective finish."
+      description: "Vibrant hand-painted serving and centrepiece tray by Rawalpindi truck artists, sealed with a durable food-safe protective finish.",
+      variants: [
+        { name: "Peacock & Sunburst Yellow", image: "images/product-p006.png" },
+        { name: "Floral Caravan Red", image: "images/product-p006-v2.png" },
+        { name: "Midnight Blue Chamakpatti", image: "images/product-p006-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p006.png",
+        "images/product-p006-v2.png",
+        "images/product-p006-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p007",
@@ -310,7 +378,18 @@
       dimensions: "Drop length 6.5 cm, width 2.8 cm",
       image: "images/product-p007.png",
       alt: "Handcrafted filigree brass drop earrings with carved rosewood accents",
-      description: "Delicate floral drop earrings hand-chiselled by master metal craftsmen of Chiniot, combining warm brass lace patterns with deep rosewood studs."
+      description: "Delicate floral drop earrings hand-chiselled by master metal craftsmen of Chiniot, combining warm brass lace patterns with deep rosewood studs.",
+      variants: [
+        { name: "Antiqued Brass & Rosewood", image: "images/product-p007.png" },
+        { name: "Burnished Gold Patina", image: "images/product-p007-v2.png" },
+        { name: "Silver Patina", image: "images/product-p007-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p007.png",
+        "images/product-p007-v2.png",
+        "images/product-p007-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p008",
@@ -332,7 +411,18 @@
       dimensions: "22 cm x 13 cm x 4 cm",
       image: "images/product-p008.png",
       alt: "Studio photograph of a hand-embroidered raw silk clutch purse from Hala",
-      description: "Elegant evening clutch purse adorned with traditional Sindhi border stitching, lined with smooth cotton and fitted with a concealed magnetic snap."
+      description: "Elegant evening clutch purse adorned with traditional Sindhi border stitching, lined with smooth cotton and fitted with a concealed magnetic snap.",
+      variants: [
+        { name: "Raw Crimson Silk", image: "images/product-p008.png" },
+        { name: "Royal Indigo Silk", image: "images/product-p008-v2.png" },
+        { name: "Heritage Amber Silk", image: "images/product-p008-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p008.png",
+        "images/product-p008-v2.png",
+        "images/product-p008-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p009",
@@ -354,7 +444,18 @@
       dimensions: "14 cm x 10 cm x 7 cm",
       image: "images/product-p009.png",
       alt: "Hand-painted truck-art decorative gift keepsake box with floral border",
-      description: "A cherished gift piece painted with joyful folk floral motifs and brilliant yellow chamakpatti lining, perfect for rings, trinkets, or tea bags."
+      description: "A cherished gift piece painted with joyful folk floral motifs and brilliant yellow chamakpatti lining, perfect for rings, trinkets, or tea bags.",
+      variants: [
+        { name: "Truck-Art Folk Yellow", image: "images/product-p009.png" },
+        { name: "Cobalt Floral Enamel", image: "images/product-p009-v2.png" },
+        { name: "Terracotta Lacquer", image: "images/product-p009-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p009.png",
+        "images/product-p009-v2.png",
+        "images/product-p009-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p010",
@@ -376,7 +477,18 @@
       dimensions: "180 cm x 40 cm",
       image: "images/product-p010.png",
       alt: "Handloom indigo and terracotta block-printed cotton table runner by Zainab's Loom",
-      description: "Stately dining runner block-printed in Matiari with heritage geometric borders, sun-dried on riverbanks and finished with neat selvedges."
+      description: "Stately dining runner block-printed in Matiari with heritage geometric borders, sun-dried on riverbanks and finished with neat selvedges.",
+      variants: [
+        { name: "Traditional Indigo & Madder Red", image: "images/product-p010.png" },
+        { name: "Kashmiri Mustard & Ochre", image: "images/product-p010-v2.png" },
+        { name: "Sage Green & Madder", image: "images/product-p010-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p010.png",
+        "images/product-p010-v2.png",
+        "images/product-p010-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p011",
@@ -398,7 +510,18 @@
       dimensions: "Diameter 22 cm x Depth 8 cm",
       image: "images/product-p011.png",
       alt: "Hand-glazed Multani blue pottery turquoise ceramic bowl with concentric leaf motifs",
-      description: "Generous hand-thrown stoneware bowl featuring concentric turquoise and cobalt glaze strokes, fired at high temperatures for daily table use."
+      description: "Generous hand-thrown stoneware bowl featuring concentric turquoise and cobalt glaze strokes, fired at high temperatures for daily table use.",
+      variants: [
+        { name: "Cobalt Blossom (Classic)", image: "images/product-p011.png" },
+        { name: "Turquoise Lagoon", image: "images/product-p011-v2.png" },
+        { name: "Lapis Lazuli Geometric", image: "images/product-p011-v3.png" }
+      ],
+      thumbnails: [
+        "images/product-p011.png",
+        "images/product-p011-v2.png",
+        "images/product-p011-v3.png",
+        "images/story-workshop.png"
+      ]
     },
     {
       id: "p012",
@@ -420,7 +543,18 @@
       dimensions: "32 cm x 24 cm (fits A4 notebooks and tablets)",
       image: "images/product-p012.png",
       alt: "Vegetable-tanned hand-tooled leather document folio and journal case by Qissa Leather House",
-      description: "Executive travel folio hand-cut, burnished, and stitched with heavy waxed linen thread in Lahore's historic Walled City workshop."
+      description: "Executive travel folio hand-cut, burnished, and stitched with heavy waxed linen thread in Lahore's historic Walled City workshop.",
+      variants: [
+        { name: "A5 Journal Size", image: "images/product-p012.png" },
+        { name: "B5 Executive Size", image: "images/product-p012.png" },
+        { name: "A4 Portfolio Size", image: "images/product-p012.png" }
+      ],
+      thumbnails: [
+        "images/product-p012.png",
+        "images/story-workshop.png",
+        "images/hero-craft.png",
+        "images/product-p005.png"
+      ]
     }
   ];
 
@@ -430,11 +564,19 @@
 
   function resolveAssetPath(path) {
     if (!path) return "";
-    if (/^(https?:)?\/\//i.test(path) || path.startsWith("../")) {
-      return path;
+    const clean = path.trim();
+    if (/^(https?:)?\/\//i.test(clean) || clean.startsWith("../")) {
+      return clean;
     }
-    const inPagesDir = /[/\\]pages([/\\][^/\\]*)?$/i.test(window.location.pathname);
-    return inPagesDir ? "../" + path : path;
+    const inPagesDir = (typeof window !== "undefined" && window.location) ?
+      (/[/\\]pages([/\\]|$)/i.test(window.location.pathname) ||
+       window.location.pathname.includes("/pages/") ||
+       window.location.pathname.includes("\\pages\\") ||
+       window.location.pathname.endsWith("product-details.html") ||
+       window.location.pathname.endsWith("marketplace.html") ||
+       window.location.pathname.endsWith("artisan-directory.html") ||
+       window.location.pathname.endsWith("artisan-profile.html")) : false;
+    return inPagesDir ? "../" + clean : clean;
   }
 
   function getProductById(id) {
