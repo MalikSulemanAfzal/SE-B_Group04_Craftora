@@ -185,10 +185,58 @@
       product.variants[0].image !== product.variants[1].image
     );
 
+    // Dedicated multi-angle galleries for size-based products with individual photo assets
+    const DEDICATED_GALLERIES = {
+      p005: [
+        {
+          src: resolveAsset("images/product-p005.png"),
+          alt: `${product.name} - Studio Main Portrait`,
+          label: "Studio View"
+        },
+        {
+          src: resolveAsset("images/product-p005-v2.png"),
+          alt: `${product.name} - Side Profile & Detailing`,
+          label: "Side Profile"
+        },
+        {
+          src: resolveAsset("images/product-p005-v3.png"),
+          alt: `${product.name} - Sole & Stitching Perspective`,
+          label: "Sole & Stitching"
+        },
+        {
+          src: resolveAsset("images/craftora-packaging.png"),
+          alt: `${product.name} - Workshop Crafting Process in ${product.origin}`,
+          label: "Workshop Process"
+        }
+      ],
+      p012: [
+        {
+          src: resolveAsset("images/product-p012.png"),
+          alt: `${product.name} - Studio Main Portrait`,
+          label: "Studio View"
+        },
+        {
+          src: resolveAsset("images/product-p012-v2.png"),
+          alt: `${product.name} - Open Folio & Interior Detail`,
+          label: "Interior View"
+        },
+        {
+          src: resolveAsset("images/product-p012-v3.png"),
+          alt: `${product.name} - Hand-Tooled Relief & Brass Hardware`,
+          label: "Hardware Detail"
+        },
+        {
+          src: resolveAsset("images/craftora-packaging.png"),
+          alt: `${product.name} - Workshop Crafting Process in ${product.origin}`,
+          label: "Workshop Process"
+        }
+      ]
+    };
+
     let angles = [];
 
     if (hasImageVariants) {
-      // 2. Set the 4 thumbnails to: [Variant 1 image, Variant 2 image, Variant 3 image, and images/craftora-packaging.*]
+      // Set the 4 thumbnails to: [Variant 1 image, Variant 2 image, Variant 3 image, and images/craftora-packaging.png]
       angles = [
         {
           src: resolveAsset(product.variants[0].image),
@@ -211,8 +259,10 @@
           label: "Workshop Process"
         }
       ];
+    } else if (DEDICATED_GALLERIES[product.id]) {
+      angles = DEDICATED_GALLERIES[product.id];
     } else {
-      // For size-only or single-image products (e.g. p005 khussa, p012 folio, p009, p010, p011)
+      // For size-only or single-image products (e.g. p009, p010, p011)
       const companionProduct = global.CraftoraData.products.find(
         (p) => p.artisanId === product.artisanId && p.id !== product.id
       ) || global.CraftoraData.products.find(
@@ -377,7 +427,7 @@
         el.setAttribute("aria-checked", isActive ? "true" : "false");
       });
 
-      // 3. Immediately switch main product image to variant photo AND highlight matching thumbnail
+      // Switch main product image to variant photo AND highlight matching thumbnail for edition/color variants
       if (hasImageVariants) {
         const variantImgPath = (typeof targetOpt === "object" && targetOpt.image)
           ? targetOpt.image
@@ -395,20 +445,8 @@
             el.setAttribute("aria-current", isActive ? "true" : "false");
           });
         }
-      } else {
-        // Size-only or single-image products (p005 khussa, p012 folio, etc.): keep main image & highlight thumbnail 0
-        if (mainImg) {
-          mainImg.src = resolveAsset(product.image);
-          mainImg.alt = product.alt;
-        }
-        if (thumbGallery) {
-          thumbGallery.querySelectorAll(".thumb-item").forEach((el, tIdx) => {
-            const isActive = tIdx === 0;
-            el.classList.toggle("is-active", isActive);
-            el.setAttribute("aria-current", isActive ? "true" : "false");
-          });
-        }
       }
+      // Note: Size-based products (p005 khussa, p012 folio, etc.) keep size selection working independently of gallery clicks
     }
 
     variantListEl.innerHTML = "";

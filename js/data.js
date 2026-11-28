@@ -320,9 +320,9 @@
       ],
       thumbnails: [
         "images/product-p005.png",
-        "images/story-workshop.png",
-        "images/hero-craft.png",
-        "images/product-p012.png"
+        "images/product-p005-v2.png",
+        "images/product-p005-v3.png",
+        "images/craftora-packaging.png"
       ]
     },
     {
@@ -551,9 +551,9 @@
       ],
       thumbnails: [
         "images/product-p012.png",
-        "images/story-workshop.png",
-        "images/hero-craft.png",
-        "images/product-p005.png"
+        "images/product-p012-v2.png",
+        "images/product-p012-v3.png",
+        "images/craftora-packaging.png"
       ]
     }
   ];
