@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Orders | Craftora</title>
-  <!-- Editorial serif & clean sans fonts matching Craftora homepage -->
+  <title>Order History | Craftora</title>
+  <!-- Editorial serif & clean sans fonts matching Craftora's shared theme -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <!-- ================= CREAM HEADER ================= -->
+  <!-- ================= SHARED HEADER ================= -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="brand-lockup" aria-label="Craftora Home">
@@ -51,6 +51,8 @@
           <li><a href="about.html" class="nav-link">About</a></li>
           <li><a href="contact.html" class="nav-link">Contact</a></li>
           <li><a href="order-history.html" class="nav-link active" aria-current="page">My Orders</a></li>
+          <li><a href="artisan-registration.html" class="nav-link">Become an Artisan</a></li>
+          <li><a href="artisan-dashboard.html" class="nav-link">Artisan Dashboard</a></li>
         </ul>
       </nav>
     </div>
@@ -58,37 +60,49 @@
 
   <!-- ================= MAIN CONTENT ================= -->
   <main class="site-main">
-    <!-- Dark Green Heritage Page Banner -->
+    <!-- Dark Green Heritage Hero -->
     <section class="orders-hero">
       <div class="container orders-hero-inner">
-        <p class="orders-eyebrow">A MARKETPLACE FOR MEANINGFUL MAKING</p>
-        <h1 class="orders-heading">My Orders</h1>
+        <div class="hero-badges">
+          <p class="orders-eyebrow">YOUR CRAFTORA PURCHASES</p>
+          <span class="sample-pill">Sample Orders Preview</span>
+        </div>
+        <h1 class="orders-heading">
+          Order History
+          <span class="heading-accent">Every handcrafted piece, tracked.</span>
+        </h1>
         <p class="orders-subtitle">
-          Track your handcrafted pieces from Pakistani artisan workshops to your doorstep.
+          Review your artisan orders, check delivery progress, and filter between pending and delivered crafts.
         </p>
       </div>
     </section>
 
-    <!-- Order History Section -->
-    <section class="orders-section" aria-labelledby="orders-list-title">
+    <!-- Orders Workspace -->
+    <section class="orders-section" aria-labelledby="orders-list-heading">
       <div class="container">
+        <!-- Sample Data Notice -->
+        <div class="sample-notice" role="note">
+          <strong>Sample Order Data:</strong>
+          <span>Displaying sample Craftora orders for this frontend preview until shared backend order data is connected.</span>
+        </div>
+
+        <!-- Filter Controls & Visible Order Count -->
         <div class="orders-toolbar">
-          <div class="orders-toolbar-text">
-            <h2 id="orders-list-title" class="orders-section-title">Order History</h2>
-            <p id="orders-count" class="orders-count" aria-live="polite">
-              Showing 2 orders
+          <div class="toolbar-heading-group">
+            <h2 id="orders-list-heading" class="toolbar-title">Recent Purchases</h2>
+            <p id="order-count" class="order-count" role="status" aria-live="polite">
+              Showing 0 orders
             </p>
           </div>
 
-          <!-- Status Filter Controls -->
-          <div class="order-filters" role="group" aria-label="Filter orders by status">
+          <div class="filter-group" role="group" aria-label="Filter orders by status">
             <button
               type="button"
-              class="filter-btn active"
+              class="filter-btn is-active"
               data-filter="all"
               aria-pressed="true"
             >
-              All
+              All <span class="filter-count" data-count-for="all">0</span>
             </button>
             <button
               type="button"
@@ -96,7 +110,7 @@
               data-filter="pending"
               aria-pressed="false"
             >
-              Pending
+              Pending <span class="filter-count" data-count-for="pending">0</span>
             </button>
             <button
               type="button"
@@ -104,82 +118,30 @@
               data-filter="delivered"
               aria-pressed="false"
             >
-              Delivered
+              Delivered <span class="filter-count" data-count-for="delivered">0</span>
             </button>
           </div>
         </div>
 
-        <!-- Orders List -->
-        <div id="orders-list" class="orders-list">
-          <!-- Sample Order 1: Pending -->
-          <article class="order-card" data-status="pending">
-            <div class="order-card-header">
-              <div class="order-id-group">
-                <span class="field-label">Order Number</span>
-                <h3 class="order-number">#CRF-2026-1042</h3>
-              </div>
-              <span class="status-badge status-pending">Pending</span>
-            </div>
+        <!-- Order Cards Grid (populated by js/order-history.js) -->
+        <div id="orders-grid" class="orders-grid" aria-live="polite"></div>
 
-            <div class="order-card-body">
-              <div class="order-field order-field-item">
-                <span class="field-label">Item</span>
-                <p class="field-value item-name">Multani Blue Pottery Serving Bowl (Set of 2)</p>
-                <p class="item-meta">Hand-glazed ceramic &middot; Multan Artisan Guild</p>
-              </div>
-
-              <div class="order-field">
-                <span class="field-label">Date</span>
-                <p class="field-value">November 24, 2026</p>
-              </div>
-
-              <div class="order-field order-field-total">
-                <span class="field-label">Total</span>
-                <p class="field-value order-total">Rs. 4,850</p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Sample Order 2: Delivered -->
-          <article class="order-card" data-status="delivered">
-            <div class="order-card-header">
-              <div class="order-id-group">
-                <span class="field-label">Order Number</span>
-                <h3 class="order-number">#CRF-2026-1038</h3>
-              </div>
-              <span class="status-badge status-delivered">Delivered</span>
-            </div>
-
-            <div class="order-card-body">
-              <div class="order-field order-field-item">
-                <span class="field-label">Item</span>
-                <p class="field-value item-name">Handwoven Ajrak Block-Printed Cotton Throw</p>
-                <p class="item-meta">Natural indigo &amp; madder dye &middot; Sindh Craft Collective</p>
-              </div>
-
-              <div class="order-field">
-                <span class="field-label">Date</span>
-                <p class="field-value">November 12, 2026</p>
-              </div>
-
-              <div class="order-field order-field-total">
-                <span class="field-label">Total</span>
-                <p class="field-value order-total">Rs. 6,200</p>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <!-- Empty State (shown if a filter has 0 matching orders) -->
+        <!-- Empty Filter State -->
         <div id="orders-empty" class="orders-empty" hidden>
-          <p class="empty-title">No orders found</p>
-          <p class="empty-text">There are currently no orders matching the selected filter.</p>
+          <p class="empty-title">No orders match this filter</p>
+          <p class="empty-copy">Try selecting &ldquo;All&rdquo; to view your complete sample order history.</p>
         </div>
+
+        <noscript>
+          <p class="noscript-note">
+            Please enable JavaScript in your browser to view and filter your Craftora order history.
+          </p>
+        </noscript>
       </div>
     </section>
   </main>
 
-  <!-- ================= SHARED-STYLE FOOTER ================= -->
+  <!-- ================= SHARED FOOTER ================= -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
@@ -194,6 +156,8 @@
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="order-history.html">My Orders</a></li>
+          <li><a href="artisan-registration.html">Become an Artisan</a></li>
+          <li><a href="artisan-dashboard.html">Artisan Dashboard</a></li>
         </ul>
       </nav>
 
