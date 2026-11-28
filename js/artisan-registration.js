@@ -1,92 +1,118 @@
 /* ==========================================================================
    Craftora - Artisan Registration Page Script (Page 14)
-   Handles required field checks, email validation, and demo confirmation.
+   Handles required-field validation, email format checks, demo confirmation
+   rendering, and resetting the form via "Register Another".
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("artisan-registration-form");
-  const confirmationBox = document.getElementById("demo-confirmation");
-  const confirmationSummary = document.getElementById("confirmation-summary");
+  const form = document.getElementById("artisan-form");
+  const formAlert = document.getElementById("form-alert");
+  const confirmationPanel = document.getElementById("confirmation-panel");
+  const submittedDetails = document.getElementById("submitted-details");
   const registerAnotherBtn = document.getElementById("register-another-btn");
 
-  if (!form || !confirmationBox || !confirmationSummary) return;
+  if (!form || !confirmationPanel || !submittedDetails || !registerAnotherBtn) {
+    return;
+  }
+
+  const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
   const fields = [
     {
       input: document.getElementById("full-name"),
       errorEl: document.getElementById("full-name-error"),
       label: "Full Name",
-      emptyMessage: "Please enter your full name."
+      validate(value) {
+        if (!value) return "Please enter your full name.";
+        return "";
+      }
     },
     {
       input: document.getElementById("shop-name"),
       errorEl: document.getElementById("shop-name-error"),
       label: "Shop Name",
-      emptyMessage: "Please enter your shop name."
+      validate(value) {
+        if (!value) return "Please enter your shop name.";
+        return "";
+      }
     },
     {
-      input: document.getElementById("email"),
-      errorEl: document.getElementById("email-error"),
+      input: document.getElementById("artisan-email"),
+      errorEl: document.getElementById("artisan-email-error"),
       label: "Email",
-      emptyMessage: "Please enter your email address."
+      validate(value) {
+        if (!value) return "Please enter your email address.";
+        if (!EMAIL_PATTERN.test(value)) {
+          return "Please enter a valid email address (for example, name@example.com).";
+        }
+        return "";
+      }
     },
     {
-      input: document.getElementById("craft-category"),
-      errorEl: document.getElementById("craft-category-error"),
-      label: "Craft Category",
-      emptyMessage: "Please choose a craft category."
+      input: document.getElementById("craftora-category"),
+      errorEl: document.getElementById("craftora-category-error"),
+      label: "Craftora Category",
+      validate(value) {
+        if (!value) return "Please select a Craftora category.";
+        return "";
+      }
     },
     {
       input: document.getElementById("about-shop"),
       errorEl: document.getElementById("about-shop-error"),
       label: "About Your Shop",
-      emptyMessage: "Please tell us a little about your shop."
+      validate(value) {
+        if (!value) return "Please tell us about your shop and craft.";
+        return "";
+      }
     }
   ];
 
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
   function setFieldError(field, message) {
     if (!field.input || !field.errorEl) return;
+
     const hasError = Boolean(message);
-    field.input.classList.toggle("is-invalid", hasError);
+    field.input.classList.toggle("has-error", hasError);
     field.input.setAttribute("aria-invalid", String(hasError));
     field.errorEl.textContent = message;
   }
 
   function validateField(field) {
     if (!field.input) return true;
-    const value = field.input.value.trim();
-
-    if (!value) {
-      setFieldError(field, field.emptyMessage);
-      return false;
-    }
-
-    if (field.input.id === "email" && !emailPattern.test(value)) {
-      setFieldError(field, "Please enter a valid email address (for example, name@example.com).");
-      return false;
-    }
-
-    setFieldError(field, "");
-    return true;
+    const trimmed = field.input.value.trim();
+    const errorMessage = field.validate(trimmed);
+    setFieldError(field, errorMessage);
+    return errorMessage === "";
   }
 
-  function renderSummary(entries) {
-    confirmationSummary.replaceChildren();
+  function updateFormAlert(invalidCount) {
+    if (!formAlert) return;
+    if (invalidCount === 0) {
+      formAlert.hidden = true;
+      formAlert.textContent = "";
+      return;
+    }
+
+    const issueWord = invalidCount === 1 ? "issue" : "issues";
+    formAlert.textContent = `Please fix ${invalidCount} highlighted ${issueWord} below before registering.`;
+    formAlert.hidden = false;
+  }
+
+  function renderConfirmation(entries) {
+    submittedDetails.replaceChildren();
 
     entries.forEach(({ label, value }) => {
       const row = document.createElement("div");
-      row.className = "summary-row";
+      row.className = "detail-row";
 
       const term = document.createElement("dt");
       term.textContent = label;
 
-      const detail = document.createElement("dd");
-      detail.textContent = value;
+      const desc = document.createElement("dd");
+      desc.textContent = value;
 
-      row.append(term, detail);
-      confirmationSummary.appendChild(row);
+      row.append(term, desc);
+      submittedDetails.appendChild(row);
     });
   }
 
@@ -95,8 +121,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const eventName = field.input.tagName === "SELECT" ? "change" : "input";
 
     field.input.addEventListener(eventName, () => {
-      if (field.input.classList.contains("is-invalid")) {
+      if (field.input.classList.contains("has-error")) {
         validateField(field);
+        const remainingErrors = fields.filter(
+          (item) => item.input && item.input.classList.contains("has-error")
+        ).length;
+        updateFormAlert(remainingErrors);
       }
     });
   });
@@ -104,48 +134,48 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    let firstInvalidField = null;
-    let isFormValid = true;
+    let firstInvalidInput = null;
+    let invalidCount = 0;
 
     fields.forEach((field) => {
-      const valid = validateField(field);
-      if (!valid) {
-        isFormValid = false;
-        if (!firstInvalidField) {
-          firstInvalidField = field.input;
+      const isValid = validateField(field);
+      if (!isValid) {
+        invalidCount += 1;
+        if (!firstInvalidInput && field.input) {
+          firstInvalidInput = field.input;
         }
       }
     });
 
-    if (!isFormValid) {
-      if (firstInvalidField) {
-        firstInvalidField.focus();
-      }
+    if (invalidCount > 0) {
+      updateFormAlert(invalidCount);
+      if (firstInvalidInput) firstInvalidInput.focus();
       return;
     }
 
-    const submittedEntries = fields.map((field) => ({
+    updateFormAlert(0);
+
+    const entries = fields.map((field) => ({
       label: field.label,
-      value: field.input.value.trim()
+      value: field.input ? field.input.value.trim() : ""
     }));
 
-    renderSummary(submittedEntries);
+    renderConfirmation(entries);
     form.hidden = true;
-    confirmationBox.hidden = false;
-    confirmationBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    confirmationPanel.hidden = false;
+    registerAnotherBtn.focus();
   });
 
-  if (registerAnotherBtn) {
-    registerAnotherBtn.addEventListener("click", () => {
-      form.reset();
-      fields.forEach((field) => setFieldError(field, ""));
-      confirmationBox.hidden = true;
-      form.hidden = false;
+  registerAnotherBtn.addEventListener("click", () => {
+    form.reset();
+    fields.forEach((field) => setFieldError(field, ""));
+    updateFormAlert(0);
+    submittedDetails.replaceChildren();
 
-      const firstInput = document.getElementById("full-name");
-      if (firstInput) {
-        firstInput.focus();
-      }
-    });
-  }
+    confirmationPanel.hidden = true;
+    form.hidden = false;
+
+    const firstField = fields[0]?.input;
+    if (firstField) firstField.focus();
+  });
 });

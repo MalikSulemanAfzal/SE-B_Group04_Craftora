@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Artisan Registration | Craftora</title>
-  <!-- Editorial serif & clean sans fonts matching Craftora homepage -->
+  <!-- Shared Craftora editorial serif & clean sans fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/artisan-registration.css">
 </head>
-<body class="artisan-registration-page">
+<body class="artisan-page">
 
   <!-- Top Heritage Announcement Bar -->
   <div class="announcement-bar">
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <!-- ================= CREAM HEADER ================= -->
+  <!-- ================= SHARED HEADER ================= -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="brand-lockup" aria-label="Craftora Home">
@@ -52,6 +52,7 @@
           <li><a href="contact.html" class="nav-link">Contact</a></li>
           <li><a href="order-history.html" class="nav-link">My Orders</a></li>
           <li><a href="artisan-registration.html" class="nav-link active" aria-current="page">Become an Artisan</a></li>
+          <li><a href="artisan-dashboard.html" class="nav-link">Artisan Dashboard</a></li>
         </ul>
       </nav>
     </div>
@@ -59,176 +60,196 @@
 
   <!-- ================= MAIN CONTENT ================= -->
   <main class="site-main">
-    <!-- Dark Green Heritage Banner -->
-    <section class="registration-hero">
-      <div class="container registration-hero-inner">
-        <p class="registration-eyebrow">A MARKETPLACE FOR MEANINGFUL MAKING</p>
-        <h1 class="registration-heading">
-          Artisan Registration
-          <span class="heading-accent">Share your craft with the world.</span>
-        </h1>
-        <p class="registration-subtitle">
-          Join Craftora’s curated community of Pakistani makers, workshops, and heritage studios.
-        </p>
+    <!-- Dark Green Heritage Banner (left-aligned with the form section container below) -->
+    <section class="artisan-hero">
+      <div class="container">
+        <div class="hero-copy">
+          <p class="hero-eyebrow">A MARKETPLACE FOR MEANINGFUL MAKING</p>
+          <h1 class="hero-title">
+            Artisan Registration
+            <span class="hero-title-accent">Bring your craft to Craftora.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Register your independent workshop or heritage studio to showcase handmade Pakistani crafts to thoughtful buyers.
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- Registration Form Section -->
-    <section class="registration-section" aria-labelledby="registration-form-title">
-      <div class="container registration-layout">
-        <div class="registration-card">
-          <div class="card-header">
-            <h2 id="registration-form-title" class="card-title">Open Your Artisan Shop</h2>
-            <p class="card-description">
-              Complete the details below to preview your artisan shop application. All fields are required.
-            </p>
+    <!-- Registration Form & Partner Highlights Section -->
+    <section class="registration-workspace" aria-labelledby="form-section-heading">
+      <div class="container">
+        <div class="workspace-grid">
+          <!-- Primary Registration Panel -->
+          <div class="registration-panel">
+            <div class="panel-intro">
+              <h2 id="form-section-heading" class="panel-heading">Register Your Artisan Shop</h2>
+              <p class="panel-copy">
+                Fill in all fields below to preview your shop registration.
+              </p>
+            </div>
+
+            <!-- Form-Level Validation Summary -->
+            <div
+              id="form-alert"
+              class="form-alert"
+              role="alert"
+              aria-live="assertive"
+              hidden
+            ></div>
+
+            <!-- Artisan Registration Form -->
+            <form id="artisan-form" class="artisan-form" novalidate>
+              <div class="field-row">
+                <div class="field-group">
+                  <label for="full-name" class="field-label">
+                    Full Name <span class="required-star" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="full-name"
+                    name="fullName"
+                    class="field-input"
+                    placeholder="e.g. Ayesha Siddiqui"
+                    autocomplete="name"
+                    aria-describedby="full-name-error"
+                    required
+                  >
+                  <p id="full-name-error" class="field-error" role="alert"></p>
+                </div>
+
+                <div class="field-group">
+                  <label for="shop-name" class="field-label">
+                    Shop Name <span class="required-star" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="shop-name"
+                    name="shopName"
+                    class="field-input"
+                    placeholder="e.g. Multan Clay Studio"
+                    aria-describedby="shop-name-error"
+                    required
+                  >
+                  <p id="shop-name-error" class="field-error" role="alert"></p>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label for="artisan-email" class="field-label">
+                    Email <span class="required-star" aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="artisan-email"
+                    name="email"
+                    class="field-input"
+                    placeholder="e.g. ayesha@multanclay.pk"
+                    autocomplete="email"
+                    aria-describedby="artisan-email-error"
+                    required
+                  >
+                  <p id="artisan-email-error" class="field-error" role="alert"></p>
+                </div>
+
+                <div class="field-group">
+                  <label for="craftora-category" class="field-label">
+                    Craftora Category <span class="required-star" aria-hidden="true">*</span>
+                  </label>
+                  <select
+                    id="craftora-category"
+                    name="craftoraCategory"
+                    class="field-input"
+                    aria-describedby="craftora-category-error"
+                    required
+                  >
+                    <option value="">Select a Craftora category</option>
+                    <option value="Pottery &amp; Ceramics">Pottery &amp; Ceramics</option>
+                    <option value="Handloom &amp; Textiles">Handloom &amp; Textiles</option>
+                    <option value="Block Printing &amp; Ajrak">Block Printing &amp; Ajrak</option>
+                    <option value="Woodwork &amp; Carving">Woodwork &amp; Carving</option>
+                    <option value="Brass &amp; Metalwork">Brass &amp; Metalwork</option>
+                    <option value="Embroidery &amp; Leathercraft">Embroidery &amp; Leathercraft</option>
+                    <option value="Jewelry &amp; Stonework">Jewelry &amp; Stonework</option>
+                  </select>
+                  <p id="craftora-category-error" class="field-error" role="alert"></p>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="about-shop" class="field-label">
+                  About Your Shop <span class="required-star" aria-hidden="true">*</span>
+                </label>
+                <textarea
+                  id="about-shop"
+                  name="aboutShop"
+                  class="field-input field-textarea"
+                  rows="5"
+                  placeholder="Share your craft tradition, materials, techniques, and workshop story..."
+                  aria-describedby="about-shop-error"
+                  required
+                ></textarea>
+                <p id="about-shop-error" class="field-error" role="alert"></p>
+              </div>
+
+              <div class="form-footer">
+                <button type="submit" id="register-btn" class="btn-submit">
+                  Register
+                </button>
+                <p class="demo-caption">Frontend demo &middot; Instant validation and confirmation preview</p>
+              </div>
+            </form>
+
+            <!-- Demo Confirmation Panel (shown on valid submit) -->
+            <section
+              id="confirmation-panel"
+              class="confirmation-panel"
+              aria-labelledby="confirmation-heading"
+              aria-live="polite"
+              hidden
+            >
+              <span class="confirmation-pill">Demo Confirmation</span>
+              <h3 id="confirmation-heading" class="confirmation-heading">
+                Your Artisan Shop Preview Is Ready
+              </h3>
+              <p class="confirmation-text">
+                Thank you for registering with Craftora. This is a frontend demo confirmation—no information has been sent to a server.
+              </p>
+
+              <dl id="submitted-details" class="submitted-details"></dl>
+
+              <button type="button" id="register-another-btn" class="btn-reset">
+                Register Another
+              </button>
+            </section>
           </div>
 
-          <!-- Demo Confirmation Box (hidden until valid submission) -->
-          <div
-            id="demo-confirmation"
-            class="demo-confirmation"
-            role="status"
-            aria-live="polite"
-            hidden
-          >
-            <p class="confirmation-badge">Frontend Demo Confirmation</p>
-            <h3 class="confirmation-title">Application Preview Submitted</h3>
-            <p class="confirmation-note">
-              Thank you for registering with Craftora. This is a frontend demo—no data has been sent to a server.
-            </p>
-            <dl id="confirmation-summary" class="confirmation-summary"></dl>
-            <button type="button" id="register-another-btn" class="btn-secondary">
-              Register Another Shop
-            </button>
-          </div>
-
-          <!-- Registration Form -->
-          <form id="artisan-registration-form" class="registration-form" novalidate>
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="full-name" class="form-label">
-                  Full Name <span class="required-mark" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="full-name"
-                  name="fullName"
-                  class="form-control"
-                  placeholder="e.g. Ayesha Siddiqui"
-                  autocomplete="name"
-                  aria-describedby="full-name-error"
-                  required
-                >
-                <p id="full-name-error" class="field-error" role="alert"></p>
-              </div>
-
-              <div class="form-group">
-                <label for="shop-name" class="form-label">
-                  Shop Name <span class="required-mark" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="shop-name"
-                  name="shopName"
-                  class="form-control"
-                  placeholder="e.g. Multan Clay Studio"
-                  aria-describedby="shop-name-error"
-                  required
-                >
-                <p id="shop-name-error" class="field-error" role="alert"></p>
-              </div>
-            </div>
-
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="email" class="form-label">
-                  Email <span class="required-mark" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="form-control"
-                  placeholder="e.g. ayesha@multanclay.pk"
-                  autocomplete="email"
-                  aria-describedby="email-error"
-                  required
-                >
-                <p id="email-error" class="field-error" role="alert"></p>
-              </div>
-
-              <div class="form-group">
-                <label for="craft-category" class="form-label">
-                  Craft Category <span class="required-mark" aria-hidden="true">*</span>
-                </label>
-                <select
-                  id="craft-category"
-                  name="craftCategory"
-                  class="form-control"
-                  aria-describedby="craft-category-error"
-                  required
-                >
-                  <option value="">Select a craft category</option>
-                  <option value="Pottery &amp; Ceramics">Pottery &amp; Ceramics</option>
-                  <option value="Handloom &amp; Textiles">Handloom &amp; Textiles</option>
-                  <option value="Block Printing &amp; Ajrak">Block Printing &amp; Ajrak</option>
-                  <option value="Woodwork &amp; Carving">Woodwork &amp; Carving</option>
-                  <option value="Brass &amp; Metalwork">Brass &amp; Metalwork</option>
-                  <option value="Embroidery &amp; Leathercraft">Embroidery &amp; Leathercraft</option>
-                  <option value="Jewelry &amp; Stonework">Jewelry &amp; Stonework</option>
-                </select>
-                <p id="craft-category-error" class="field-error" role="alert"></p>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="about-shop" class="form-label">
-                About Your Shop <span class="required-mark" aria-hidden="true">*</span>
-              </label>
-              <textarea
-                id="about-shop"
-                name="aboutShop"
-                class="form-control form-textarea"
-                rows="5"
-                placeholder="Tell buyers about your craft tradition, materials, techniques, and workshop story..."
-                aria-describedby="about-shop-error"
-                required
-              ></textarea>
-              <p id="about-shop-error" class="field-error" role="alert"></p>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn-register">Register</button>
-              <p class="form-demo-note">Frontend demo form &middot; Instant validation &amp; preview</p>
-            </div>
-          </form>
+          <!-- Side Heritage Info Card -->
+          <aside class="partner-card" aria-label="Benefits of joining Craftora">
+            <p class="partner-eyebrow">BUILT FOR INDEPENDENT MAKERS</p>
+            <h2 class="partner-heading">Why Craftora?</h2>
+            <ul class="partner-points">
+              <li>
+                <strong>Curated Studio Presence</strong>
+                <span>Tell your craft story alongside your regional techniques and materials.</span>
+              </li>
+              <li>
+                <strong>Direct Buyer Discovery</strong>
+                <span>Connect with customers searching for small-batch, authentic handmade goods.</span>
+              </li>
+              <li>
+                <strong>Clear Order Workflow</strong>
+                <span>Track customer orders smoothly from studio preparation to doorstep delivery.</span>
+              </li>
+            </ul>
+          </aside>
         </div>
-
-        <!-- Side Heritage Info Panel -->
-        <aside class="artisan-benefits" aria-label="Why sell on Craftora">
-          <p class="benefits-eyebrow">BUILT FOR INDEPENDENT MAKERS</p>
-          <h2 class="benefits-title">Why Partner with Craftora?</h2>
-          <ul class="benefits-list">
-            <li>
-              <strong>Dedicated Shopfront</strong>
-              <span>Present your workshop story, regional techniques, and handmade catalog in one place.</span>
-            </li>
-            <li>
-              <strong>Fair Artisan Visibility</strong>
-              <span>Connect directly with buyers who value authentic materials and small-batch craftsmanship.</span>
-            </li>
-            <li>
-              <strong>Simple Order Tracking</strong>
-              <span>Manage customer orders smoothly from studio crafting to final doorstep delivery.</span>
-            </li>
-          </ul>
-        </aside>
       </div>
     </section>
   </main>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- ================= SHARED FOOTER ================= -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
@@ -244,6 +265,7 @@
           <li><a href="contact.html">Contact</a></li>
           <li><a href="order-history.html">My Orders</a></li>
           <li><a href="artisan-registration.html">Become an Artisan</a></li>
+          <li><a href="artisan-dashboard.html">Artisan Dashboard</a></li>
         </ul>
       </nav>
 
