@@ -1,0 +1,542 @@
+/* ==========================================================================
+   Craftora - Product Management Page Styles
+   Organized by section: Banner, Stats, Toolbar, Table, Modals, Toast, Responsive
+   ========================================================================== */
+
+/* 1. Page Header Banner */
+.page-banner {
+  background-color: var(--color-hero);
+  border-bottom: 1px solid var(--color-border);
+  padding: 2.5rem 0;
+}
+
+.page-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-banner-text h1 {
+  font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+.page-banner-text p {
+  color: var(--color-muted);
+  max-width: 600px;
+}
+
+.demo-note {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  background-color: rgba(232, 128, 90, 0.12);
+  border: 1px solid rgba(232, 128, 90, 0.3);
+  border-radius: 6px;
+}
+
+.pm-content {
+  padding: 2.25rem 0 3.5rem;
+}
+
+/* 2. Inventory Stats Row */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.stat-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.stat-label {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+}
+
+.stat-value {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.stat-value.stat-warning {
+  color: #f0a150;
+}
+
+/* 3. Toolbar (Search, Category Filter, Sort) */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.toolbar-search {
+  flex: 1 1 260px;
+}
+
+.toolbar-field {
+  min-width: 190px;
+}
+
+.toolbar input,
+.toolbar select,
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.65rem 0.85rem;
+  transition: border-color 0.2s ease;
+}
+
+.toolbar input:focus,
+.toolbar select:focus,
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--color-accent);
+}
+
+.image-input-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.toolbar input::placeholder,
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--color-muted);
+}
+
+/* 4. Products Table */
+.table-section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.products-table th {
+  background-color: #1a1817;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.products-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+.products-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.products-table tbody tr:hover {
+  background-color: #1c1a19;
+}
+
+.product-thumb {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background-color: #222020;
+}
+
+.product-name-cell {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.muted-cell {
+  color: var(--color-muted);
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-in-stock {
+  background-color: rgba(46, 139, 87, 0.18);
+  color: #6fd39a;
+  border: 1px solid rgba(46, 139, 87, 0.45);
+}
+
+.badge-low-stock {
+  background-color: rgba(217, 130, 43, 0.18);
+  color: #f3ab5f;
+  border: 1px solid rgba(217, 130, 43, 0.45);
+}
+
+.badge-out-of-stock {
+  background-color: rgba(201, 74, 74, 0.18);
+  color: #f08080;
+  border: 1px solid rgba(201, 74, 74, 0.45);
+}
+
+/* Table Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn-table {
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  background-color: transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-edit {
+  color: var(--color-accent);
+  border-color: rgba(232, 128, 90, 0.4);
+}
+
+.btn-edit:hover {
+  background-color: rgba(232, 128, 90, 0.15);
+}
+
+.btn-delete {
+  color: #f08080;
+  border-color: rgba(201, 74, 74, 0.4);
+}
+
+.btn-delete:hover {
+  background-color: rgba(201, 74, 74, 0.16);
+}
+
+.empty-state {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+}
+
+/* 5. Modals (Add/Edit & Delete Confirmation) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 200;
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 600px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.modal-card-sm {
+  max-width: 420px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-header h2 {
+  font-size: 1.3rem;
+  color: var(--color-accent);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--color-text);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-full {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.image-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.image-preview-box {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 0.72rem;
+  color: var(--color-muted);
+}
+
+.image-preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.form-error {
+  margin-top: 1rem;
+  padding: 0.65rem 0.85rem;
+  background-color: rgba(201, 74, 74, 0.16);
+  border: 1px solid rgba(201, 74, 74, 0.45);
+  border-radius: var(--radius);
+  color: #f39a9a;
+  font-size: 0.9rem;
+}
+
+.field-inline-error {
+  color: #f39a9a;
+  font-size: 0.84rem;
+}
+
+.char-counter {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  text-align: right;
+}
+
+.char-counter.near-limit {
+  color: #f0a150;
+}
+
+.char-counter.over-limit {
+  color: #f39a9a;
+  font-weight: 600;
+}
+
+.delete-message {
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+.delete-target {
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.35rem;
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: #ffffff;
+  border: none;
+  padding: 0.68rem 1.3rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-danger:hover {
+  background-color: #df5b5b;
+}
+
+/* 6. Toast Notification */
+.toast {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  background-color: var(--color-hero);
+  color: var(--color-text);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 0.8rem 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  z-index: 300;
+}
+
+/* 7. Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .products-table th,
+  .products-table td {
+    padding: 0.75rem 0.7rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar-field {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Turn table rows into stacked cards on mobile */
+  .table-section {
+    background-color: transparent;
+    border: none;
+  }
+
+  .products-table thead {
+    display: none;
+  }
+
+  .products-table,
+  .products-table tbody,
+  .products-table tr,
+  .products-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .products-table tr {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .products-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #24211f;
+    text-align: right;
+  }
+
+  .products-table td:last-child {
+    border-bottom: none;
+    padding-top: 0.75rem;
+  }
+
+  .products-table td::before {
+    content: attr(data-label);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .banner-actions {
+    width: 100%;
+  }
+
+  .banner-actions button {
+    flex: 1 1 auto;
+  }
+}

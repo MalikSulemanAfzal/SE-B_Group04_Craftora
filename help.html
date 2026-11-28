@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help Centre &amp; Contact | Craftora</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/help.css">
+</head>
+<body>
+
+  <!-- ================= SHARED HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">Craftora</a>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        &#9776;
+      </button>
+
+      <nav id="main-nav" class="site-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="help.html" class="nav-link active" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+
+    <!-- 1. Hero with Search Bar -->
+    <section class="help-hero">
+      <div class="container help-hero-content">
+        <h1>How can we help?</h1>
+        <p>
+          Find quick answers about handmade orders, shipping, artisan partnerships,
+          or reach out directly to our support team.
+        </p>
+
+        <div class="help-search-wrap">
+          <label for="faq-search" class="sr-only">Search help topics</label>
+          <input
+            type="search"
+            id="faq-search"
+            class="help-search-input"
+            placeholder="Search help topics..."
+            autocomplete="off"
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Quick Topic Filter Buttons & 3. FAQ Accordion -->
+    <section class="help-section" aria-labelledby="faq-section-heading">
+      <div class="container">
+        <h2 id="faq-section-heading" class="section-title">Frequently Asked Questions</h2>
+
+        <!-- Topic Buttons -->
+        <div class="topic-filters" role="group" aria-label="Filter FAQs by topic">
+          <button type="button" class="topic-btn active" data-topic="All">All Topics</button>
+          <button type="button" class="topic-btn" data-topic="Orders">Orders</button>
+          <button type="button" class="topic-btn" data-topic="Delivery">Delivery</button>
+          <button type="button" class="topic-btn" data-topic="Returns">Returns</button>
+          <button type="button" class="topic-btn" data-topic="Payments">Payments</button>
+          <button type="button" class="topic-btn" data-topic="Artisans">Artisans</button>
+          <button type="button" class="topic-btn" data-topic="Account">Account</button>
+        </div>
+
+        <!-- Dynamic FAQ Groups -->
+        <div id="faq-container" class="faq-container">
+          <!-- Rendered dynamically by js/help.js -->
+        </div>
+
+        <div id="faq-empty" class="faq-empty" hidden>
+          <p>No results found</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Two-Column Contact Section -->
+    <section class="help-section help-contact-section" aria-labelledby="contact-heading">
+      <div class="container">
+        <h2 id="contact-heading" class="section-title">Contact Us</h2>
+
+        <div class="contact-grid">
+          <!-- Left Column: Contact Info Cards -->
+          <div class="contact-info-list">
+            <article class="contact-info-card">
+              <h3>Email Support</h3>
+              <p><a href="mailto:support@craftora.pk" class="contact-link">support@craftora.pk</a></p>
+              <span class="contact-sub">We reply to most inquiries within 24 hours.</span>
+            </article>
+
+            <article class="contact-info-card">
+              <h3>Phone</h3>
+              <p><a href="tel:+92518432910" class="contact-link">+92 51 843 2910</a></p>
+              <span class="contact-sub">Customer &amp; artisan assistance line.</span>
+            </article>
+
+            <article class="contact-info-card">
+              <h3>Workshop Hub Address</h3>
+              <p>Street 14, F-7 Markaz, Islamabad, Pakistan</p>
+              <span class="contact-sub">Craftora Studio &amp; Partner Desk.</span>
+            </article>
+
+            <article class="contact-info-card">
+              <h3>Support Hours</h3>
+              <p>Monday – Saturday, 9:00 AM – 6:00 PM PKT</p>
+              <span class="contact-sub">Closed on Sundays &amp; public holidays.</span>
+            </article>
+          </div>
+
+          <!-- Right Column: Contact Form -->
+          <div class="contact-form-card">
+            <h3>Send Us a Message</h3>
+            <p class="demo-disclaimer">
+              This is a demo project. Messages are not actually sent.
+            </p>
+
+            <form id="contact-form" novalidate>
+              <div class="contact-field">
+                <label for="contact-name">Full Name</label>
+                <input
+                  type="text"
+                  id="contact-name"
+                  name="name"
+                  placeholder="Enter your full name"
+                  required
+                >
+                <span id="error-name" class="field-error" role="alert" hidden></span>
+              </div>
+
+              <div class="contact-field">
+                <label for="contact-email">Email</label>
+                <input
+                  type="email"
+                  id="contact-email"
+                  name="email"
+                  placeholder="you@example.com"
+                  required
+                >
+                <span id="error-email" class="field-error" role="alert" hidden></span>
+              </div>
+
+              <div class="contact-field">
+                <label for="contact-subject">Subject</label>
+                <select id="contact-subject" name="subject" required>
+                  <option value="">Choose a subject</option>
+                  <option value="Order Inquiry">Order Inquiry</option>
+                  <option value="Delivery &amp; Shipping">Delivery &amp; Shipping</option>
+                  <option value="Returns &amp; Refunds">Returns &amp; Refunds</option>
+                  <option value="Payment Help">Payment Help</option>
+                  <option value="Become an Artisan">Become an Artisan</option>
+                  <option value="Product Management">Product Management</option>
+                  <option value="Other">Other</option>
+                </select>
+                <span id="error-subject" class="field-error" role="alert" hidden></span>
+              </div>
+
+              <div class="contact-field">
+                <label for="contact-message">Message</label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows="4"
+                  placeholder="Tell us how we can help..."
+                  required
+                ></textarea>
+                <span id="error-message" class="field-error" role="alert" hidden></span>
+              </div>
+
+              <div id="form-success" class="form-success" role="status" aria-live="polite" hidden>
+                Thanks! We'll get back to you within 24 hours.
+              </div>
+
+              <button type="submit" class="btn-primary contact-submit-btn">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Craftora</strong>
+        <p>Supporting local craftsmanship and handmade quality.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="help.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <p class="footer-copy">&copy; 2026 Craftora. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/help.js" defer></script>
+</body>
+</html>

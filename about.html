@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Craftora</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+
+  <!-- ================= SHARED HEADER ================= -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">Craftora</a>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        &#9776;
+      </button>
+
+      <nav id="main-nav" class="site-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="products.html" class="nav-link">Products</a></li>
+          <li><a href="about.html" class="nav-link active" aria-current="page">About</a></li>
+          <li><a href="help.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="site-main">
+
+    <!-- 1. Hero Section -->
+    <section class="about-hero">
+      <div class="container about-hero-content">
+        <h1>Our Story: Handcrafted with Passion</h1>
+        <p>
+          Craftora brings together independent potters, woodworkers, weavers, and
+          traditional makers in one thoughtful marketplace. Every piece carries the
+          warmth of human hands and heritage craft.
+        </p>
+      </div>
+    </section>
+
+    <!-- 2. Our Story (Two-Column Layout) -->
+    <section class="about-section reveal">
+      <div class="container story-grid">
+        <div class="story-text">
+          <h2 class="about-heading">From Local Workshops to Your Living Space</h2>
+          <p>
+            Craftora began with a simple observation: talented regional artisans
+            were creating heirloom-quality pottery, carved timber, and handloom
+            textiles, yet struggled to reach customers beyond their local bazaars.
+          </p>
+          <p>
+            We built Craftora to bridge that gap. By giving independent makers a
+            dedicated digital storefront without middlemen, we help preserve
+            centuries-old techniques while bringing authentic, small-batch goods
+            into modern homes.
+          </p>
+          <p>
+            When you choose a handmade piece on Craftora, you are not buying a
+            mass-produced object — you are supporting a workshop, a family craft,
+            and sustainable materials shaped with patience.
+          </p>
+        </div>
+
+        <div class="story-media">
+          <div class="image-frame" data-fallback-label="Artisan Pottery Studio">
+            <img
+              src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80"
+              alt="Artisan shaping wet clay on a pottery wheel in a warm studio"
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Mission & Vision -->
+    <section class="about-section about-section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">Mission &amp; Vision</h2>
+        <div class="mission-grid">
+          <article class="about-card">
+            <h3>Our Mission</h3>
+            <p>
+              To empower independent craftspeople across Pakistan with fair
+              pricing, transparent storytelling, and direct access to buyers who
+              appreciate genuine handmade quality.
+            </p>
+          </article>
+
+          <article class="about-card">
+            <h3>Our Vision</h3>
+            <p>
+              A thriving craft economy where traditional pottery, woodwork,
+              textiles, and metalwork remain sustainable livelihoods for future
+              generations of makers.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Our Values -->
+    <section class="about-section reveal">
+      <div class="container">
+        <h2 class="section-title">Our Values</h2>
+        <div class="values-grid">
+          <article class="about-card value-card">
+            <span class="value-icon" aria-hidden="true">&#x1F3FA;</span>
+            <h3>Authentic Makers</h3>
+            <p>
+              Every listed item is produced in small batches directly by verified
+              independent artisans and family workshops.
+            </p>
+          </article>
+
+          <article class="about-card value-card">
+            <span class="value-icon" aria-hidden="true">&#x1F33F;</span>
+            <h3>Natural Materials</h3>
+            <p>
+              We prioritize raw clay, seasoned timber, handspun cotton, brass,
+              and natural dyes with minimal environmental impact.
+            </p>
+          </article>
+
+          <article class="about-card value-card">
+            <span class="value-icon" aria-hidden="true">&#x2728;</span>
+            <h3>Timeless Design</h3>
+            <p>
+              Functional, durable pieces crafted to outlast seasonal trends and
+              age gracefully in everyday use.
+            </p>
+          </article>
+
+          <article class="about-card value-card">
+            <span class="value-icon" aria-hidden="true">&#x1F91D;</span>
+            <h3>Fair Support for Artisans</h3>
+            <p>
+              Makers set honest prices for their labor and retain the majority of
+              every sale so skills stay valued.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Numbers Strip -->
+    <section class="stats-strip reveal" aria-label="Craftora community numbers">
+      <div class="container stats-strip-grid">
+        <div class="strip-item">
+          <strong class="counter-number" data-target="6" data-suffix="+">0</strong>
+          <span class="strip-label">Artisans</span>
+        </div>
+
+        <div class="strip-item">
+          <strong id="about-product-counter" class="counter-number" data-target="12" data-suffix="+">0</strong>
+          <span class="strip-label">Products</span>
+        </div>
+
+        <div class="strip-item">
+          <strong class="counter-number" data-target="9">0</strong>
+          <span class="strip-label">Categories</span>
+        </div>
+
+        <div class="strip-item">
+          <strong class="counter-number" data-target="1200" data-suffix="+">0</strong>
+          <span class="strip-label">Happy Customers</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. How It Works -->
+    <section class="about-section reveal">
+      <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps-grid">
+          <article class="about-card step-card">
+            <span class="step-number">01</span>
+            <h3>Discover</h3>
+            <p>
+              Browse curated handmade collections across nine traditional craft
+              categories and learn the story behind each piece.
+            </p>
+          </article>
+
+          <article class="about-card step-card">
+            <span class="step-number">02</span>
+            <h3>Order</h3>
+            <p>
+              Place your order directly from the artisan's current batch with
+              clear pricing, stock availability, and craft details.
+            </p>
+          </article>
+
+          <article class="about-card step-card">
+            <span class="step-number">03</span>
+            <h3>Delivered to your door</h3>
+            <p>
+              Each item is carefully wrapped in protective packaging and shipped
+              safely from the maker's studio to your home.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Meet the Artisans Preview -->
+    <section class="about-section about-section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">Meet the Artisans</h2>
+        <div class="artisans-grid">
+          <article class="about-card artisan-card">
+            <div class="artisan-photo-wrap image-frame" data-fallback-label="Amina Tariq">
+              <img
+                src="https://images.unsplash.com/photo-1590422749897-47036da0b0ff?w=600&q=80"
+                alt="Amina Tariq shaping ceramic bowls in her Multan pottery workshop"
+                loading="lazy"
+              >
+            </div>
+            <div class="artisan-info">
+              <h3>Amina Tariq</h3>
+              <p class="artisan-craft">Pottery &amp; Ceramics</p>
+              <p class="artisan-city">Multan, Punjab</p>
+              <a href="artisan-profile.html?id=amina-tariq" class="artisan-link">
+                View Profile &rarr;
+              </a>
+            </div>
+          </article>
+
+          <article class="about-card artisan-card">
+            <div class="artisan-photo-wrap image-frame" data-fallback-label="Bilal Ahmed">
+              <img
+                src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80"
+                alt="Bilal Ahmed hand-carving seasoned timber in Chiniot"
+                loading="lazy"
+              >
+            </div>
+            <div class="artisan-info">
+              <h3>Bilal Ahmed</h3>
+              <p class="artisan-craft">Woodwork &amp; Carving</p>
+              <p class="artisan-city">Chiniot, Punjab</p>
+              <a href="artisan-profile.html?id=bilal-ahmed" class="artisan-link">
+                View Profile &rarr;
+              </a>
+            </div>
+          </article>
+
+          <article class="about-card artisan-card">
+            <div class="artisan-photo-wrap image-frame" data-fallback-label="Farah Siddiqui">
+              <img
+                src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80"
+                alt="Farah Siddiqui weaving handloom cotton textiles in Hyderabad"
+                loading="lazy"
+              >
+            </div>
+            <div class="artisan-info">
+              <h3>Farah Siddiqui</h3>
+              <p class="artisan-craft">Textiles &amp; Weaving</p>
+              <p class="artisan-city">Hyderabad, Sindh</p>
+              <a href="artisan-profile.html?id=farah-siddiqui" class="artisan-link">
+                View Profile &rarr;
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Call to Action -->
+    <section class="about-cta reveal">
+      <div class="container about-cta-content">
+        <h2>Ready to explore?</h2>
+        <p>
+          Discover one-of-a-kind pottery, woodwork, woven textiles, and handmade
+          treasures crafted for everyday living.
+        </p>
+        <a href="products.html" class="btn-primary">Explore Crafts</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= SHARED FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>Craftora</strong>
+        <p>Supporting local craftsmanship and handmade quality.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="help.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <p class="footer-copy">&copy; 2026 Craftora. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/about.js" defer></script>
+</body>
+</html>

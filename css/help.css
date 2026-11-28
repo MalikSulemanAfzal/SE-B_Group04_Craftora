@@ -1,0 +1,377 @@
+/* ==========================================================================
+   Craftora - Help Centre Page Styles
+   Organized by section: Hero Search, Topic Filters, FAQ Accordion, Contact
+   ========================================================================== */
+
+/* Screen-reader only label helper */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* 1. Hero Section */
+.help-hero {
+  background-color: var(--color-hero);
+  border-bottom: 1px solid var(--color-border);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.help-hero-content {
+  max-width: 720px;
+}
+
+.help-hero h1 {
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+.help-hero p {
+  color: var(--color-muted);
+  margin-bottom: 1.75rem;
+}
+
+.help-search-wrap {
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.help-search-input {
+  width: 100%;
+  padding: 0.95rem 1.2rem;
+  font-size: 1.05rem;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.help-search-input::placeholder {
+  color: var(--color-muted);
+}
+
+.help-search-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(232, 128, 90, 0.22);
+}
+
+/* Shared Section Padding */
+.help-section {
+  padding: 3.5rem 0;
+}
+
+/* 2. Quick Topic Filter Buttons */
+.topic-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: 2.25rem;
+}
+
+.topic-btn {
+  background-color: var(--color-surface);
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.topic-btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+}
+
+.topic-btn.active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+}
+
+.topic-btn:focus-visible,
+.faq-question:focus-visible,
+.contact-submit-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* 3. FAQ Accordion */
+.faq-container {
+  max-width: 840px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.faq-group-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-item {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.faq-item.open {
+  border-color: var(--color-accent);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.05rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  text-align: left;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.faq-question:hover {
+  color: var(--color-accent);
+}
+
+/* Rotating +/- icon built with CSS bars */
+.faq-icon {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.faq-icon::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faq-item.open .faq-icon::after {
+  transform: translateY(-50%) rotate(0deg);
+  opacity: 0;
+}
+
+/* Smooth accordion panel transition using CSS grid rows */
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
+}
+
+.faq-item.open .faq-panel {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
+}
+
+.faq-answer {
+  padding: 0 1.25rem 1.1rem;
+  color: var(--color-muted);
+  line-height: 1.65;
+}
+
+.search-highlight {
+  background-color: rgba(232, 128, 90, 0.28);
+  color: var(--color-text);
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+.faq-empty {
+  max-width: 840px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+/* 4. Contact Section (Two Columns) */
+.help-contact-section {
+  background-color: #1c1a1a;
+  border-top: 1px solid var(--color-border);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.contact-info-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.contact-info-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem 1.35rem;
+}
+
+.contact-info-card h3 {
+  color: var(--color-accent);
+  font-size: 1.05rem;
+  margin-bottom: 0.3rem;
+}
+
+.contact-info-card p {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.contact-link {
+  color: var(--color-text);
+  transition: color 0.2s ease;
+}
+
+.contact-link:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.contact-sub {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.86rem;
+  color: var(--color-muted);
+}
+
+/* Contact Form Card */
+.contact-form-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+}
+
+.contact-form-card h3 {
+  color: var(--color-accent);
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.demo-disclaimer {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-bottom: 1.25rem;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.contact-field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.contact-field input:focus,
+.contact-field select:focus,
+.contact-field textarea:focus {
+  border-color: var(--color-accent);
+}
+
+.contact-field input.input-invalid,
+.contact-field select.input-invalid,
+.contact-field textarea.input-invalid {
+  border-color: #e06c6c;
+}
+
+.field-error {
+  color: #f38b8b;
+  font-size: 0.84rem;
+}
+
+.form-success {
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: rgba(46, 139, 87, 0.18);
+  border: 1px solid rgba(46, 139, 87, 0.55);
+  border-radius: var(--radius);
+  color: #7ee0a8;
+  font-weight: 600;
+}
+
+.contact-submit-btn {
+  width: 100%;
+}
+
+/* 5. Responsive Layout */
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .help-hero {
+    padding: 3rem 0;
+  }
+}
