@@ -4,25 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Artisan Dashboard | Craftora</title>
-  <!-- Editorial serif & clean sans fonts matching Craftora homepage -->
+  <!-- Shared Craftora editorial serif & sans-serif typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
-  <!-- Shared base styles followed by Artisan Dashboard page styles -->
+  <!-- Shared Craftora base styles followed by Artisan Dashboard page styles -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/artisan-dashboard.css">
 </head>
-<body class="artisan-dashboard-page">
+<body class="dashboard-page">
 
   <!-- Top Heritage Announcement Bar -->
   <div class="announcement-bar">
     <div class="container announcement-inner">
       <span>Celebrating Pakistani craftsmanship &middot; Thoughtful objects, made by hand</span>
-      <a href="../index.html" class="announcement-link">Discover our story</a>
+      <a href="../index.html" class="announcement-link">Back to Craftora Home</a>
     </div>
   </div>
 
-  <!-- ================= CREAM HEADER ================= -->
+  <!-- ================= SHARED HEADER ================= -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="brand-lockup" aria-label="Craftora Home">
@@ -47,8 +47,6 @@
       <nav id="main-nav" class="site-nav" aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="../index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
           <li><a href="order-history.html" class="nav-link">My Orders</a></li>
           <li><a href="artisan-registration.html" class="nav-link">Become an Artisan</a></li>
           <li><a href="artisan-dashboard.html" class="nav-link active" aria-current="page">Artisan Dashboard</a></li>
@@ -59,159 +57,109 @@
 
   <!-- ================= MAIN CONTENT ================= -->
   <main class="site-main">
-    <!-- Dark Green Heritage Banner -->
-    <section class="dashboard-hero">
+    <!-- Dark Green Heritage Banner (flush-aligned with Shop Overview below via .container) -->
+    <section class="dashboard-banner">
       <div class="container">
-        <div class="dashboard-hero-inner">
-          <div class="hero-top-row">
-            <p class="dashboard-eyebrow">ARTISAN STUDIO WORKSPACE</p>
-            <span class="sample-data-pill">Sample Data Preview</span>
+        <div class="banner-copy">
+          <div class="banner-eyebrow-row">
+            <p class="banner-eyebrow">ARTISAN STUDIO WORKSPACE</p>
+            <span class="sample-badge">Sample Studio Data</span>
           </div>
-          <h1 class="dashboard-heading">
+          <h1 class="banner-title">
             Artisan Dashboard
-            <span class="heading-accent">Multan Clay Studio</span>
+            <span class="banner-subtitle-accent">Multan Clay Studio</span>
           </h1>
-          <p class="dashboard-subtitle">
-            Monitor your listed crafts, rupees pricing, and incoming orders at a glance.
-            All figures below use clearly labeled sample artisan data.
+          <p class="banner-lead">
+            Track your shop metrics, listed handmade crafts, and incoming customer orders in one place.
           </p>
         </div>
       </div>
     </section>
 
-    <div class="dashboard-content">
+    <!-- Dashboard Workspace -->
+    <div class="dashboard-workspace">
       <div class="container">
-        <!-- Sample Data Banner -->
+        <!-- Clear Sample Data Notice -->
         <div class="sample-banner" role="note">
-          <strong>Sample Data Notice:</strong>
-          <span>This dashboard displays sample studio products and orders so summary counts stay synchronized in this frontend preview.</span>
+          <strong>Sample Data Preview:</strong>
+          <span>
+            All counts and totals in Shop Overview are calculated directly from the sample products and orders shown below.
+          </span>
         </div>
 
         <!-- Shop Overview Section -->
-        <section class="overview-section" aria-labelledby="shop-overview-title">
-          <div class="section-header">
-            <h2 id="shop-overview-title" class="section-heading">Shop Overview</h2>
-            <span class="section-tag">Sample Data</span>
+        <section class="overview-section" aria-labelledby="shop-overview-heading">
+          <div class="section-top">
+            <h2 id="shop-overview-heading" class="section-heading">Shop Overview</h2>
+            <span class="sample-chip">Calculated from Sample Data</span>
           </div>
 
-          <div class="overview-grid">
-            <article class="stat-card stat-card-products">
-              <p class="stat-label">Total Products</p>
-              <p id="total-products-count" class="stat-value">4</p>
-              <p class="stat-caption">Listed in My Products (sample data)</p>
+          <div class="overview-cards">
+            <article class="metric-card metric-card--green">
+              <p class="metric-label">Total Products</p>
+              <p id="overview-total-products" class="metric-value">0</p>
+              <p id="overview-products-note" class="metric-caption">Sample catalog items listed below</p>
             </article>
 
-            <article class="stat-card stat-card-pending">
-              <p class="stat-label">Pending Orders</p>
-              <p id="pending-orders-count" class="stat-value">2</p>
-              <p class="stat-caption">Awaiting dispatch in Recent Orders (sample data)</p>
+            <article class="metric-card metric-card--terracotta">
+              <p class="metric-label">Pending Orders</p>
+              <p id="overview-pending-orders" class="metric-value">0</p>
+              <p class="metric-caption">Sample orders awaiting dispatch</p>
+            </article>
+
+            <article class="metric-card metric-card--sage">
+              <p class="metric-label">Delivered Orders</p>
+              <p id="overview-delivered-orders" class="metric-value">0</p>
+              <p class="metric-caption">Sample orders completed</p>
+            </article>
+
+            <article class="metric-card metric-card--gold">
+              <p class="metric-label">Sample Order Value</p>
+              <p id="overview-total-revenue" class="metric-value">Rs. 0</p>
+              <p id="overview-orders-note" class="metric-caption">Combined total across sample orders</p>
             </article>
           </div>
         </section>
 
         <!-- Two-Column Workspace: My Products & Recent Orders -->
-        <div class="workspace-grid">
-          <!-- My Products List -->
-          <section class="dashboard-panel" aria-labelledby="my-products-title">
+        <div class="panels-grid">
+          <!-- My Products -->
+          <section class="studio-panel" aria-labelledby="my-products-heading">
             <div class="panel-header">
               <div>
-                <h2 id="my-products-title" class="panel-title">My Products</h2>
-                <p class="panel-subtitle">Sample catalog items with prices in Pakistani Rupees</p>
+                <h2 id="my-products-heading" class="panel-title">My Products</h2>
+                <p class="panel-subtitle">Sample handmade listings in your shop catalog</p>
               </div>
-              <span class="section-tag">Sample Data</span>
+              <span class="sample-chip">Sample Data</span>
             </div>
 
-            <ul id="my-products-list" class="item-list">
-              <li class="product-row">
-                <div class="product-main">
-                  <h3 class="item-title">Multani Blue Pottery Serving Bowl (Set of 2)</h3>
-                  <p class="item-meta">Pottery &amp; Ceramics</p>
-                </div>
-                <div class="product-side">
-                  <span class="item-price">Rs. 4,850</span>
-                  <span class="status-badge status-active">Active</span>
-                </div>
-              </li>
-              <li class="product-row">
-                <div class="product-main">
-                  <h3 class="item-title">Hand-Painted Camel Bone Jewelry Box</h3>
-                  <p class="item-meta">Heritage Keepsakes</p>
-                </div>
-                <div class="product-side">
-                  <span class="item-price">Rs. 3,400</span>
-                  <span class="status-badge status-active">Active</span>
-                </div>
-              </li>
-              <li class="product-row">
-                <div class="product-main">
-                  <h3 class="item-title">Glazed Terracotta Chai Kulhad Set (4 pcs)</h3>
-                  <p class="item-meta">Tableware</p>
-                </div>
-                <div class="product-side">
-                  <span class="item-price">Rs. 1,950</span>
-                  <span class="status-badge status-low-stock">Low Stock</span>
-                </div>
-              </li>
-              <li class="product-row">
-                <div class="product-main">
-                  <h3 class="item-title">Carved Sheesham Wood Spice Chest</h3>
-                  <p class="item-meta">Woodwork &amp; Carving</p>
-                </div>
-                <div class="product-side">
-                  <span class="item-price">Rs. 7,200</span>
-                  <span class="status-badge status-out-of-stock">Out of Stock</span>
-                </div>
-              </li>
-            </ul>
+            <ul id="products-list" class="record-list" aria-live="polite"></ul>
           </section>
 
-          <!-- Recent Orders List -->
-          <section class="dashboard-panel" aria-labelledby="recent-orders-title">
+          <!-- Recent Orders -->
+          <section class="studio-panel" aria-labelledby="recent-orders-heading">
             <div class="panel-header">
               <div>
-                <h2 id="recent-orders-title" class="panel-title">Recent Orders</h2>
-                <p class="panel-subtitle">Latest customer order numbers and statuses</p>
+                <h2 id="recent-orders-heading" class="panel-title">Recent Orders</h2>
+                <p class="panel-subtitle">Latest sample orders received by your workshop</p>
               </div>
-              <span class="section-tag">Sample Data</span>
+              <span class="sample-chip">Sample Data</span>
             </div>
 
-            <ul id="recent-orders-list" class="item-list">
-              <li class="order-row">
-                <div class="order-main">
-                  <h3 class="item-title order-number">#CRF-2026-1042</h3>
-                  <p class="item-meta">Multani Blue Pottery Serving Bowl (Set of 2) &middot; Nov 24, 2026</p>
-                </div>
-                <span class="status-badge status-pending">Pending</span>
-              </li>
-              <li class="order-row">
-                <div class="order-main">
-                  <h3 class="item-title order-number">#CRF-2026-1041</h3>
-                  <p class="item-meta">Hand-Painted Camel Bone Jewelry Box &middot; Nov 22, 2026</p>
-                </div>
-                <span class="status-badge status-pending">Pending</span>
-              </li>
-              <li class="order-row">
-                <div class="order-main">
-                  <h3 class="item-title order-number">#CRF-2026-1038</h3>
-                  <p class="item-meta">Glazed Terracotta Chai Kulhad Set (4 pcs) &middot; Nov 12, 2026</p>
-                </div>
-                <span class="status-badge status-delivered">Delivered</span>
-              </li>
-              <li class="order-row">
-                <div class="order-main">
-                  <h3 class="item-title order-number">#CRF-2026-1033</h3>
-                  <p class="item-meta">Carved Sheesham Wood Spice Chest &middot; Nov 04, 2026</p>
-                </div>
-                <span class="status-badge status-delivered">Delivered</span>
-              </li>
-            </ul>
+            <ul id="orders-list" class="record-list" aria-live="polite"></ul>
           </section>
         </div>
+
+        <noscript>
+          <p class="noscript-banner">
+            Enable JavaScript to view the calculated Shop Overview totals, My Products list, and Recent Orders sample data.
+          </p>
+        </noscript>
       </div>
     </div>
   </main>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- ================= SHARED FOOTER ================= -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
@@ -222,8 +170,6 @@
       <nav class="footer-nav" aria-label="Footer navigation">
         <ul class="footer-links">
           <li><a href="../index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
           <li><a href="order-history.html">My Orders</a></li>
           <li><a href="artisan-registration.html">Become an Artisan</a></li>
           <li><a href="artisan-dashboard.html">Artisan Dashboard</a></li>

@@ -1,35 +1,36 @@
 /* ==========================================================================
    Craftora - Artisan Dashboard Page Styles (Page 15)
-   Matches Craftora's cream header, dark green palette, and editorial typography.
+   References Craftora's shared cream, deep forest green, and gold palette.
    ========================================================================== */
 
-.artisan-dashboard-page {
+.dashboard-page {
   --craftora-green: #224436;
   --craftora-green-deep: #183429;
   --craftora-green-soft: #2e5545;
   --craftora-cream: #fbf8f3;
   --craftora-cream-warm: #f3ede2;
   --craftora-gold: #e5d2a3;
+  --craftora-gold-deep: #b8964e;
   --craftora-ink: #1e2a24;
   --craftora-muted: #5f6861;
   --craftora-terracotta: #9c4a2b;
   --craftora-border: #e3dacb;
-  --craftora-pending-bg: #fdf3e1;
-  --craftora-pending-text: #8c5319;
-  --craftora-pending-border: #edd3a4;
-  --craftora-active-bg: #e4efe9;
-  --craftora-active-text: #1c4d37;
-  --craftora-active-border: #bad4c6;
-  --craftora-out-bg: #f8ece9;
-  --craftora-out-text: #943728;
-  --craftora-out-border: #e7c6bf;
+  --badge-active-bg: #e4efe9;
+  --badge-active-text: #1c4d37;
+  --badge-active-border: #bad4c6;
+  --badge-pending-bg: #fdf3e1;
+  --badge-pending-text: #8c5319;
+  --badge-pending-border: #edd3a4;
+  --badge-out-bg: #f8ece9;
+  --badge-out-text: #943728;
+  --badge-out-border: #e7c6bf;
 
   font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background-color: var(--craftora-cream);
   color: var(--craftora-ink);
 }
 
-/* 1. Top Announcement Bar */
+/* 1. Announcement Bar & Header */
 .announcement-bar {
   background-color: var(--craftora-green-deep);
   color: #e7ebe8;
@@ -57,8 +58,7 @@
   color: #ffffff;
 }
 
-/* 2. Cream Header & Brand Lockup */
-.artisan-dashboard-page .site-header {
+.dashboard-page .site-header {
   background-color: var(--craftora-cream);
   border-bottom: 1px solid var(--craftora-border);
 }
@@ -114,50 +114,58 @@
   color: var(--craftora-muted);
 }
 
-.artisan-dashboard-page .nav-link {
+.dashboard-page .nav-link {
   color: var(--craftora-ink);
   font-size: 0.95rem;
 }
 
-.artisan-dashboard-page .nav-link:hover,
-.artisan-dashboard-page .nav-link.active {
+.dashboard-page .nav-link:hover,
+.dashboard-page .nav-link.active {
   color: var(--craftora-green);
   border-bottom-color: var(--craftora-green);
 }
 
-.artisan-dashboard-page .nav-toggle {
+.dashboard-page .nav-toggle {
   border-color: var(--craftora-border);
   color: var(--craftora-ink);
 }
 
-/* 3. Dark Green Hero Banner */
-.dashboard-hero {
-  background: radial-gradient(circle at 85% 20%, var(--craftora-green-soft) 0%, var(--craftora-green) 48%, var(--craftora-green-deep) 100%);
+/* 2. Dark Green Heritage Banner (flush-left inside .container to match Shop Overview) */
+.dashboard-banner {
+  background: radial-gradient(
+    circle at 85% 20%,
+    var(--craftora-green-soft) 0%,
+    var(--craftora-green) 48%,
+    var(--craftora-green-deep) 100%
+  );
   color: #ffffff;
   padding: 3rem 0;
   border-bottom: 4px solid var(--craftora-gold);
 }
 
-.dashboard-hero-inner {
-  max-width: 780px;
+.banner-copy {
+  max-width: 760px;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
-.hero-top-row {
+.banner-eyebrow-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 1rem;
-  margin-bottom: 0.65rem;
+  gap: 0.65rem 1rem;
+  margin-bottom: 0.6rem;
 }
 
-.dashboard-eyebrow {
+.banner-eyebrow {
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--craftora-gold);
 }
 
-.sample-data-pill {
+.sample-badge {
   display: inline-block;
   font-size: 0.72rem;
   font-weight: 700;
@@ -169,7 +177,7 @@
   border-radius: 999px;
 }
 
-.dashboard-heading {
+.banner-title {
   font-family: "Playfair Display", Georgia, serif;
   font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 700;
@@ -178,7 +186,7 @@
   margin-bottom: 0.75rem;
 }
 
-.heading-accent {
+.banner-subtitle-accent {
   display: block;
   font-style: italic;
   font-weight: 500;
@@ -187,14 +195,14 @@
   margin-top: 0.2rem;
 }
 
-.dashboard-subtitle {
+.banner-lead {
   font-size: 1.02rem;
   color: #d6e1db;
   max-width: 58ch;
 }
 
-/* 4. Dashboard Content & Sample Banner */
-.dashboard-content {
+/* 3. Workspace & Sample Notice */
+.dashboard-workspace {
   padding: 2.25rem 0 4rem;
 }
 
@@ -216,28 +224,28 @@
   color: var(--craftora-terracotta);
 }
 
-/* 5. Shop Overview Section */
+/* 4. Shop Overview */
 .overview-section {
   margin-bottom: 2.25rem;
 }
 
-.section-header {
+.section-top {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.15rem;
 }
 
 .section-heading {
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 1.6rem;
+  font-size: 1.65rem;
   font-weight: 700;
   color: var(--craftora-green-deep);
 }
 
-.section-tag {
+.sample-chip {
   font-size: 0.74rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -245,31 +253,39 @@
   color: var(--craftora-muted);
   background-color: var(--craftora-cream-warm);
   border: 1px solid var(--craftora-border);
-  padding: 0.25rem 0.7rem;
+  padding: 0.25rem 0.72rem;
   border-radius: 999px;
 }
 
-.overview-grid {
+.overview-cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.15rem;
 }
 
-.stat-card {
+.metric-card {
   background-color: #ffffff;
   border: 1px solid var(--craftora-border);
-  border-radius: 14px;
-  padding: 1.5rem 1.65rem;
-  box-shadow: 0 5px 16px rgba(24, 52, 41, 0.05);
   border-top: 4px solid var(--craftora-green);
+  border-radius: 14px;
+  padding: 1.35rem 1.4rem;
+  box-shadow: 0 5px 16px rgba(24, 52, 41, 0.04);
 }
 
-.stat-card-pending {
+.metric-card--terracotta {
   border-top-color: var(--craftora-terracotta);
 }
 
-.stat-label {
-  font-size: 0.78rem;
+.metric-card--sage {
+  border-top-color: var(--craftora-green-soft);
+}
+
+.metric-card--gold {
+  border-top-color: var(--craftora-gold-deep);
+}
+
+.metric-label {
+  font-size: 0.76rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -277,33 +293,33 @@
   margin-bottom: 0.45rem;
 }
 
-.stat-value {
+.metric-value {
   font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(2.1rem, 4vw, 2.75rem);
+  font-size: clamp(1.75rem, 3vw, 2.3rem);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--craftora-green-deep);
   margin-bottom: 0.35rem;
 }
 
-.stat-card-pending .stat-value {
+.metric-card--terracotta .metric-value {
   color: var(--craftora-terracotta);
 }
 
-.stat-caption {
-  font-size: 0.9rem;
+.metric-caption {
+  font-size: 0.86rem;
   color: var(--craftora-muted);
 }
 
-/* 6. Workspace Panels (My Products & Recent Orders) */
-.workspace-grid {
+/* 5. My Products & Recent Orders Panels */
+.panels-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 1.5rem;
   align-items: start;
 }
 
-.dashboard-panel {
+.studio-panel {
   background-color: #ffffff;
   border: 1px solid var(--craftora-border);
   border-radius: 14px;
@@ -335,13 +351,12 @@
   margin-top: 0.15rem;
 }
 
-.item-list {
+.record-list {
   display: grid;
-  gap: 0.9rem;
+  gap: 0.85rem;
 }
 
-.product-row,
-.order-row {
+.record-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -352,57 +367,56 @@
   border-radius: 10px;
 }
 
-.product-main,
-.order-main {
+.record-main {
   min-width: 0;
 }
 
-.item-title {
+.record-title {
   font-size: 0.98rem;
   font-weight: 600;
   color: var(--craftora-green-deep);
   margin-bottom: 0.2rem;
 }
 
-.order-number {
+.record-title--order {
   font-family: "Playfair Display", Georgia, serif;
-  font-size: 1.05rem;
+  font-size: 1.04rem;
   font-weight: 700;
 }
 
-.item-meta {
+.record-meta {
   font-size: 0.84rem;
   color: var(--craftora-muted);
 }
 
-.product-side {
+.record-side {
   display: flex;
   align-items: center;
   gap: 0.85rem;
   flex-shrink: 0;
 }
 
-.item-price {
-  font-size: 0.98rem;
+.record-price {
+  font-size: 0.96rem;
   font-weight: 700;
   color: var(--craftora-terracotta);
   white-space: nowrap;
 }
 
-/* Status Badges */
-.status-badge {
+/* Status Pills */
+.status-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.38rem;
   font-size: 0.8rem;
   font-weight: 700;
-  padding: 0.32rem 0.78rem;
+  padding: 0.3rem 0.75rem;
   border-radius: 999px;
   border: 1px solid transparent;
   white-space: nowrap;
 }
 
-.status-badge::before {
+.status-pill::before {
   content: "";
   width: 6px;
   height: 6px;
@@ -410,85 +424,103 @@
   background-color: currentColor;
 }
 
-.status-active,
-.status-delivered {
-  background-color: var(--craftora-active-bg);
-  color: var(--craftora-active-text);
-  border-color: var(--craftora-active-border);
+.status-pill--active,
+.status-pill--delivered {
+  background-color: var(--badge-active-bg);
+  color: var(--badge-active-text);
+  border-color: var(--badge-active-border);
 }
 
-.status-pending,
-.status-low-stock {
-  background-color: var(--craftora-pending-bg);
-  color: var(--craftora-pending-text);
-  border-color: var(--craftora-pending-border);
+.status-pill--pending,
+.status-pill--low-stock {
+  background-color: var(--badge-pending-bg);
+  color: var(--badge-pending-text);
+  border-color: var(--badge-pending-border);
 }
 
-.status-out-of-stock {
-  background-color: var(--craftora-out-bg);
-  color: var(--craftora-out-text);
-  border-color: var(--craftora-out-border);
+.status-pill--out-of-stock {
+  background-color: var(--badge-out-bg);
+  color: var(--badge-out-text);
+  border-color: var(--badge-out-border);
 }
 
-/* 7. Footer Alignment */
-.artisan-dashboard-page .site-footer {
+.noscript-banner {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background-color: #ffffff;
+  border: 1px dashed var(--craftora-border);
+  border-radius: 12px;
+  text-align: center;
+  color: var(--craftora-muted);
+}
+
+/* 6. Shared Footer Styling */
+.dashboard-page .site-footer {
   background-color: var(--craftora-green-deep);
   border-top: 1px solid var(--craftora-green-soft);
   color: #e7ebe8;
 }
 
-.artisan-dashboard-page .footer-brand strong {
+.dashboard-page .footer-brand strong {
   font-family: "Playfair Display", Georgia, serif;
   font-size: 1.15rem;
   color: var(--craftora-gold);
 }
 
-.artisan-dashboard-page .footer-brand p,
-.artisan-dashboard-page .footer-copy {
+.dashboard-page .footer-brand p,
+.dashboard-page .footer-copy {
   color: #c2d0c8;
 }
 
-.artisan-dashboard-page .footer-links a {
+.dashboard-page .footer-links a {
   color: #e7ebe8;
 }
 
-.artisan-dashboard-page .footer-links a:hover {
+.dashboard-page .footer-links a:hover {
   color: var(--craftora-gold);
 }
 
-/* 8. Tablet & Mobile Responsiveness */
-@media (max-width: 960px) {
-  .workspace-grid {
+/* 7. Responsive Breakpoints (keeping consistent mobile side spacing via .container) */
+@media (max-width: 980px) {
+  .overview-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .panels-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
-  .dashboard-hero {
-    padding: 2.3rem 0;
+  .dashboard-banner .container,
+  .dashboard-workspace .container {
+    width: calc(100% - 2rem);
   }
 
-  .dashboard-content {
+  .dashboard-banner {
+    padding: 2.25rem 0;
+  }
+
+  .dashboard-workspace {
     padding: 1.75rem 0 3rem;
   }
 
-  .overview-grid {
+  .overview-cards {
     grid-template-columns: 1fr;
   }
 
-  .stat-card,
-  .dashboard-panel {
+  .metric-card,
+  .studio-panel {
     padding: 1.2rem;
   }
 
-  .product-row,
-  .order-row {
+  .record-row {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.7rem;
   }
 
-  .product-side {
+  .record-side {
     width: 100%;
     justify-content: space-between;
     padding-top: 0.5rem;

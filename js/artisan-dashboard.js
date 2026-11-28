@@ -1,70 +1,83 @@
 /* ==========================================================================
    Craftora - Artisan Dashboard Page Script (Page 15)
-   Single source of truth for sample artisan products, recent orders, and counts.
+   Uses one sample dataset for My Products and Recent Orders and computes all
+   Shop Overview totals directly from those displayed items.
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const sampleProducts = [
+  const SAMPLE_PRODUCTS = [
     {
       name: "Multani Blue Pottery Serving Bowl (Set of 2)",
       category: "Pottery & Ceramics",
-      priceRupees: 4850,
+      price: 4850,
       status: "Active"
     },
     {
       name: "Hand-Painted Camel Bone Jewelry Box",
       category: "Heritage Keepsakes",
-      priceRupees: 3400,
+      price: 3400,
       status: "Active"
     },
     {
       name: "Glazed Terracotta Chai Kulhad Set (4 pcs)",
       category: "Tableware",
-      priceRupees: 1950,
+      price: 1950,
       status: "Low Stock"
     },
     {
       name: "Carved Sheesham Wood Spice Chest",
       category: "Woodwork & Carving",
-      priceRupees: 7200,
+      price: 7200,
       status: "Out of Stock"
     }
   ];
 
-  const sampleOrders = [
+  const SAMPLE_ORDERS = [
     {
       orderNumber: "#CRF-2026-1042",
-      summary: "Multani Blue Pottery Serving Bowl (Set of 2) · Nov 24, 2026",
+      item: "Multani Blue Pottery Serving Bowl (Set of 2)",
+      date: "Nov 24, 2026",
+      amount: 4850,
       status: "Pending"
     },
     {
       orderNumber: "#CRF-2026-1041",
-      summary: "Hand-Painted Camel Bone Jewelry Box · Nov 22, 2026",
+      item: "Hand-Painted Camel Bone Jewelry Box",
+      date: "Nov 22, 2026",
+      amount: 3400,
       status: "Pending"
     },
     {
       orderNumber: "#CRF-2026-1038",
-      summary: "Glazed Terracotta Chai Kulhad Set (4 pcs) · Nov 12, 2026",
+      item: "Glazed Terracotta Chai Kulhad Set (4 pcs)",
+      date: "Nov 12, 2026",
+      amount: 1950,
       status: "Delivered"
     },
     {
       orderNumber: "#CRF-2026-1033",
-      summary: "Carved Sheesham Wood Spice Chest · Nov 04, 2026",
+      item: "Carved Sheesham Wood Spice Chest",
+      date: "Nov 04, 2026",
+      amount: 7200,
       status: "Delivered"
     }
   ];
 
-  const totalProductsEl = document.getElementById("total-products-count");
-  const pendingOrdersEl = document.getElementById("pending-orders-count");
-  const productsListEl = document.getElementById("my-products-list");
-  const ordersListEl = document.getElementById("recent-orders-list");
-
-  function statusClassName(status) {
-    return `status-${status.toLowerCase().replace(/\s+/g, "-")}`;
-  }
+  const totalProductsEl = document.getElementById("overview-total-products");
+  const productsNoteEl = document.getElementById("overview-products-note");
+  const pendingOrdersEl = document.getElementById("overview-pending-orders");
+  const deliveredOrdersEl = document.getElementById("overview-delivered-orders");
+  const totalRevenueEl = document.getElementById("overview-total-revenue");
+  const ordersNoteEl = document.getElementById("overview-orders-note");
+  const productsListEl = document.getElementById("products-list");
+  const ordersListEl = document.getElementById("orders-list");
 
   function formatRupees(amount) {
     return `Rs. ${amount.toLocaleString("en-PK")}`;
+  }
+
+  function toStatusModifier(status) {
+    return `status-pill--${status.toLowerCase().replace(/\s+/g, "-")}`;
   }
 
   function renderProducts(products) {
@@ -72,36 +85,36 @@ document.addEventListener("DOMContentLoaded", () => {
     productsListEl.replaceChildren();
 
     products.forEach((product) => {
-      const item = document.createElement("li");
-      item.className = "product-row";
+      const row = document.createElement("li");
+      row.className = "record-row";
 
       const main = document.createElement("div");
-      main.className = "product-main";
+      main.className = "record-main";
 
       const title = document.createElement("h3");
-      title.className = "item-title";
+      title.className = "record-title";
       title.textContent = product.name;
 
       const meta = document.createElement("p");
-      meta.className = "item-meta";
+      meta.className = "record-meta";
       meta.textContent = product.category;
 
       main.append(title, meta);
 
       const side = document.createElement("div");
-      side.className = "product-side";
+      side.className = "record-side";
 
       const price = document.createElement("span");
-      price.className = "item-price";
-      price.textContent = formatRupees(product.priceRupees);
+      price.className = "record-price";
+      price.textContent = formatRupees(product.price);
 
       const badge = document.createElement("span");
-      badge.className = `status-badge ${statusClassName(product.status)}`;
+      badge.className = `status-pill ${toStatusModifier(product.status)}`;
       badge.textContent = product.status;
 
       side.append(price, badge);
-      item.append(main, side);
-      productsListEl.appendChild(item);
+      row.append(main, side);
+      productsListEl.appendChild(row);
     });
   }
 
@@ -110,40 +123,72 @@ document.addEventListener("DOMContentLoaded", () => {
     ordersListEl.replaceChildren();
 
     orders.forEach((order) => {
-      const item = document.createElement("li");
-      item.className = "order-row";
+      const row = document.createElement("li");
+      row.className = "record-row";
 
       const main = document.createElement("div");
-      main.className = "order-main";
+      main.className = "record-main";
 
       const title = document.createElement("h3");
-      title.className = "item-title order-number";
+      title.className = "record-title record-title--order";
       title.textContent = order.orderNumber;
 
       const meta = document.createElement("p");
-      meta.className = "item-meta";
-      meta.textContent = order.summary;
+      meta.className = "record-meta";
+      meta.textContent = `${order.item} · ${order.date}`;
 
       main.append(title, meta);
 
+      const side = document.createElement("div");
+      side.className = "record-side";
+
+      const amount = document.createElement("span");
+      amount.className = "record-price";
+      amount.textContent = formatRupees(order.amount);
+
       const badge = document.createElement("span");
-      badge.className = `status-badge ${statusClassName(order.status)}`;
+      badge.className = `status-pill ${toStatusModifier(order.status)}`;
       badge.textContent = order.status;
 
-      item.append(main, badge);
-      ordersListEl.appendChild(item);
+      side.append(amount, badge);
+      row.append(main, side);
+      ordersListEl.appendChild(row);
     });
   }
 
-  renderProducts(sampleProducts);
-  renderOrders(sampleOrders);
+  function renderOverview(products, orders) {
+    const totalProducts = products.length;
+    const activeProducts = products.filter((item) => item.status === "Active").length;
+    const pendingOrders = orders.filter((order) => order.status === "Pending").length;
+    const deliveredOrders = orders.filter((order) => order.status === "Delivered").length;
+    const totalRevenue = orders.reduce((sum, order) => sum + order.amount, 0);
 
-  if (totalProductsEl) {
-    totalProductsEl.textContent = String(sampleProducts.length);
+    if (totalProductsEl) {
+      totalProductsEl.textContent = String(totalProducts);
+    }
+
+    if (productsNoteEl) {
+      productsNoteEl.textContent = `${activeProducts} active across ${totalProducts} sample products`;
+    }
+
+    if (pendingOrdersEl) {
+      pendingOrdersEl.textContent = String(pendingOrders);
+    }
+
+    if (deliveredOrdersEl) {
+      deliveredOrdersEl.textContent = String(deliveredOrders);
+    }
+
+    if (totalRevenueEl) {
+      totalRevenueEl.textContent = formatRupees(totalRevenue);
+    }
+
+    if (ordersNoteEl) {
+      ordersNoteEl.textContent = `Across ${orders.length} sample orders shown below`;
+    }
   }
 
-  if (pendingOrdersEl) {
-    const pendingCount = sampleOrders.filter((order) => order.status === "Pending").length;
-    pendingOrdersEl.textContent = String(pendingCount);
-  }
+  renderProducts(SAMPLE_PRODUCTS);
+  renderOrders(SAMPLE_ORDERS);
+  renderOverview(SAMPLE_PRODUCTS, SAMPLE_ORDERS);
 });
