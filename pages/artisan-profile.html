@@ -1159,7 +1159,7 @@
             </div>
 
             <div class="identity-actions">
-              <a href="#artisan-inquiry-section" class="btn-primary">Send Inquiry</a>
+              <a href="#artisan-inquiry-section" class="btn-primary">Draft Inquiry</a>
               <a href="#artisan-products-section" class="btn-secondary">View Collection</a>
             </div>
           </div>
@@ -1262,9 +1262,10 @@
 
           <!-- Artisan Inquiry Form & Contact Confirmation Area -->
           <article class="panel-card">
-            <h2 id="inquiry-heading">Contact the Artisan</h2>
+            <h2 id="inquiry-heading">Artisan Inquiry Form</h2>
             <p class="section-subtitle" style="margin-bottom: 1.15rem;">
-              Ask about a piece, request custom dimensions, or arrange a studio commission.
+              Prepare an inquiry about a piece, custom dimensions, or a studio commission.
+              This static demo validates and saves your draft locally in your browser without sending an actual message.
             </p>
 
             <form id="artisan-inquiry-form" novalidate>
@@ -1344,7 +1345,7 @@
               </div>
 
               <div class="form-actions">
-                <button type="submit" class="btn-primary">Send Inquiry</button>
+                <button type="submit" class="btn-primary">Save Inquiry</button>
                 <button type="reset" id="inquiry-reset-btn" class="btn-secondary">Clear Form</button>
               </div>
             </form>
@@ -1853,7 +1854,16 @@
         return wishlist.some((item) => (typeof item === "string" ? item === productId : item.id === productId));
       }
 
+      function getProductsForArtisan(artisanId) {
+        const normalizedId = String(artisanId || "").trim().toLowerCase();
+        if (!normalizedId) return [];
+        return PRODUCTS.filter(
+          (product) => String(product.artisanId || "").trim().toLowerCase() === normalizedId
+        );
+      }
+
       function toggleWishlist(product) {
+        if (!state.artisan || product.artisanId !== state.artisan.id) return false;
         let wishlist = readStorage(STORAGE_KEYS.WISHLIST);
         const exists = wishlist.some((item) => (typeof item === "string" ? item === product.id : item.id === product.id));
 
@@ -1886,6 +1896,7 @@
       }
 
       function addToCart(product, triggerBtn) {
+        if (!state.artisan || product.artisanId !== state.artisan.id) return;
         if (product.stock <= 0) {
           showToast(`"${product.name}" is currently out of stock.`, "error");
           return;
@@ -1953,8 +1964,12 @@
         const filterContainer = document.getElementById("collection-filters");
         if (!filterContainer) return;
 
+        const artisanProducts = state.artisan
+          ? products.filter((product) => product.artisanId === state.artisan.id)
+          : [];
+
         filterContainer.innerHTML = "";
-        const categories = ["All", ...new Set(products.map((p) => p.category))];
+        const categories = ["All", ...new Set(artisanProducts.map((p) => p.category))];
 
         categories.forEach((category) => {
           const btn = document.createElement("button");
@@ -1978,14 +1993,17 @@
         const countEl = document.getElementById("collection-count");
         if (!grid || !countEl) return;
 
+        const artisanProducts = state.artisan ? getProductsForArtisan(state.artisan.id) : [];
+        state.artisanProducts = artisanProducts;
+
         const filteredProducts =
           state.activeCategory === "All"
-            ? state.artisanProducts
-            : state.artisanProducts.filter((product) => product.category === state.activeCategory);
+            ? artisanProducts
+            : artisanProducts.filter((product) => product.category === state.activeCategory);
 
         countEl.textContent =
           state.activeCategory === "All"
-            ? `Showing ${filteredProducts.length} handcrafted piece${filteredProducts.length === 1 ? "" : "s"} by ${state.artisan.name}.`
+            ? `Showing ${filteredProducts.length} handcrafted piece${filteredProducts.length === 1 ? "" : "s"} by ${state.artisan ? state.artisan.name : "this artisan"}.`
             : `Showing ${filteredProducts.length} piece${filteredProducts.length === 1 ? "" : "s"} in ${state.activeCategory}.`;
 
         grid.innerHTML = "";
@@ -1993,7 +2011,10 @@
         if (filteredProducts.length === 0) {
           const empty = document.createElement("p");
           empty.className = "section-subtitle";
-          empty.textContent = "No products match this category filter.";
+          empty.textContent =
+            artisanProducts.length === 0
+              ? "No products are currently listed for this artisan."
+              : "No products match this category filter.";
           grid.appendChild(empty);
           return;
         }
@@ -2099,7 +2120,7 @@
       function populateArtisanProfile(artisan) {
         state.artisan = artisan;
         // Filter global products strictly by artisan ID
-        state.artisanProducts = PRODUCTS.filter((product) => product.artisanId === artisan.id);
+        state.artisanProducts = getProductsForArtisan(artisan.id);
         state.activeCategory = "All";
 
         document.title = `${artisan.name} | Craftora Artisan Profile`;
@@ -2216,9 +2237,22 @@
       }
 
       function showInvalidArtisanState(requestedId) {
+        state.artisan = null;
+        state.artisanProducts = [];
+        state.activeCategory = "All";
+
         document.title = "Artisan Not Found | Craftora";
         document.getElementById("breadcrumb-artisan").textContent = "Artisan Not Found";
         document.getElementById("invalid-artisan-id").textContent = requestedId || "(empty)";
+
+        const grid = document.getElementById("product-grid");
+        const filters = document.getElementById("collection-filters");
+        const reviewsList = document.getElementById("reviews-list");
+        const productSelect = document.getElementById("inquiry-product");
+        if (grid) grid.innerHTML = "";
+        if (filters) filters.innerHTML = "";
+        if (reviewsList) reviewsList.innerHTML = "";
+        if (productSelect) productSelect.innerHTML = '<option value="">General Studio Inquiry</option>';
 
         document.getElementById("artisan-profile-content").hidden = true;
         document.getElementById("invalid-artisan-state").hidden = false;
@@ -2306,7 +2340,7 @@
 
           const title = document.createElement("div");
           title.className = "confirmation-title";
-          title.textContent = "Please fix the highlighted errors before sending your inquiry:";
+          title.textContent = "Please fix the highlighted errors before saving your inquiry:";
 
           const list = document.createElement("ul");
           list.style.paddingLeft = "1.2rem";
@@ -2318,7 +2352,7 @@
           });
 
           confirmationBox.append(title, list);
-          showToast("Inquiry submission failed. Please review the form errors.", "error");
+          showToast("Please review and fix the inquiry form errors.", "error");
         }
 
         function renderConfirmationSuccess(submission) {
@@ -2327,11 +2361,11 @@
 
           const title = document.createElement("div");
           title.className = "confirmation-title";
-          title.textContent = `Inquiry sent to ${submission.artisanName}!`;
+          title.textContent = `Inquiry saved locally for ${submission.artisanName} (No message sent)`;
 
           const note = document.createElement("p");
           note.textContent =
-            "Thank you for reaching out. The studio typically responds within 1–2 business days.";
+            "This static preview validated and saved your inquiry only in this browser's local storage. No email or message was actually sent to the artisan.";
 
           const summary = document.createElement("div");
           summary.className = "confirmation-summary";
@@ -2339,7 +2373,8 @@
           const dl = document.createElement("dl");
           const rows = [
             ["Reference ID", submission.referenceId],
-            ["Recipient Studio", `${submission.artisanName} (${submission.studioName})`],
+            ["Selected Studio", `${submission.artisanName} (${submission.studioName})`],
+            ["Delivery Status", "Saved locally in browser (not sent)"],
             ["From", `${submission.name} <${submission.email}>`],
             ["Inquiry Type", submission.subject],
             ["Related Product", submission.product || "General Studio Inquiry"],
@@ -2357,7 +2392,10 @@
           summary.appendChild(dl);
           confirmationBox.append(title, note, summary);
           confirmationBox.focus();
-          showToast(`Your inquiry (${submission.referenceId}) was sent to ${submission.artisanName}.`, "success");
+          showToast(
+            `Inquiry (${submission.referenceId}) saved locally in this browser. No message was sent.`,
+            "success"
+          );
         }
 
         // Live character count & live error clearing
@@ -2412,12 +2450,16 @@
             subject: subjectSelect.value,
             product: productSelect.value,
             message: messageInput.value.trim(),
+            status: "saved_locally_not_sent",
             submittedAt: new Date().toISOString()
           };
 
           const existingInquiries = readStorage(STORAGE_KEYS.INQUIRIES);
           existingInquiries.push(submission);
-          writeStorage(STORAGE_KEYS.INQUIRIES, existingInquiries);
+          if (!writeStorage(STORAGE_KEYS.INQUIRIES, existingInquiries)) {
+            showToast("Unable to save inquiry in browser storage.", "error");
+            return;
+          }
 
           form.reset();
           charCount.textContent = "0 / 1000";
